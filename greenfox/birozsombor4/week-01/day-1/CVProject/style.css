@@ -1,0 +1,49 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Spartan', sans-serif;
+}
+p {
+  line-height: 30px;
+}
+ul > li {
+  padding: 5px 0;
+}
+header {
+  background-image: url(./anakin.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-end;
+}
+header > div {
+  padding: 0 25%;
+  font-weight: bold;
+  font-family: 'Caladea', serif;
+}
+header div:first-child{
+  /*padding-top: 200px;*/
+  font-size: 30px;
+}
+header div:last-child{
+  font-size: 75px;
+}
+main {
+  padding: 0 25%;
+}
+blockquote {
+  color: white;
+  background-color: rgb(82, 82, 82);
+  font-weight: bold;
+  font-size: 30px;
+  margin: 20px 0px;
+  font-family: 'Caladea', serif;
+  text-align: center;
+  padding: 20px 0;
+}

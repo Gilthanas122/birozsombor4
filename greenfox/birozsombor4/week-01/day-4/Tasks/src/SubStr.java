@@ -14,6 +14,11 @@ public class SubStr {
     }
 
     public static int subStr(String input, String q) {
-        return -1;
+        if (input.contains(q)) {
+            int indexOfStart = input.indexOf(q);
+            return indexOfStart;
+        }else {
+            return -1;
+        }
     }
 }

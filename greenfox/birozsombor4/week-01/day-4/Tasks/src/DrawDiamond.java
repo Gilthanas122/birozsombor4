@@ -19,10 +19,14 @@ public class DrawDiamond {
         System.out.println("Give me a number: ");
         int numberOfLines = input.nextInt();
 
-        int spaceCount = numberOfLines - 1;
+        int spaceCount = numberOfLines/2 - 1;
         int starsCount = 1;
 
-        for (int i = 0; i < numberOfLines; i++) {
+        if (numberOfLines%2!=0){
+            spaceCount = numberOfLines/2;
+        }
+
+        for (int i = 0; i < numberOfLines/2; i++) {
             for (int j = 0; j < spaceCount; j++) {
                 System.out.print(" ");
             }
@@ -34,10 +38,17 @@ public class DrawDiamond {
             System.out.println("");
         }
 
-        spaceCount+=2;
-        starsCount-=4;
+        if (numberOfLines%2!=0){
+            for (int m = 0; m < numberOfLines; m++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
 
-        for (int i = 0; i < numberOfLines; i++) {
+        spaceCount++;
+        starsCount-=2;
+
+        for (int i = 0; i < numberOfLines/2; i++) {
             for (int j = 0; j < spaceCount; j++) {
                 System.out.print(" ");
             }

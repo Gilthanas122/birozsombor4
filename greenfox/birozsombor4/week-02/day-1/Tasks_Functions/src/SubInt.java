@@ -14,11 +14,14 @@ public class SubInt {
         //  should print: '[]'
 
     }
-    public static int[] subInt(int searchFor, int[] array){
+    public static String subInt(int searchFor, int[] array){
+        char searchForCar = Character.forDigit(searchFor, 10); //for numbers which bigger than 100, to check the first digit
         int counter = 0;
         for (int i = 0; i < array.length; i++) {
             double doubleI = array[i];
-            if ((doubleI-searchFor)%10 == 0 || array[i] == searchFor) {
+            String number = Integer.toString(array[i]); //to check the first digit
+            char[] charArray = number.toCharArray(); //for first digit as well
+            if ((doubleI-searchFor)%10 == 0 || array[i] == searchFor || (charArray[0] == searchForCar) ) {
                 counter++;
             }
         }
@@ -26,11 +29,13 @@ public class SubInt {
         int newCounter = 0;
         for (int i = 0; i < array.length; i++) {
             double doubleI = array[i];
-            if ((doubleI-searchFor)%10 == 0 || array[i] == searchFor) {
+            String number = Integer.toString(array[i]);
+            char[] charArray = number.toCharArray();
+            if ((doubleI-searchFor)%10 == 0 || array[i] == searchFor || (charArray[0] == searchForCar)) {
                 returnArray[newCounter] = i;
                 newCounter++;
             }
         }
-        return returnArray;
+        return Arrays.toString(returnArray);
     }
 }

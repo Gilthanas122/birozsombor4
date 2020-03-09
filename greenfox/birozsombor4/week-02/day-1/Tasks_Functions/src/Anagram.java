@@ -12,6 +12,20 @@ public class Anagram {
 
     }
     public static boolean isItAnagram(String input1, String input2){
+        if (input1.length() == input2.length()){
+            char[] inputOneToArray = input1.toCharArray();
+            char[] inputTwoToArray = input2.toCharArray();
+            Arrays.sort(inputOneToArray);
+            Arrays.sort(inputTwoToArray);
+            if(Arrays.equals(inputOneToArray, inputTwoToArray)) {
+                return true;
+            }
+            return false;
+        }else {
+            return false;
+        }
+    }
+    public static boolean isItPalindrom(String input1, String input2){
         char[] inputArrayOne = input1.toCharArray();
         char[] inputArrayOneReversed = new char[inputArrayOne.length];
         int indexCounter = 0;

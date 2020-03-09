@@ -7,6 +7,7 @@ public class Unique {
 
         //  Example
         System.out.println(unique(new int[] {1, 11, 34, 11, 52, 61, 1, 34}));
+        //                                  {1, 1, 11, 11, 34, 34, 52, 61}
         //  should print: `[1, 11, 34, 52, 61]`
     }
     public static String unique(int [] array) {
@@ -18,21 +19,21 @@ public class Unique {
                 }
             }
         }
-        System.out.println(counter);
         int[] returnArray = new int[counter];
-        int newCounter = 0;
-        for (int i = 0; i < array.length ; i++) {
-            for (int j = i+1; j < array.length; j++) {
-                returnArray[newCounter] = array[i];
-                newCounter++;
-
-                if (array[j] == array[i] && array[i] != 0){
-                    array[i] = 0;
+        int indexCounter = 0;
+        Arrays.sort(array);
+        for (int i = 0; i < array.length; i++) {
+            if(i> 0 && i < array.length){
+                if (array[i] == array[i-1]){}
+                else{
+                    returnArray[indexCounter] = array[i];
+                    indexCounter++;
                 }
-            }
+            }else if (i == 0){
+                returnArray[indexCounter] = array[i];
+                indexCounter++;
+            }else{}
         }
-
-
         return Arrays.toString(returnArray);
     }
 }

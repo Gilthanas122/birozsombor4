@@ -7,7 +7,7 @@ public class UrlFixer {
         // Try to solve it more than once using different String functions!
         url = url.replace("bots", "odds");
         StringBuilder builder = new StringBuilder(url);
-        url = builder.insert(builder.lastIndexOf("//"), ":").toString();
+        url = builder.insert(builder.indexOf("//"), ":").toString();
 
         System.out.println(url);
     }

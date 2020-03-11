@@ -9,8 +9,8 @@ import java.util.List;
 public class Doubled {
   public static void main(String[] args) throws IOException {
     // Create a method that decrypts the duplicated-chars.txt
-    Path path = Paths.get("src/duplicated-chars.txt");
-    Path saveLocation = Paths.get("src/duplicated-charsFIXED.txt");
+    Path path = Paths.get("files/duplicated-chars.txt");
+    Path saveLocation = Paths.get("files/duplicated-charsFIXED.txt");
     removeEverySecondChar(path, saveLocation);
   }
 

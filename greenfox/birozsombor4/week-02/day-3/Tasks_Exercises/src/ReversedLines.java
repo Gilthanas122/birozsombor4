@@ -9,8 +9,8 @@ public class ReversedLines {
   public static void main(String[] args) throws IOException {
     // Create a method that decrypts reversed-lines.txt
     // Create a method that decrypts the duplicated-chars.txt
-    Path path = Paths.get("src/reversed-lines.txt");
-    Path saveLocation = Paths.get("src/reversed-linesFIXED.txt");
+    Path path = Paths.get("files/reversed-lines.txt");
+    Path saveLocation = Paths.get("files/reversed-linesFIXED.txt");
     reverseTheLines(path, saveLocation);
   }
 

@@ -11,9 +11,10 @@ public class Logs {
     // Each line represents a log message from a web server
     // Write a function that returns an array with the unique IP adresses.
     // Write a function that returns the GET / POST request ratio.
-    List<String> log = Files.readAllLines(Paths.get("files/log.txt"));
+    List<String> log = Files.readAllLines(Paths.get("files/lo.txt"));
     System.out.println(returnUniqueIpAddresses(log));
     System.out.println(getGetPostRatio(log));
+
   }
 
   private static String getGetPostRatio(List<String> log) {

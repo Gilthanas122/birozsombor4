@@ -11,7 +11,7 @@ public class FunctionToCenter {
     // Fill the canvas with lines from the edges, every 20 px, to the center.
     int x = 0;
     int y = 0;
-    int distance = 20;
+    int distance = 1;
     int numberOfEdges = 4;
 
     drawALine(x, y, graphics);

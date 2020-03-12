@@ -12,10 +12,10 @@ public class PurpleSteps3d {
     int x = 0;
     int y = 0;
     for (int i = 0; i < 6; i++) {
-      graphics.setColor(new Color(238,130,238));
-      graphics.fillRect(x,y,size,size);
+      graphics.setColor(new Color(238, 130, 238));
+      graphics.fillRect(x, y, size, size);
       graphics.setColor(Color.BLACK);
-      graphics.drawRect(x,y,size,size);
+      graphics.drawRect(x, y, size, size);
       x += size;
       y += size;
       size *= 1.5;

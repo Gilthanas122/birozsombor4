@@ -14,55 +14,32 @@ public class ConnectTheDots {
     // Connect these: {{50, 100}, {70, 70}, {80, 90}, {90, 90}, {100, 70}, {120, 100}, {85, 130}, {50, 100}}
 
 
-    //connectFunction(new int[][] {{10, 10}, {290, 10}, {290, 290}, {10, 290}}, graphics);
+    connectFunction(new int[][] {{10, 10}, {290, 10}, {290, 290}, {10, 290}}, graphics);
     connectFunction(new int[][] {{50, 100}, {70, 70}, {80, 90}, {90, 90}, {100, 70}, {120, 100}, {85, 130}, {50, 100}}, graphics);
   }
 
-  public static void connectFunction(int[][] coordinates, Graphics graphics) {
+  private static void connectFunction(int[][] coordinates, Graphics graphics) {
     int xHolder = 0;
     int yHolder = 0;
     int secondXHolder = 0;
     int secondYHolder = 0;
-    int thirdXHolder = 0;
-    int thirdYHolder = 0;
-    int howManyElement = 0;
 
-    for (int[] coordinate : coordinates) {
-      for (int xOrY = 0; xOrY < 2; xOrY++) {
-        if (xOrY == 0 && yHolder == 0) {
-          xHolder = coordinate[xOrY];
-        }
-        if (xOrY == 1) {
-          yHolder = coordinate[xOrY];
-        }
-        if (xHolder != 0 && yHolder != 0 && thirdXHolder != 0 && thirdXHolder != 0 && howManyElement != coordinates.length) {
-          graphics.drawLine(xHolder, yHolder, thirdXHolder, thirdYHolder);
-          System.out.println("First point: " + xHolder + ", " + yHolder + "Second point: " + thirdXHolder + ", " + thirdYHolder);
-          thirdYHolder = 0;
-          thirdXHolder = 0;
-        }
-        if (xOrY == 0 && xHolder != 0 && yHolder != 0) {
-          secondXHolder = coordinate[xOrY];
-        }
-        if (xOrY == 1 && xHolder != 0 && yHolder != 0 && secondXHolder != 0) {
-          secondYHolder = coordinate[xOrY];
-          graphics.drawLine(xHolder, yHolder, secondXHolder, secondYHolder);
-          System.out.println("First point: " + xHolder + ", " + yHolder + "Second point: " + secondXHolder + ", " + secondYHolder);
-          xHolder = 0;
-          yHolder = 0;
-          thirdXHolder = secondXHolder;
-          thirdYHolder = secondYHolder;
-          if (howManyElement + 1 == coordinates.length) {
-            System.out.println(howManyElement + " " + coordinates.length);
-            System.out.println("LAST VALUE: " + thirdXHolder + ", " + thirdYHolder);
-            System.out.println(coordinates[0][0]);
-            graphics.drawLine(thirdXHolder, thirdYHolder, coordinates[0][0], coordinates[0][1]);
-          }
-          secondXHolder = 0;
-          secondYHolder = 0;
-        }
+    for (int i = 0; i < coordinates.length; i++) {
+      if (i == 0) {
+        xHolder = coordinates[i][0];
+        yHolder = coordinates[i][1];
+      } else {
+        secondXHolder = coordinates[i][0];
+        secondYHolder = coordinates[i][1];
+        graphics.drawLine(xHolder, yHolder, secondXHolder, secondYHolder);
+        //System.out.println("DRAW --> First point: {" + xHolder + ", " + yHolder + "} Second point: {" + secondXHolder + ", " + secondYHolder + "}");
+        xHolder = coordinates[i][0];
+        yHolder = coordinates[i][1];
       }
-      howManyElement++;
+      if (i == coordinates.length - 1) {
+        graphics.drawLine(xHolder, yHolder, coordinates[0][0], coordinates[0][1]);
+        //System.out.println("DRAW --> First point: {" + xHolder + ", " + yHolder + "} Second point: {" + coordinates[0][0] + ", " + coordinates[0][1] + "}");
+      }
     }
   }
 

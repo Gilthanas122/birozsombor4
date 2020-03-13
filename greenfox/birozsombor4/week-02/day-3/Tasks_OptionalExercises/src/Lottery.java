@@ -21,10 +21,12 @@ public class Lottery {
     List<Integer> winnerNumbers = new ArrayList<>();
     List<Integer> uniqueWinnerNumbers = new ArrayList<>();
     String[] winnerNumbersWithoutComas = new String[5];
+
     for (String line : originalLines) {
       winnerNumbersWithComas.add(line.substring(line.lastIndexOf("Ft") + 3));
     }
     System.out.println("Example for a line from winnerNumbersWihComas: " + winnerNumbersWithComas.get(0));
+
     for (String line : winnerNumbersWithComas) {
       winnerNumbersWithoutComas = line.split(";");
       for (String number : winnerNumbersWithoutComas) {
@@ -32,31 +34,30 @@ public class Lottery {
       }
     }
     winnerNumbersWithComas.clear();
+
     System.out.println("How many winner number do we have: " + winnerNumbers.size());
     Collections.sort(winnerNumbers);
-    for (int number : winnerNumbers){
-      if (!uniqueWinnerNumbers.contains(number)){
+    for (int number : winnerNumbers) {
+      if (!uniqueWinnerNumbers.contains(number)) {
         uniqueWinnerNumbers.add(number);
       }
     }
     System.out.println("Unique numbers: " + uniqueWinnerNumbers.size());
+
     HashMap<Integer, Integer> uniqeWinnerNumbersInHash = new HashMap();
     for (int uniqueNumber : uniqueWinnerNumbers) {
-        uniqeWinnerNumbersInHash.put(uniqueNumber, 0);
+      uniqeWinnerNumbersInHash.put(uniqueNumber, 0);
     }
 
     for (Integer winnerNumber : winnerNumbers) {
       int holder = uniqeWinnerNumbersInHash.get(winnerNumber);
       holder++;
-      uniqeWinnerNumbersInHash.put(winnerNumber,holder);
+      uniqeWinnerNumbersInHash.put(winnerNumber, holder);
     }
 
     List<Integer> winnerKeys = new ArrayList<>();
     List<Integer> winnerAmounts = new ArrayList<>();
-
     for (int i = 0; i < 5; i++) {
-
-
       int amountHolder = 0;
       int keyHolder = 0;
 
@@ -72,7 +73,7 @@ public class Lottery {
       }
       winnerKeys.add(keyHolder);
       winnerAmounts.add(amountHolder);
-      uniqeWinnerNumbersInHash.remove(keyHolder,amountHolder);
+      uniqeWinnerNumbersInHash.remove(keyHolder, amountHolder);
       amountHolder = 0;
       keyHolder = 0;
     }

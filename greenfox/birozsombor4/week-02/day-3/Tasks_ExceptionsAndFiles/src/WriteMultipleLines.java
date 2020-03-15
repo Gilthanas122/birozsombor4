@@ -26,7 +26,8 @@ public class WriteMultipleLines {
     try {
       Files.write(path, content);
     } catch (IOException e) {
-
+      System.out.println("Something went wrong!");
+      e.printStackTrace();
     }
   }
 }

@@ -4,18 +4,36 @@ import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class LinePlayQuarters{
+public class LinePlayQuarters {
   static int WIDTH = 320;
   static int HEIGHT = 320;
 
   public static void mainDraw(Graphics graphics) {
-    for (int i = 1; i < 15; i++) {
-      graphics.setColor(Color.GREEN);
-      graphics.drawLine(0, HEIGHT / 15 * i, WIDTH / 15 * i, HEIGHT);
-      graphics.setColor(new Color(128, 0, 128));
-      graphics.drawLine(WIDTH / 15 * i, 0, WIDTH, HEIGHT / 15 * i);
-    }
+    //canvas divided to 4 equal unit
+    drawLinePlayQuarters(2, graphics);
 
+    //canvas divided to 8 equal unit
+    drawLinePlayQuarters(4, graphics);
+
+    //canvas divided to 16 equal unit
+    drawLinePlayQuarters(8, graphics);
+  }
+
+  public static void drawLinePlayQuarters(int divider, Graphics graphics) {
+    int newWidth = WIDTH / divider;
+    int newHeight = HEIGHT / divider;
+
+    for (int row = 0; row < HEIGHT / newHeight; row++) {
+      for (int column = 0; column < WIDTH / newWidth; column++) {
+        for (int i = 0; i < 16; i++) {
+          graphics.setColor(Color.GREEN);
+          graphics.drawLine((column * newWidth), newHeight / 15 * i + (row * newWidth), newWidth / 15 * i + (column * newWidth), newHeight + (row * newHeight));
+          graphics.setColor(new Color(128, 0, 128));
+          graphics.drawLine(newWidth / 15 * i + (column * newWidth), (row * newHeight), newWidth + (column * newWidth), newHeight / 15 * i + (row * newHeight));
+          System.out.println(newWidth * column);
+        }
+      }
+    }
   }
   // Don't touch the code below
 

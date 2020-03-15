@@ -4,7 +4,7 @@ import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class LinePlay{
+public class LinePlay {
   static int WIDTH = 320;
   static int HEIGHT = 320;
 
@@ -15,7 +15,6 @@ public class LinePlay{
       graphics.setColor(new Color(128, 0, 128));
       graphics.drawLine(WIDTH / 15 * i, 0, WIDTH, HEIGHT / 15 * i);
     }
-
   }
   // Don't touch the code below
 

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+
 public class PersonalFinance {
   public static void main(String[] args) {
     ArrayList<Integer> ourExpenses = new ArrayList<>(Arrays.asList(500, 1000, 1250, 175, 800, 120));
@@ -17,8 +18,6 @@ public class PersonalFinance {
 
     System.out.println("What was the average amount of our spendings?");
     System.out.println(getAverage(ourExpenses));
-
-
   }
 
   public static int sumAll(ArrayList<Integer> inputList) {

@@ -6,7 +6,6 @@ import java.util.List;
 public class Main {
   public static void main(String[] args) {
     List<Pokemon> pokemonOfAsh = initializePokemons();
-
     // Every pokemon has a name and a type.
     // Certain types are effective against others, e.g. water is effective against fire.
 
@@ -15,8 +14,14 @@ public class Main {
 
     Pokemon wildPokemon = new Pokemon("Oddish", "leaf", "water");
 
+    Pokemon choosenOne = new Pokemon("", "", "");
+    for (Pokemon pokemon : pokemonOfAsh) {
+      if (pokemon.isEffectiveAgainst(wildPokemon)){
+        choosenOne = pokemon;
+      }
+    }
     // Which pokemon should Ash use?
-    System.out.print("I choose you, " + pokemonOfAsh.get(2).name);
+    System.out.print("I choose you, " + choosenOne.name);
   }
 
   private static List<Pokemon> initializePokemons() {

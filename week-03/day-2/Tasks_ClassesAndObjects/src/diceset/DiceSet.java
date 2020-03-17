@@ -41,26 +41,15 @@ public class DiceSet {
     // Your task is to roll the dice until all of the dice are 6
 
     DiceSet diceSet = new DiceSet();
-    /*System.out.println(diceSet.getCurrent());
     System.out.println(diceSet.roll());
-    System.out.println(diceSet.getCurrent());
-    System.out.println(diceSet.getCurrent(5));
-    diceSet.reroll();
-    System.out.println(diceSet.getCurrent());
-    diceSet.reroll(4);
-    System.out.println(diceSet.getCurrent());*/
-    int numberOfIteration = 0;
-    System.out.println(diceSet.roll());
-    while (diceSet.dice != new ArrayList<Integer>(Arrays.asList(6, 6, 6, 6, 6, 6))) {
+    while (!diceSet.dice.equals(new ArrayList<Integer>(Arrays.asList(6, 6, 6, 6, 6, 6)))) {
       for (int i = 0; i < 6; i++) {
         if (diceSet.getCurrent(i) != 6) {
           diceSet.reroll(i);
         }
       }
       System.out.println(diceSet.getCurrent());
-      numberOfIteration++;
     }
-    System.out.println(numberOfIteration);
   }
 
 }

@@ -4,22 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
+
+  enum BattleStatus {
+    LOOSED,
+    READY,
+    WINNER,
+  }
   List<Pirate> crew;
   Pirate captain;
-  boolean captainsConsumedRum;
-  Pirate.States captainsState;
-  int crewSize;
+  BattleStatus battleStatus;
 
   public Ship() {
     crew = new ArrayList<>();
+    this.battleStatus = BattleStatus.READY;
+    fillShip();
   }
 
   public void fillShip() {
     this.captain = new Pirate(true);
-    this.captainsState = captain.state;
     int numberOfPirates = (int) (Math.random() * 100);
     for (int i = 0; i < numberOfPirates; i++) {
       crew.add(new Pirate());
+    }
+  }
+
+  public void killAllPassedOutDuringBattle() {
+    for (int i = 0; i < crew.size(); i++) {
+      if (crew.get(i).state == Pirate.States.PASSED_OUT) {
+        crew.get(i).state = Pirate.States.DEAD;
+      }
     }
   }
 
@@ -29,62 +42,75 @@ public class Ship {
         crew.remove(i);
       }
     }
-    this.crewSize = this.crew.size();
+    //this.crewSize = this.crew.size();
+  }
+
+  public void removeThisAmountPirate(int amount) {
+    for (int i = 0; i < amount; i++) {
+      crew.get(i).state = Pirate.States.DEAD;
+    }
+    updateCrewSize();
   }
 
   public void getInfoAboutCaptain() {
-    System.out.println("The captain drank " + this.captain.rumOMeter + "times.");
-    if (this.captain.rumOMeter > 0) {
-      this.captainsConsumedRum = true;
-      System.out.println("So the consumed rum. " + "(" + captainsConsumedRum + ")");
-    }
+    System.out.println("-------------------------------------------------------");
+    System.out.println("Infos about the captain: ");
+    System.out.println("The captain drank " + this.captain.rumOMeter + "x times.");
+    System.out.println("Is he/she consumed rum: " + this.captain.consumedRum);
     System.out.println("The captain is now: " + this.captain.state.toString());
+    System.out.println("-------------------------------------------------------");
   }
 
   public void getInfo() {
-    System.out.println("Infos about the captain: ");
+    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     getInfoAboutCaptain();
-    System.out.println("There are " + crewSize + " more pirates in the crew");
+    System.out.println("There are " + this.crew.size() + " more pirates in the crew");
+    System.out.println("Battle status of the ship: " + this.battleStatus.toString());
+    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
   }
 
   public boolean battle(Ship otherShip) {
+    //System.out.println("B     A     T     T     L     E");
     boolean actualShipHasWon;
-    Ship winnerShip = new Ship();
+
+    this.killAllPassedOutDuringBattle();
     this.updateCrewSize();
-    int thisScore = this.crewSize - this.captain.rumOMeter;
+    int thisScore = this.crew.size() - this.captain.rumOMeter;
+
+    otherShip.killAllPassedOutDuringBattle();
     otherShip.updateCrewSize();
-    int otherShipScore = otherShip.crewSize - otherShip.captain.rumOMeter;
-    if (thisScore > otherShipScore) {
+    int otherShipScore = otherShip.crew.size() - otherShip.captain.rumOMeter;
+
+    if (thisScore >= otherShipScore) {
       int numberOfLosses = (int) (Math.random() * otherShip.crew.size());
-      for (int i = 0; i < numberOfLosses; i++) {
-        otherShip.crew.remove(i);
-      }
+      otherShip.removeThisAmountPirate(numberOfLosses);
       actualShipHasWon = true;
+      this.battleStatus = BattleStatus.WINNER;
+      otherShip.battleStatus = BattleStatus.LOOSED;
+      this.partyTime();
     } else {
       int numberOfLosses = (int) (Math.random() * this.crew.size());
-      for (int i = 0; i < numberOfLosses; i++) {
-        this.crew.remove(i);
-        winnerShip = this;
-      }
+      this.removeThisAmountPirate(numberOfLosses);
       actualShipHasWon = false;
-      winnerShip = otherShip;
+      this.battleStatus = BattleStatus.LOOSED;
+      otherShip.battleStatus = BattleStatus.WINNER;
+      otherShip.partyTime();
     }
-
-    partyTime(winnerShip, this, otherShip);
-
     return actualShipHasWon;
   }
 
-  public void partyTime(Ship winnerShip, Ship yourShip, Ship otherShip) {
-    for (int i = 0; i < ((int) (Math.random() * 10)); i++) {
-      winnerShip.captain.drinkSomeRum();
+  public void partyTime() {
+    int captainsRumAmount = ((int) (Math.random() * 10));
+    int crewRumAmount = (((int) (Math.random() * 10)) * this.crew.size());
+
+    for (int i = 0; i < captainsRumAmount; i++) {
+      this.captain.drinkSomeRum();
     }
-    for (int i = 0; i < (((int) (Math.random() * 10)) * winnerShip.crew.size()); i++) {
-      winnerShip.crew.get(i).drinkSomeRum();
+    while (crewRumAmount != 0) {
+      for (int i = 0; i < this.crew.size(); i++) {
+        this.crew.get(i).drinkSomeRum();
+        crewRumAmount--;
+      }
     }
-    this.crew = winnerShip.crew;
-    this.captain = winnerShip.captain;
-    this.captainsConsumedRum = winnerShip.captainsConsumedRum;
-    this.captainsState = winnerShip.captainsState;
   }
 }

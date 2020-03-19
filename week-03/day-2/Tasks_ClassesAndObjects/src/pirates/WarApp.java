@@ -6,7 +6,7 @@ public class WarApp {
     Armada armada2 = new Armada();
 
     armada1.fillWithSips(50);
-    armada2.fillWithSips(50);
+    armada2.fillWithSips(60);
 
     System.out.println("This ship has won: " + armada1.war(armada2));
   }

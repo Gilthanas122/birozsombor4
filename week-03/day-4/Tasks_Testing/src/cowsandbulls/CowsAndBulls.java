@@ -12,6 +12,14 @@ public class CowsAndBulls {
   State state;
   int counter;
 
+  public void setNumberToGuess(int numberToGuess) {
+    if (!isItValidNumber(numberToGuess)) {
+      this.numberToGuess = -1;
+    } else {
+      this.numberToGuess = numberToGuess;
+    }
+  }
+
   public CowsAndBulls() {
     do {
       this.numberToGuess = (int) (1000 + Math.random() * 9000);
@@ -35,7 +43,7 @@ public class CowsAndBulls {
         cows++;
       }
     }
-    if (bulls == 4){
+    if (bulls == 4) {
       this.state = State.FINISHED;
     }
     return new String(cows + " cow, " + bulls + " bull");
@@ -65,6 +73,4 @@ public class CowsAndBulls {
     }
     return true;
   }
-
-
 }

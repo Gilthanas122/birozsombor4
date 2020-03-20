@@ -3,7 +3,7 @@ package sharpie;
 public class Sharpie {
   String color;
   float width;
-  public float inkAmount;
+  float inkAmount;
 
   public Sharpie(String color, float width) {
     this.color = color;

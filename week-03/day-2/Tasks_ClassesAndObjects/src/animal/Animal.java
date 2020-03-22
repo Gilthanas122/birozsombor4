@@ -2,7 +2,7 @@ package animal;
 
 public class Animal {
   public int hunger;
-  int thirst;
+  public int thirst;
 
   public Animal() {
     this.hunger = 50;

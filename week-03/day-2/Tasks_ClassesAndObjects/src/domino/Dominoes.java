@@ -13,6 +13,7 @@ public class Dominoes {
     organizedDomines.add(dominoes.get(0));
     dominoes.remove(0);
     int organizedIndex = 0;
+
     for (int i = 0; i < dominoes.size(); i++) {
       if (organizedDomines.get(organizedIndex).getRightSide() == dominoes.get(i).getLeftSide()) {
         organizedDomines.add(dominoes.get(i));
@@ -21,9 +22,11 @@ public class Dominoes {
         i = -1;
       }
     }
+
     for (Domino domino : organizedDomines) {
       dominoes.add(domino);
     }
+
     System.out.println(dominoes);
   }
 

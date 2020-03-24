@@ -17,12 +17,12 @@ public class Gnirts implements CharSequence {
 
   @Override
   public char charAt(int index) {
-    return this.text.charAt(index);
+    return this.text.charAt(this.text.length()-1-index);
   }
 
   @Override
   public CharSequence subSequence(int start, int end) {
-    return this.text.subSequence(start, end);
+    return this.text.subSequence(end, start);
   }
 
   @Override

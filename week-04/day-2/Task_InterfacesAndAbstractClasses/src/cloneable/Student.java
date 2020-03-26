@@ -12,12 +12,6 @@ public class Student implements Cloneable {
     this.skippedDays = 0;
   }
 
-  @Override
-  protected Student clone() throws CloneNotSupportedException {
-    Student cloned = (Student) super.clone();
-    return cloned;
-  }
-
   public Student(String name, int age, String gender, String previousOrganization) {
     this.age = age;
     this.name = name;
@@ -40,4 +34,9 @@ public class Student implements Cloneable {
     this.skippedDays = numberOfDays;
   }
 
+  @Override
+  protected Student clone() throws CloneNotSupportedException {
+    Student cloned = (Student) super.clone();
+    return cloned;
+  }
 }

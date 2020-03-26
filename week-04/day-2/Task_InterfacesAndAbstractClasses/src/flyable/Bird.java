@@ -2,10 +2,8 @@ package flyable;
 
 import zoo.Animal;
 
-public class Bird extends Animal implements Flyable {
-  public Bird(String name) {
-    super(name);
-  }
+public class Bird implements Flyable {
+
 
   @Override
   public void land() {
@@ -22,8 +20,5 @@ public class Bird extends Animal implements Flyable {
     System.out.println("The bird take off.");
   }
 
-  @Override
-  public String breed() {
-    return "laying eggs";
-  }
+
 }

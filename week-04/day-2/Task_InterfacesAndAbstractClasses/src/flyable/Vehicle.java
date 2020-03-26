@@ -1,6 +1,6 @@
 package flyable;
 
-abstract public class Vehicle {
+ public class Vehicle {
   protected String name;
   protected int price;
   protected boolean isItForMilitary;

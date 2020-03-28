@@ -3,7 +3,6 @@ import zoo.*;
 public class Zoo {
 
   public static void main(String[] args) {
-
     Reptile reptile = new Reptile("Crocodile");
     Mammal mammal = new Mammal("Koala");
     Bird bird = new Bird("Parrot");

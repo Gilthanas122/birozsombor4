@@ -3,7 +3,7 @@ package exerciseswithoneclass;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class TaskSix {
+public class ExerciseSix {
   public static void main(String[] args) {
     String example = "asdopimqw";
     String example2 = "aAdD";

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TaskNine {
+public class ExerciseNine {
   public static void main(String[] args) {
     String example = "aaAbcA";
     Map<String, Long> charactersFrequency =

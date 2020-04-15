@@ -3,6 +3,10 @@ body{
   font-size: 16px;
   font-family: 'Manrope', sans-serif;
 }
+.flex-container{
+  display: flex;
+  justify-content: center;
+}
 table{
   border-collapse: collapse;
   width: 600px;

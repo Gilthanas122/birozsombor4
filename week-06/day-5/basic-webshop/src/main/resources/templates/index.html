@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Webshop</title>
+</head>
+<body>
+<form action="#" th:action="@{/search}"  method="post" th:object="${shopitem}">
+    <input type="text" th:field="*{name}" placeholder="...something like nike">
+    <input type="submit" value="Search">
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.getName()}"></td>
+            <td th:text="${item.getDescription()}"></td>
+            <td th:text="${item.getPrice()}"></td>
+            <td th:text="${item.getQuantity()}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

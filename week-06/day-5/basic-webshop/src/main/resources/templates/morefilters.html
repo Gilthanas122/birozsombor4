@@ -16,19 +16,22 @@
     <span><a href="/">Less <<</a></span>
 </div>
 <div class="option-bar">
-    <a href="#">Clothes and shoes</a>
-    <a href="#">Electronics</a>
-    <a href="#">Beverages and snacks</a>
-    <a href="#">Euro</a>
-    <a href="#">Original currency</a>
+    <a href="/filter-by-type?type=dress">Clothes and shoes</a>
+    <a href="/filter-by-type?type=device">Electronics</a>
+    <a href="/filter-by-type?type=food">Beverages and snacks</a>
+    <a href="/price-in-eur">Euro</a>
+    <a href="/price-in-original">Original currency</a>
 </div>
-<form action="/search" method="POST">
     <label for="searchInput">Search for:</label>
     <div class="search-area">
-        <input type="text" id="searchInput" name="searchInput" placeholder="...something like nike">
-        <input type="submit" value="Search">
+        <form method="post" action="/search-by-price">
+            <input type="submit" name="searchInput" value="Above">
+            <input type="submit" name="searchInput" value="Below">
+            <input type="submit" name="searchInput" value="Exactly">
+            <input type="number" id="searchInput" name="number"
+                   placeholder="...something like nike">
+        </form>
     </div>
-</form>
 <table>
     <thead>
     <tr>
@@ -42,7 +45,7 @@
     <tr th:each="item : ${items}">
         <td th:text="${item.getName()}"></td>
         <td th:text="${item.getDescription()}"></td>
-        <td th:text="${item.getPrice()}"></td>
+        <td th:text="${item.getPrice()} + ' ' + ${currency}"></td>
         <td th:text="${item.getQuantity()}"></td>
     </tr>
     </tbody>

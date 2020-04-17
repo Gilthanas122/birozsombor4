@@ -18,10 +18,10 @@ public class WebShopController {
 
   List<ShopItem> shopItemsList = Arrays.asList(
       new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5, "dress"),
-      new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2,"device"),
-      new ShopItem("Coca cola", "0.5l standard coke", 25, 0,"food"),
-      new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100,"food"),
-      new ShopItem("T-shirt", "Blue with a corgi", 300, 1,"dress")
+      new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2, "device"),
+      new ShopItem("Coca cola", "0.5l standard coke", 25, 0, "food"),
+      new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100, "food"),
+      new ShopItem("T-shirt", "Blue with a corgi", 300, 1, "dress")
   );
 
   @ResponseBody
@@ -33,6 +33,7 @@ public class WebShopController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String redirectToHomePage(Model model) {
     model.addAttribute("items", shopItemsList);
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
@@ -41,6 +42,7 @@ public class WebShopController {
     model.addAttribute("items", shopItemsList.stream()
         .filter(item -> item.getQuantity() > 0)
         .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
@@ -49,6 +51,7 @@ public class WebShopController {
     model.addAttribute("items", shopItemsList.stream()
         .sorted((item1, item2) -> Float.compare(item1.getPrice(), item2.getPrice()))
         .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
@@ -57,6 +60,7 @@ public class WebShopController {
     model.addAttribute("items", shopItemsList.stream()
         .filter(item -> item.getName().toLowerCase().contains("nike") || item.getDescription().toLowerCase().contains("nike"))
         .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
@@ -66,6 +70,7 @@ public class WebShopController {
         .mapToDouble(item -> item.getQuantity())
         .average()
         .getAsDouble());
+    model.addAttribute("currency", new String("CZK"));
     return "averageofstock";
   }
 
@@ -75,41 +80,102 @@ public class WebShopController {
         .sorted(Comparator.comparingDouble(ShopItem::getPrice).reversed())
         .limit(1)
         .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
   @RequestMapping(path = "/search", method = RequestMethod.POST)
   public String searchByNames(String searchInput,
-      Model model) {
+                              Model model) {
     model.addAttribute("items", shopItemsList.stream()
         .filter(item -> item.getName().toLowerCase().contains(searchInput.toLowerCase()) || item.getDescription().toLowerCase().contains(searchInput.toLowerCase()))
         .collect(Collectors.toList()));
-    return "index";
-  }
-
-  @RequestMapping(value = "/filter-by-type", method = RequestMethod.GET)
-  public String filterByType(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .sorted((item1,item2) -> item1.getType().compareTo(item2.getType()))
-        .collect(Collectors.toList()));
-    return "index";
-  }
-
-  @RequestMapping(value = "/filter-by-price", method = RequestMethod.GET)
-  public String sortDescendingOrderByPrice(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .sorted((item1, item2) -> Float.compare(item2.getPrice(), item1.getPrice()))
-        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
     return "index";
   }
 
   @RequestMapping(value = "/more-filters", method = RequestMethod.GET)
   public String redirectToMoreFilter(Model model) {
     model.addAttribute("items", shopItemsList);
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
+
+  @RequestMapping(value = "/filter-by-type", method = RequestMethod.GET)
+  public String filterByType(Model model, @RequestParam String type) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getType().equals(type))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
+
+  @RequestMapping(value = "/price-in-eur", method = RequestMethod.GET)
+  public String showPricesInEuro(Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .map(item -> new ShopItem(item.getName(), item.getDescription(), item.getPrice() * 0.037f,
+            item.getQuantity(), item.getType()))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("EUR"));
+    return "morefilters";
+  }
+
+  @RequestMapping(value = "/price-in-original", method = RequestMethod.GET)
+  public String showPricesInOriginalCurrency(Model model) {
+    model.addAttribute("items", shopItemsList);
+    model.addAttribute("currency", new String("CZK"));
     return "morefilters";
   }
 
 
+  @RequestMapping(path = "/search-by-price-above", method = RequestMethod.POST)
+  public String searchByPriceAbove(String searchInput,
+                                   Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getPrice() > Float.valueOf(searchInput))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
 
+  @RequestMapping(path = "/search-by-price-below", method = RequestMethod.POST)
+  public String searchByPriceBelow(String searchInput,
+                                   Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getPrice() < Float.valueOf(searchInput))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
 
+  @RequestMapping(path = "/search-by-price-exactly", method = RequestMethod.POST)
+  public String searchByPriceExactly(String searchInput,
+                                     Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
+
+  @RequestMapping(path = "/search-by-price", method = RequestMethod.POST)
+  public String searchByPrice(@RequestParam String searchInput, @RequestParam Integer number,
+                                     Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
+
+  @RequestMapping(path = "/search-by-price", method = RequestMethod.GET)
+  public String getSearchByPrice(@RequestParam (defaultValue = "Above", required = false) String searchInput,
+                                 @RequestParam (defaultValue = "100", required = false) Integer number,
+                              Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
+        .collect(Collectors.toList()));
+    model.addAttribute("currency", new String("CZK"));
+    return "morefilters";
+  }
 }

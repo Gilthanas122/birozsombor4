@@ -127,54 +127,26 @@ public class WebShopController {
     return "morefilters";
   }
 
-
-  @RequestMapping(path = "/search-by-price-above", method = RequestMethod.POST)
-  public String searchByPriceAbove(String searchInput,
-                                   Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getPrice() > Float.valueOf(searchInput))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
-    return "morefilters";
-  }
-
-  @RequestMapping(path = "/search-by-price-below", method = RequestMethod.POST)
-  public String searchByPriceBelow(String searchInput,
-                                   Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getPrice() < Float.valueOf(searchInput))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
-    return "morefilters";
-  }
-
-  @RequestMapping(path = "/search-by-price-exactly", method = RequestMethod.POST)
-  public String searchByPriceExactly(String searchInput,
-                                     Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
-    return "morefilters";
-  }
-
   @RequestMapping(path = "/search-by-price", method = RequestMethod.POST)
-  public String searchByPrice(@RequestParam String searchInput, @RequestParam Integer number,
-                                     Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
-    return "morefilters";
-  }
-
-  @RequestMapping(path = "/search-by-price", method = RequestMethod.GET)
-  public String getSearchByPrice(@RequestParam (defaultValue = "Above", required = false) String searchInput,
-                                 @RequestParam (defaultValue = "100", required = false) Integer number,
+  public String searchByPrice(@RequestParam String searchMode, @RequestParam Integer number,
                               Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getPrice() == Float.valueOf(searchInput))
-        .collect(Collectors.toList()));
+    switch (searchMode) {
+      case "Above":
+        model.addAttribute("items", shopItemsList.stream()
+            .filter(item -> item.getPrice() > Float.valueOf(number))
+            .collect(Collectors.toList()));
+        break;
+      case "Below":
+        model.addAttribute("items", shopItemsList.stream()
+            .filter(item -> item.getPrice() < Float.valueOf(number))
+            .collect(Collectors.toList()));
+        break;
+      case "Exactly":
+        model.addAttribute("items", shopItemsList.stream()
+            .filter(item -> item.getPrice() == Float.valueOf(number))
+            .collect(Collectors.toList()));
+        break;
+    }
     model.addAttribute("currency", new String("CZK"));
     return "morefilters";
   }

@@ -6,27 +6,24 @@
     <meta name="author" content="Zsombor Biró">
     <meta name="keywords" content="html, login, form, css, greenfox">
     <meta name=”viewport” content=”width=device-width, initial-scale=1.0”>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Basic Webshop</title>
 </head>
 <body>
-<div class="header">
-    <span><a href="/">My Shop</a></span>
-    <span><a href="/more-filters">More >></a></span>
-</div>
-<div class="option-bar">
-    <a href="/only-available">Only available</a>
-    <a href="/cheapest-first">Cheapest first</a>
-    <a href="/contains-nike">Contains nike</a>
-    <a href="/average-stock">Average Stock</a>
-    <a href="/most-expensive">Most expensive available</a>
-</div>
+  <h1>My shop</h1>
+  <div class="option-bar">
+    <a href="#">Only available</a>
+    <a href="#">Cheapest first</a>
+    <a href="#">Contains nike</a>
+    <a href="#">Average Stock</a>
+    <a href="#">Most expensive available</a>
+  </div>
 <form action="/search" method="POST">
     <label for="searchInput">Search for:</label>
     <div class="search-area">
-        <input type="text" id="searchInput" name="searchInput" placeholder="...something like nike">
-        <input type="submit" value="Search">
+      <input type="text" name="searchInput" placeholder="...something like nike">
+      <input type="submit" value="Search">
     </div>
 </form>
 <p th:text="'Average stock: ' + ${averageOfStock}"></p>

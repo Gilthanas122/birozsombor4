@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebShopController {
 
   List<ShopItem> shopItemsList = Arrays.asList(
-      new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5),
-      new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2),
-      new ShopItem("Coca cola", "0.5l standard coke", 25, 0),
-      new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100),
-      new ShopItem("T-shirt", "Blue with a corgi", 300, 1)
+      new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5, "dress"),
+      new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2,"device"),
+      new ShopItem("Coca cola", "0.5l standard coke", 25, 0,"food"),
+      new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100,"food"),
+      new ShopItem("T-shirt", "Blue with a corgi", 300, 1,"dress")
   );
 
   @ResponseBody
@@ -44,7 +45,7 @@ public class WebShopController {
   }
 
   @RequestMapping(value = "/cheapest-first", method = RequestMethod.GET)
-  public String sortDescendingOrderByPrice(Model model) {
+  public String sortAscendingOrderByPrice(Model model) {
     model.addAttribute("items", shopItemsList.stream()
         .sorted((item1, item2) -> Float.compare(item1.getPrice(), item2.getPrice()))
         .collect(Collectors.toList()));
@@ -77,11 +78,38 @@ public class WebShopController {
     return "index";
   }
 
-  @RequestMapping(path = "/search", consumes = "",method = RequestMethod.POST)
-  public String searchByNames(Model model, ShopItem shopItem) {
-    model.addAttribute("averageOfStock", shopItemsList.stream()
-        .filter(item -> item.getName().toLowerCase().contains(name.toLowerCase()) || item.getDescription().toLowerCase().contains(name.toLowerCase()))
+  @RequestMapping(path = "/search", method = RequestMethod.POST)
+  public String searchByNames(String searchInput,
+      Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .filter(item -> item.getName().toLowerCase().contains(searchInput.toLowerCase()) || item.getDescription().toLowerCase().contains(searchInput.toLowerCase()))
         .collect(Collectors.toList()));
     return "index";
   }
+
+  @RequestMapping(value = "/filter-by-type", method = RequestMethod.GET)
+  public String filterByType(Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .sorted((item1,item2) -> item1.getType().compareTo(item2.getType()))
+        .collect(Collectors.toList()));
+    return "index";
+  }
+
+  @RequestMapping(value = "/filter-by-price", method = RequestMethod.GET)
+  public String sortDescendingOrderByPrice(Model model) {
+    model.addAttribute("items", shopItemsList.stream()
+        .sorted((item1, item2) -> Float.compare(item2.getPrice(), item1.getPrice()))
+        .collect(Collectors.toList()));
+    return "index";
+  }
+
+  @RequestMapping(value = "/more-filters", method = RequestMethod.GET)
+  public String redirectToMoreFilter(Model model) {
+    model.addAttribute("items", shopItemsList);
+    return "morefilters";
+  }
+
+
+
+
 }

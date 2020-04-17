@@ -1,31 +1,50 @@
 <!DOCTYPE html>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="author" content="Zsombor Biró">
+    <meta name="keywords" content="html, login, form, css, greenfox">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1.0”>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Basic Webshop</title>
 </head>
 <body>
-<form action="#" th:action="@{/search}"  method="post" th:object="${shopitem}">
-    <input type="text" th:field="*{name}" placeholder="...something like nike">
-    <input type="submit" value="Search">
+<div class="header">
+    <span><a href="/">My Shop</a></span>
+    <span><a href="/more-filters">More >></a></span>
+</div>
+<div class="option-bar">
+    <a href="/only-available">Only available</a>
+    <a href="/cheapest-first">Cheapest first</a>
+    <a href="/contains-nike">Contains nike</a>
+    <a href="/average-stock">Average Stock</a>
+    <a href="/most-expensive">Most expensive available</a>
+</div>
+<form action="/search" method="POST">
+    <label for="searchInput">Search for:</label>
+    <div class="search-area">
+        <input type="text" id="searchInput" name="searchInput" placeholder="...something like nike">
+        <input type="submit" value="Search">
+    </div>
 </form>
 <table>
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
     </thead>
     <tbody>
-        <tr th:each="item : ${items}">
-            <td th:text="${item.getName()}"></td>
-            <td th:text="${item.getDescription()}"></td>
-            <td th:text="${item.getPrice()}"></td>
-            <td th:text="${item.getQuantity()}"></td>
-        </tr>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.getName()}"></td>
+        <td th:text="${item.getDescription()}"></td>
+        <td th:text="${item.getPrice()}"></td>
+        <td th:text="${item.getQuantity()}"></td>
+    </tr>
     </tbody>
 </table>
 </body>

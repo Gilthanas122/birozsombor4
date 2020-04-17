@@ -1,0 +1,98 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.header{
+    border-bottom: 1px solid #5EF2F2;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.header span{
+    color: #5EF2F2;
+    font-size: 36px;
+    font-weight: bold;
+}
+.header a{
+    color: inherit;
+    text-decoration: inherit;
+}
+.option-bar a{
+    color: #FFFFFF;
+    background-color: #F23838;
+    text-decoration: inherit;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.option-bar a:hover{
+    box-shadow: 1px 1px 1px #000000;
+}
+
+label{
+    color: #F29999;
+}
+
+.option-bar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-around;
+}
+
+.search-area{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+form input[type=text]{
+    width: 85%;
+    border:none;
+    border-bottom: 1px solid #F2F2F2;
+    background-image:none;
+    background-color:transparent;
+    box-shadow: none;
+    outline: none;
+    padding: 10px 0 10px 5px;
+    border: 1px solid #F23838;
+    border-radius: 10px;
+}
+
+form input[type=submit]{
+    background-color: #F23838;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+td, th {
+    padding: 20px;
+}
+th{
+    background-color: #5EF2F2;
+    color : #000000;
+    text-align: left;
+    font-weight: normal;
+    border: 2px solid #FFFFFF
+}
+
+p{
+    font-weight: bold;
+    font-size: 26px;
+}

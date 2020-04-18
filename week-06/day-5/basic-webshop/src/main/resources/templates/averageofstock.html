@@ -11,24 +11,26 @@
     <title>Basic Webshop</title>
 </head>
 <body>
-<div class="header">
+<header>
     <span><a href="/">My Shop</a></span>
     <span><a href="/more-filters">More >></a></span>
-</div>
-<div class="option-bar">
-    <a href="/only-available">Only available</a>
-    <a href="/cheapest-first">Cheapest first</a>
-    <a href="/contains-nike">Contains nike</a>
-    <a href="/average-stock">Average Stock</a>
-    <a href="/most-expensive">Most expensive available</a>
-</div>
-<form action="/search" method="POST">
-    <label for="searchInput">Search for:</label>
-    <div class="search-area">
-        <input type="text" id="searchInput" name="searchInput" placeholder="...something like nike">
-        <input type="submit" value="Search">
+</header>
+<main>
+    <div class="option-bar">
+        <a href="/only-available">Only available</a>
+        <a href="/cheapest-first">Cheapest first</a>
+        <a href="/contains-nike">Contains nike</a>
+        <a href="/average-stock">Average Stock</a>
+        <a href="/most-expensive">Most expensive available</a>
     </div>
-</form>
-<p th:text="'Average stock: ' + ${averageOfStock}"></p>
+    <form action="/search" method="POST">
+        <label for="searchInput">Search for:</label>
+        <div class="search-area-version1">
+            <input type="text" id="searchInput" name="searchInput" placeholder="...something like nike">
+            <input type="submit" value="Search">
+        </div>
+    </form>
+    <p th:text="'Average stock: ' + ${averageOfStock}"></p>
+</main>
 </body>
 </html>

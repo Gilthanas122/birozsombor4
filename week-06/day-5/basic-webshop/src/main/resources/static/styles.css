@@ -1,33 +1,21 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
-.header{
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+header {
     border-bottom: 1px solid #5EF2F2;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
 }
-.header span{
-    color: #5EF2F2;
+header span{
+    color: #04C4D9;
     font-size: 36px;
     font-weight: bold;
 }
-.header a{
-    color: inherit;
-    text-decoration: inherit;
-}
-.option-bar a{
-    color: #FFFFFF;
-    background-color: #F23838;
-    text-decoration: inherit;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-.option-bar a:hover{
-    box-shadow: 1px 1px 1px #000000;
-}
-
 .option-bar{
     display: flex;
     flex-direction: row;
@@ -35,17 +23,25 @@ body{
     align-items: center;
     align-content: space-between;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
-
+.option-bar a{
+    color: #FFFFFF;
+    background-color: #F23838;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.option-bar a:hover{
+    box-shadow: 1px 1px 1px #000000;
+}
 label{
     color: #F29999;
 }
-
 .label-morefilters {
-    margin-left: 35%;
+    margin-left: 20%;
 }
-
-.search-area form{
+.search-area-version1, .search-area-version2 form{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -54,24 +50,20 @@ label{
     justify-content: space-between;
     margin-bottom: 10px;
 }
-
-.search-area input[type=text]{
-    width: 65%;
-    border:none;
-    border-bottom: 1px solid #F2F2F2;
+input[type=text], input[type=number]{
+    width: 80%;
     background-image:none;
     background-color:transparent;
     box-shadow: none;
     outline: none;
     padding: 10px 0 10px 5px;
     border: 1px solid #F23838;
-    border-radius: 10px;
+    border-radius: 5px;
 }
-
 form input[type=submit]{
     background-color: #F23838;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #FFFFFF;
     padding: 10px 10px;
     text-align: center;
@@ -83,7 +75,7 @@ form input[type=submit]{
 table{
     border-collapse: collapse;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 td, th {
     padding: 20px;
@@ -95,7 +87,6 @@ th{
     font-weight: normal;
     border: 2px solid #FFFFFF
 }
-
 p{
     font-weight: bold;
     font-size: 26px;

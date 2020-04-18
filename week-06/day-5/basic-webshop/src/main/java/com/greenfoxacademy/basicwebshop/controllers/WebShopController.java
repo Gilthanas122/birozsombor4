@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,13 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class WebShopController {
 
-  List<ShopItem> shopItemsList = Arrays.asList(
-      new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5, "dress"),
-      new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2, "device"),
-      new ShopItem("Coca cola", "0.5l standard coke", 25, 0, "food"),
-      new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100, "food"),
-      new ShopItem("T-shirt", "Blue with a corgi", 300, 1, "dress")
-  );
+  List<ShopItem> shopItemsList;
+
+  public WebShopController() {
+    this.shopItemsList = Arrays.asList(
+        new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5, "dress"),
+        new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2, "device"),
+        new ShopItem("Coca cola", "0.5l standard coke", 25, 0, "food"),
+        new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100, "food"),
+        new ShopItem("T-shirt", "Blue with a corgi", 300, 1, "dress")
+    );
+  }
 
   @ResponseBody
   @RequestMapping(value = "/webshop", method = RequestMethod.GET)
@@ -69,7 +72,7 @@ public class WebShopController {
     model.addAttribute("averageOfStock", shopItemsList.stream()
         .mapToDouble(item -> item.getQuantity())
         .average()
-        .getAsDouble());
+        .orElseGet(() -> 0));
     model.addAttribute("currency", new String("CZK"));
     return "averageofstock";
   }
@@ -116,7 +119,7 @@ public class WebShopController {
         .map(item -> new ShopItem(item.getName(), item.getDescription(), item.getPrice() * 0.037f,
             item.getQuantity(), item.getType()))
         .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("EUR"));
+    model.addAttribute("currency", "EUR");
     return "morefilters";
   }
 
@@ -128,7 +131,8 @@ public class WebShopController {
   }
 
   @RequestMapping(path = "/search-by-price", method = RequestMethod.POST)
-  public String searchByPrice(@RequestParam String searchMode, @RequestParam Integer number,
+  public String searchByPrice(@RequestParam String searchMode,
+                              @RequestParam(defaultValue = "0") Integer number,
                               Model model) {
     switch (searchMode) {
       case "Above":

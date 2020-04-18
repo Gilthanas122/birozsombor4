@@ -11,44 +11,46 @@
     <title>Basic Webshop</title>
 </head>
 <body>
-<div class="header">
+<header>
     <span><a href="/">My Shop</a></span>
     <span><a href="/">Less <<</a></span>
-</div>
-<div class="option-bar">
-    <a href="/filter-by-type?type=dress">Clothes and shoes</a>
-    <a href="/filter-by-type?type=device">Electronics</a>
-    <a href="/filter-by-type?type=food">Beverages and snacks</a>
-    <a href="/price-in-eur">Euro</a>
-    <a href="/price-in-original">Original currency</a>
-</div>
-    <label for="searchInput">Search for:</label>
-    <div class="search-area">
+</header>
+<main>
+    <div class="option-bar">
+        <a href="/filter-by-type?type=dress">Clothes and shoes</a>
+        <a href="/filter-by-type?type=device">Electronics</a>
+        <a href="/filter-by-type?type=food">Beverages and snacks</a>
+        <a href="/price-in-eur">Euro</a>
+        <a href="/price-in-original">Original currency</a>
+    </div>
+    <label for="searchInput" class="label-morefilters">Filter by price:</label>
+    <div class="search-area-version2">
         <form method="post" action="/search-by-price">
             <input type="submit" name="searchMode" value="Above">
             <input type="submit" name="searchMode" value="Below">
             <input type="submit" name="searchMode" value="Exactly">
             <input type="number" id="searchInput" name="number"
-                   placeholder="...something like nike">
+                   placeholder="...eg.: 300">
         </form>
-    </div>x0
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${items}">
-        <td th:text="${item.getName()}"></td>
-        <td th:text="${item.getDescription()}"></td>
-        <td th:text="${item.getPrice()} + ' ' + ${currency}"></td>
-        <td th:text="${item.getQuantity()}"></td>
-    </tr>
-    </tbody>
-</table>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.getName()}"></td>
+            <td th:text="${item.getDescription()}"></td>
+            <td th:text="${item.getPrice()} + ' ' + ${currency}"></td>
+            <td th:text="${item.getQuantity()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
 </body>
 </html>

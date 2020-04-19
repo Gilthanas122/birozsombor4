@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,8 +105,8 @@ public class WebShopController {
     return "morefilters";
   }
 
-  @RequestMapping(value = "/filter-by-type", method = RequestMethod.GET)
-  public String filterByType(Model model, @RequestParam String type) {
+  @RequestMapping(value = "/filter-by-type/{type}", method = RequestMethod.GET)
+  public String filterByType(Model model, @PathVariable String type) {
     model.addAttribute("items", shopItemsList.stream()
         .filter(item -> item.getType().equals(type))
         .collect(Collectors.toList()));

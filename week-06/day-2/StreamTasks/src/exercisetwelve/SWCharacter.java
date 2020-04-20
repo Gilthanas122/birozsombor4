@@ -76,7 +76,8 @@ public class SWCharacter {
       gender = "other";
     }
     return gender;
-  }*/
+  }
+
   /*public String getGroup() {
     if (!this.birthYear.equals("unknown")) {
       if (Integer.valueOf(this.birthYear) < 21) {

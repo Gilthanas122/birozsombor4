@@ -123,7 +123,8 @@ public class StarWars {
         .getAsDouble();
   }
 
-  public static Map<String, Map<String, List<SWCharacter>>> getAgeDistributionByGender(String fileName) {
+  public static Map<String, Map<String, List<SWCharacter>>>
+  getAgeDistributionByGender(String fileName) {
     List<String> lines = getListFromFile(fileName);
     return lines.stream()
         .map(line -> new SWCharacter(line.split(";")[0], line.split(";")[1],
@@ -132,7 +133,8 @@ public class StarWars {
             line.split(";")[6], line.split(";")[7]))
         .skip(1)
         .collect(Collectors.groupingBy(character -> {
-              if (!character.getGender().equals("male") && !character.getGender().equals("female")) {
+              if (!character.getGender().equals("male")
+                  && !character.getGender().equals("female")) {
                 return "other";
               } else {
                 return character.getGender();
@@ -142,7 +144,8 @@ public class StarWars {
               if (!character.getBirthYear().equals("unknown")) {
                 if (Integer.valueOf(character.getBirthYear()) < 21) {
                   return "below 21";
-                } else if (Integer.valueOf(character.getBirthYear()) >= 21 && Integer.valueOf(character.getBirthYear()) < 40) {
+                } else if (Integer.valueOf(character.getBirthYear()) >= 21
+                    && Integer.valueOf(character.getBirthYear()) < 40) {
                   return "between 21 and 40";
                 } else if (Integer.valueOf(character.getBirthYear()) >= 40) {
                   return "above 40";
@@ -186,7 +189,8 @@ public class StarWars {
         .getAsDouble();
   }*/
 
-    /* public static Map<String, Map<String, Integer>> getAgeDistributionByGender(String fileName) {
+    /* public static Map<String, Map<String, List<SWCharacter>>> getAgeDistributionByGender
+    (String fileName) {
      List<String> lines = getListFromFile(fileName);
      lines.stream()
          .map(line -> new SWCharacter(line.split(";")[0], line.split(";")[1],

@@ -2,6 +2,8 @@ package person;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PartitioningSpec {
   public static void main(String[] args) {
@@ -11,10 +13,8 @@ public class PartitioningSpec {
         new Person("Eva", 42)
     );
 
-    Person oldestPerson = persons.stream()
-        .sorted((person1, person2) -> Integer.compare(person2.getAge(), person1.getAge()))
-        .findFirst()
-        .get();
-    System.out.println(oldestPerson.getName() + " " + oldestPerson.getAge());
+    Map<Boolean, List<Person>> result = persons.stream()
+        .collect(Collectors.partitioningBy(person -> person.getAge() > 18));
+    result.forEach((k, v) -> System.out.println(k + "," + v.stream().map(Person::getName).collect(Collectors.toList())));
   }
 }

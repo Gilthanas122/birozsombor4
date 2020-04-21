@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bank Of Simba</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+</head>
+<body>
+<header>
+    <a href="/accounts">Bank of Simba</a>
+    <a href="/show">Simba</a>
+    <a href="/raise">Raise</a>
+    <a href="/utext">/utext</a>
+</header>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Balance</th>
+                <th>Type of animal</th>
+                <th>Index</th>
+                <th>Rank</th>
+                <th>Alignment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="account, iterStat : ${accounts}" th:object="${account}">
+                <td th:text="*{name}">Name</td>
+                <td th:text="${#numbers.formatDecimal(account.balance, 1,  2)} + ' Zebra'">Balance</td>
+                <td th:text="*{animalType}">AnimalType</td>
+                <td th:text="${iterStat.index}">Index</td>
+                <td th:text="*{king} ? 'King' : 'Commoner'"
+                    th:styleappend="*{king} ?'font-weight: bold; letter-spacing: 0.2em;'">
+                    Rank</td>
+                <td th:text="*{alignment} == 'good' ? 'Good one' : 'Bad guy'">Alignment</td>
+            </tr>
+
+            <form th:method="POST" th:action="@{'/add'}" th:object="${accountTemplate}">
+                <tr>
+                    <td><input type="text" placeholder="Name" th:field="*{name}"></td>
+                    <td><input type="number" placeholder="Balance" th:field="*{balance}"></td>
+                    <td><input type="text" placeholder="lion/meerkat..." th:field="*{animalType}"></td>
+                    <td th:text="${accounts.size()}"></td>
+                    <td><select th:field="*{king}">
+                        <option th:value="true" th:text="'King'">
+                        <option th:value="false" th:text="'Commoner'">
+                    </select></td>
+                    <td><select th:field="*{alignment}">
+                        <option th:value="'good'" th:text="'Good one'">
+                        <option th:value="'bad'" th:text="'Bad guy'">
+                    </select></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><button type="submit">Add new Account</button></td>
+                </tr>
+            </form>
+        </tbody>
+    </table>
+    <div class="raise">
+        <h2>Raise the Balance</h2>
+        <form th:action="@{'/raise'}" th:method="POST">
+            <label for="names">Choose an account owner:</label>
+            <select id="names" name="selectedAccountName">
+                <option th:each="account : ${accounts}" th:value="${account.name}"
+                        th:text="${account.name}"></option>
+            </select><br>
+            <button type="submit">Raise</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

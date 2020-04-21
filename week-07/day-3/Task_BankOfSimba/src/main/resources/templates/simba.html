@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+<header>
+    <div th:replace="../fragments/navbar :: navbar"></div>
+</header>
+<main>
+    <table th:if="${simba}">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Type of animal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${simba}">
+            <td th:text="*{name}"></td>
+            <td th:text="${#numbers.formatDecimal(simba.balance, 1,  2)} + ' Zebra'"></td>
+            <td th:text="*{animalType}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${message}" th:utext="${message}"></p>
+</main>
+</body>
+</html>

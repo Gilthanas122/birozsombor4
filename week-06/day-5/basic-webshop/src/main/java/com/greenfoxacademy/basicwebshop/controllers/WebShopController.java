@@ -1,158 +1,105 @@
 package com.greenfoxacademy.basicwebshop.controllers;
 
-import com.greenfoxacademy.basicwebshop.models.ShopItem;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.greenfoxacademy.basicwebshop.service.WebShopService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebShopController {
 
-  List<ShopItem> shopItemsList;
+  private WebShopService webShopService;
 
-  public WebShopController() {
-    this.shopItemsList = Arrays.asList(
-        new ShopItem("Running shoes", "Nike running shoes for every day sport", 1000, 5, "dress"),
-        new ShopItem("Printer", "Some HP printer that will print pages", 3000, 2, "device"),
-        new ShopItem("Coca cola", "0.5l standard coke", 25, 0, "food"),
-        new ShopItem("Wokin", "Chicken with fried rice and WOKIN sauce", 119, 100, "food"),
-        new ShopItem("T-shirt", "Blue with a corgi", 300, 1, "dress")
-    );
+  @Autowired
+  public WebShopController(WebShopService webShopService) {
+    this.webShopService = webShopService;
   }
 
   @ResponseBody
-  @RequestMapping(value = "/webshop", method = RequestMethod.GET)
+  @GetMapping(value = "/webshop")
   public String greetTheWorld() {
     return "Hello World";
   }
 
-  @RequestMapping(value = "", method = RequestMethod.GET)
+  @GetMapping(value = "")
   public String redirectToHomePage(Model model) {
-    model.addAttribute("items", shopItemsList);
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getShopItemsList());
     return "index";
   }
 
-  @RequestMapping(value = "/only-available", method = RequestMethod.GET)
+  @GetMapping(value = "/only-available")
   public String getOnlyAvailableItems(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getQuantity() > 0)
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getOnlyAvailableItems());
     return "index";
   }
 
-  @RequestMapping(value = "/cheapest-first", method = RequestMethod.GET)
+  @GetMapping(value = "/cheapest-first")
   public String sortAscendingOrderByPrice(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .sorted((item1, item2) -> Float.compare(item1.getPrice(), item2.getPrice()))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getListByCheapestFirst());
     return "index";
   }
 
-  @RequestMapping(value = "/contains-nike", method = RequestMethod.GET)
+  @GetMapping(value = "/contains-nike")
   public String getItemsWhichAreNikes(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getName().toLowerCase().contains("nike") || item.getDescription().toLowerCase().contains("nike"))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getItemsWhichContainsNike());
     return "index";
   }
 
-  @RequestMapping(value = "/average-stock", method = RequestMethod.GET)
+  @GetMapping(value = "/average-stock")
   public String getAverageStock(Model model) {
-    model.addAttribute("averageOfStock", shopItemsList.stream()
-        .mapToDouble(item -> item.getQuantity())
-        .average()
-        .orElseGet(() -> 0));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("averageOfStock", webShopService.getAverageStock());
     return "averageofstock";
   }
 
-  @RequestMapping(value = "/most-expensive", method = RequestMethod.GET)
+  @GetMapping(value = "/most-expensive")
   public String getMostExpensive(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .sorted(Comparator.comparingDouble(ShopItem::getPrice).reversed())
-        .limit(1)
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getMostExpensive());
     return "index";
   }
 
-  @RequestMapping(path = "/search", method = RequestMethod.POST)
-  public String searchByNames(String searchInput,
-                              Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getName().toLowerCase().contains(searchInput.toLowerCase()) || item.getDescription().toLowerCase().contains(searchInput.toLowerCase()))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+  @PostMapping(path = "/search")
+  public String searchByNames(String searchInput, Model model) {
+    model.addAttribute("items", webShopService.getItemsByName(searchInput));
     return "index";
   }
 
-  @RequestMapping(value = "/more-filters", method = RequestMethod.GET)
+  @GetMapping(value = "/more-filters")
   public String redirectToMoreFilter(Model model) {
-    model.addAttribute("items", shopItemsList);
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getShopItemsList());
     return "morefilters";
   }
 
-  @RequestMapping(value = "/filter-by-type/{type}", method = RequestMethod.GET)
+  @GetMapping(value = "/filter-by-type/{type}")
   public String filterByType(Model model, @PathVariable String type) {
-    model.addAttribute("items", shopItemsList.stream()
-        .filter(item -> item.getType().equals(type))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getItemsByType(type));
+    model.addAttribute("selectedType", type);
     return "morefilters";
   }
 
-  @RequestMapping(value = "/price-in-eur", method = RequestMethod.GET)
+  @GetMapping(value = "/price-in-eur")
   public String showPricesInEuro(Model model) {
-    model.addAttribute("items", shopItemsList.stream()
-        .map(item -> new ShopItem(item.getName(), item.getDescription(), item.getPrice() * 0.037f,
-            item.getQuantity(), item.getType()))
-        .collect(Collectors.toList()));
-    model.addAttribute("currency", "EUR");
+    webShopService.changePricesToEuro();
+    model.addAttribute("items", webShopService.getShopItemsList());
     return "morefilters";
   }
 
-  @RequestMapping(value = "/price-in-original", method = RequestMethod.GET)
+  @GetMapping(value = "/price-in-original")
   public String showPricesInOriginalCurrency(Model model) {
-    model.addAttribute("items", shopItemsList);
-    model.addAttribute("currency", new String("CZK"));
+    webShopService.changePricesToOriginalCurrency();
+    model.addAttribute("items", webShopService.getShopItemsList());
     return "morefilters";
   }
 
-  @RequestMapping(path = "/search-by-price", method = RequestMethod.POST)
+  @PostMapping(path = "/search-by-price")
   public String searchByPrice(@RequestParam String searchMode,
                               @RequestParam(defaultValue = "0") Integer number,
                               Model model) {
-    switch (searchMode) {
-      case "Above":
-        model.addAttribute("items", shopItemsList.stream()
-            .filter(item -> item.getPrice() > Float.valueOf(number))
-            .collect(Collectors.toList()));
-        break;
-      case "Below":
-        model.addAttribute("items", shopItemsList.stream()
-            .filter(item -> item.getPrice() < Float.valueOf(number))
-            .collect(Collectors.toList()));
-        break;
-      case "Exactly":
-        model.addAttribute("items", shopItemsList.stream()
-            .filter(item -> item.getPrice() == Float.valueOf(number))
-            .collect(Collectors.toList()));
-        break;
-    }
-    model.addAttribute("currency", new String("CZK"));
+    model.addAttribute("items", webShopService.getItemsByPrice(searchMode, number));
     return "morefilters";
   }
 }

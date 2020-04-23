@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:style="${validationResult} ? 'color:green;' : 'color:red;'">
+    <span th:text="${emailAddress}"></span>
+    is <span th:unless="${validationResult}">not</span>
+    a valid email result.</p>
+
+</body>
+</html>

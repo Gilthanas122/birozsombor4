@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{'/gfa/check'}">
+    <label for="name">Name to check:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit" value="Submit">Check this name</button>
+</form>
+<div th:if="${exist} != null">
+    <p th:if="${exist}" th:text="|${name} is alread exist!|"></p>
+    <p th:unless="${exist}" th:text="|${name} is NOT exist!|"></p>
+</div>
+</body>
+</html>

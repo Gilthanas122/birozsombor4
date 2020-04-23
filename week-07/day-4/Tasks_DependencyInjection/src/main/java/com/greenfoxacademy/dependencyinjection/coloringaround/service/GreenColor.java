@@ -1,8 +1,6 @@
-package com.greenfoxacademy.dependencyinjection.coloringaround;
+package com.greenfoxacademy.dependencyinjection.coloringaround.service;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.greenfoxacademy.dependencyinjection.hellodiproject.Printer;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.greenfoxacademy.dependencyinjection.hellodiproject.service.Printer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 

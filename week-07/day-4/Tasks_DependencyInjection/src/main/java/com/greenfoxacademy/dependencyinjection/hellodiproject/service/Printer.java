@@ -1,10 +1,9 @@
-package com.greenfoxacademy.dependencyinjection.hellodiproject;
+package com.greenfoxacademy.dependencyinjection.hellodiproject.service;
 
 // # HelloBeanWorld application
 
 // Create a Spring project.
 
-import com.greenfoxacademy.dependencyinjection.coloringaround.MyColor;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 

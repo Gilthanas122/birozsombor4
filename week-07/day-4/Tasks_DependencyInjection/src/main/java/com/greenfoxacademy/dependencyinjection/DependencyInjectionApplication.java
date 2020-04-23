@@ -1,10 +1,8 @@
 package com.greenfoxacademy.dependencyinjection;
 
-import com.greenfoxacademy.dependencyinjection.coloringaround.MyColor;
-import com.greenfoxacademy.dependencyinjection.coloringaround.RedColor;
-import com.greenfoxacademy.dependencyinjection.hellodiproject.Printer;
+import com.greenfoxacademy.dependencyinjection.coloringaround.service.MyColor;
+import com.greenfoxacademy.dependencyinjection.hellodiproject.service.Printer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

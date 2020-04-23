@@ -1,10 +1,10 @@
-package com.greenfoxacademy.dependencyinjection.coloringaround;
+package com.greenfoxacademy.dependencyinjection.coloringaround.service;
 
 // # Playing around with colors
 
 // There is one interface given:
 
-import com.greenfoxacademy.dependencyinjection.hellodiproject.Printer;
+import com.greenfoxacademy.dependencyinjection.hellodiproject.service.Printer;
 
 public interface MyColor {
   public void printColor(Printer printer);

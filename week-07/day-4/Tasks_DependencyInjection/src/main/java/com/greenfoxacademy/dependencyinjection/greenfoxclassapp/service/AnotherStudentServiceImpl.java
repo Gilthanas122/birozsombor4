@@ -1,4 +1,4 @@
-package com.greenfoxacademy.dependencyinjection.greenfoxclassapp;
+package com.greenfoxacademy.dependencyinjection.greenfoxclassapp.service;
 
 import java.io.IOException;
 import java.nio.file.Files;

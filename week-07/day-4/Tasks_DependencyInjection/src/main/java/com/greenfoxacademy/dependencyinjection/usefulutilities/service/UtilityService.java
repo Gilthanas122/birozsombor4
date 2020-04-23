@@ -1,4 +1,4 @@
-package com.greenfoxacademy.dependencyinjection.usefulutilities;
+package com.greenfoxacademy.dependencyinjection.usefulutilities.service;
 
 import java.util.ArrayList;
 import java.util.List;

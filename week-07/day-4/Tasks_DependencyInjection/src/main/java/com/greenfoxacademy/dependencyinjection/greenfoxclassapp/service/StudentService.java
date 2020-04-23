@@ -1,4 +1,4 @@
-package com.greenfoxacademy.dependencyinjection.greenfoxclassapp;
+package com.greenfoxacademy.dependencyinjection.greenfoxclassapp.service;
 
 import java.util.List;
 

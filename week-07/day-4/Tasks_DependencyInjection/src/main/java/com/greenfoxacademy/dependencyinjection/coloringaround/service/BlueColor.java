@@ -1,7 +1,6 @@
-package com.greenfoxacademy.dependencyinjection.coloringaround;
+package com.greenfoxacademy.dependencyinjection.coloringaround.service;
 
-import com.greenfoxacademy.dependencyinjection.hellodiproject.Printer;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.greenfoxacademy.dependencyinjection.hellodiproject.service.Printer;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 

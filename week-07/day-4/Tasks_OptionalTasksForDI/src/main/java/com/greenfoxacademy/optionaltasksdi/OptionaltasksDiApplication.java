@@ -1,9 +1,13 @@
 package com.greenfoxacademy.optionaltasksdi;
 
+import com.greenfoxacademy.optionaltasksdi.switchingmessageservices.configuration.MessageConfiguration;
+import com.greenfoxacademy.optionaltasksdi.switchingmessageservices.configuration.MessageProceeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 // # Switching MessageServices
 
 // Let's create another Spring project.
@@ -27,6 +31,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
+@Import(MessageConfiguration.class)
 public class OptionaltasksDiApplication implements CommandLineRunner {
 
   @Autowired
@@ -41,7 +46,6 @@ public class OptionaltasksDiApplication implements CommandLineRunner {
     messageProceeder.processMessage("Hi Barba, How are you?", "office@greenfox.com");
   }
 }
-
 // One of the two possible results should look like this:
 
 // SOME SPRING INFO</br>

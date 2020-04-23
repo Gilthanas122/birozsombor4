@@ -1,12 +1,11 @@
-package com.greenfoxacademy.optionaltasksdi;
+package com.greenfoxacademy.optionalswitchingmessageservices;
 
-import com.greenfoxacademy.optionaltasksdi.switchingmessageservices.configuration.MessageConfiguration;
-import com.greenfoxacademy.optionaltasksdi.switchingmessageservices.configuration.MessageProceeder;
+import com.greenfoxacademy.optionalswitchingmessageservices.switchingmessageservices.configuration.MessageConfiguration;
+import com.greenfoxacademy.optionalswitchingmessageservices.switchingmessageservices.configuration.MessageProceeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 // # Switching MessageServices
 

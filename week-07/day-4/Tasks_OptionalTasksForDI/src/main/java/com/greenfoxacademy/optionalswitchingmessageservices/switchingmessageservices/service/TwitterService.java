@@ -1,4 +1,4 @@
-package com.greenfoxacademy.optionaltasksdi.switchingmessageservices.service;
+package com.greenfoxacademy.optionalswitchingmessageservices.switchingmessageservices.service;
 
 import org.springframework.stereotype.Service;
 

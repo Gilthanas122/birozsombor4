@@ -1,4 +1,4 @@
-package com.greenfoxacademy.optionaltasksdi;
+package com.greenfoxacademy.optionalswitchingmessageservices;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

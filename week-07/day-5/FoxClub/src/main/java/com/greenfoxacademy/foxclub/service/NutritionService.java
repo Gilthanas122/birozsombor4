@@ -2,6 +2,7 @@ package com.greenfoxacademy.foxclub.service;
 
 import com.greenfoxacademy.foxclub.model.Drink;
 import com.greenfoxacademy.foxclub.model.Food;
+import com.greenfoxacademy.foxclub.model.Fox;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -72,4 +73,19 @@ public class NutritionService {
     }
     return selectedDrink;
   }
+
+
+  /*public void markSelectedFood(Fox selectedFoxByName) {
+    for(Food food : listOfFoods){
+      if(food.getName().equals(selectedFoxByName.getFood().getName())){
+        food.setIsSelected(true);
+      }
+    }
+  }
+
+  public void unmarkAllFood() {
+    for (Food food : listOfFoods){
+      food.setIsSelected(false);
+    }
+  }*/
 }

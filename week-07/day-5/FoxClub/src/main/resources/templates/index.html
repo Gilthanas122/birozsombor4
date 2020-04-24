@@ -30,7 +30,7 @@
         <h1>Known tricks</h1>
         <div th:if="*{listOfTricks}">
             <ul th:each="trick : *{listOfTricks}">
-                <li th:text="${trick}"></li>
+                <li th:text="${trick.name}"></li>
             </ul>
         </div>
         <p th:if="*{listOfTricks.size() == 0}">You know no tricks, yet. Go and learn some!</p>
@@ -48,7 +48,7 @@
             <tbody>
             <tr th:each="fox : ${foxes}" th:object="${fox}">
                 <td th:text="*{name}"></td>
-                <td th:text="*{listOfTricks}"></td>
+                <td th:text="${fox.getListAsString()}"></td>
                 <td th:text="*{food.name}"></td>
                 <td th:text="*{drink.name}"></td>
             </tr>

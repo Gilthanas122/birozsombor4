@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Action History</title>
+</head>
+<body>
+<header>
+    <ul>
+        <li><a href="/">Information</a></li>
+        <li><a th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">
+            Nutrition Store</a></li>
+        <li><a th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">
+            Trick Center</a></li>
+        <li><a th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">
+            Action History</a></li>
+    </ul>
+</header>
+<main>
+    <ul th:each="action : ${actions}">
+        <li th:text="*{action}"></li>
+    </ul>
+</main>
+</body>
+</html>

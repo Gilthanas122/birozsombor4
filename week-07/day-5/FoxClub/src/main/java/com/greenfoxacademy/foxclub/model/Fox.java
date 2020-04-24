@@ -1,13 +1,17 @@
 package com.greenfoxacademy.foxclub.model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Fox {
   private String name;
-  private List<String> listOfTricks = new ArrayList<>();
+  private List<Trick> listOfTricks = new ArrayList<>();
   private Food food;
   private Drink drink;
+  private LinkedHashMap<Date, Action> actionHistory = new LinkedHashMap<>();
 
   public Fox() {
   }
@@ -16,6 +20,7 @@ public class Fox {
     this.name = name;
     this.food = food;
     this.drink = drink;
+    this.actionHistory.put(new Date(), new Action(name + " is alive."));
   }
 
   public String getName() {
@@ -26,11 +31,11 @@ public class Fox {
     this.name = name;
   }
 
-  public List<String> getListOfTricks() {
+  public List<Trick> getListOfTricks() {
     return listOfTricks;
   }
 
-  public void setListOfTricks(List<String> listOfTricks) {
+  public void setListOfTricks(List<Trick> listOfTricks) {
     this.listOfTricks = listOfTricks;
   }
 
@@ -48,5 +53,23 @@ public class Fox {
 
   public void setDrink(Drink drink) {
     this.drink = drink;
+  }
+
+  public LinkedHashMap<Date, Action> getActionHistory() {
+    return actionHistory;
+  }
+
+  public void setActionHistory(LinkedHashMap<Date, Action> actionHistory) {
+    this.actionHistory = actionHistory;
+  }
+
+  public void addNewTrick(Trick newTrick) {
+    this.listOfTricks.add(newTrick);
+  }
+
+  public String getListAsString() {
+    return this.listOfTricks.stream()
+        .map(Trick::getName)
+        .collect(Collectors.joining(", "));
   }
 }

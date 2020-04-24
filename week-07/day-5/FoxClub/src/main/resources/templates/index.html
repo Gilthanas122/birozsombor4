@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<header>
+    <ul>
+        <li><a href="/">Information</a></li>
+        <li><a href="/nutritionStore">Nutrition Store</a></li>
+        <li><a href="/">Trick Center</a></li>
+        <li><a href="/">Action History</a></li>
+    </ul>
+</header>
+<main>
+    <img src="greenfox.png" alt="greenfox-logo">
+    <div th:if="${selectedFox} != null" th:object="${selectedFox}">
+        <p>This is <span th:text="*{name}"></span>. Currently living on <span
+                th:text="*{food}"></span> and <span th:text="*{drink}"></span>.
+            <span
+                    th:text="'He/she ' +
+                (*{listOfTricks} == null ? 'doesnt know any' : 'knows ' + *{listOfTricks.size()}) +
+                'tricks'"></span></p>
+        <h1>Known tricks</h1>
+        <div th:if="*{listOfTricks}">
+            <ul th:each="trick : *{listOfTricks}">
+                <li th:text="${trick}"></li>
+            </ul>
+        </div>
+        <p th:unless="*{listOfTricks}">You know no tricks, yet. Go and learn some</p>
+    </div>
+    <div th:if="${selectedFox} == null">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>List of tricks</th>
+                <th>Food</th>
+                <th>Drink</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="fox : ${foxes}" th:object="${fox}">
+                <td th:text="*{name}"></td>
+                <td th:text="*{listOfTricks}"></td>
+                <td th:text="*{food}"></td>
+                <td th:text="*{drink}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+
+</body>
+</html>

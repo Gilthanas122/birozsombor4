@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Programmer Fox Club!</h1>
+  </header>
+  <main>
+    <p>Please provide a name, so you can associate it to your pet!</p>
+    <form th:action="@{'/login'}" th:method="post">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name">
+      <button type="submit" name="option" value="go">GO</button>
+      <button type="submit" name="option" value="create">CREATE</button>
+    </form>
+    <p th:if="${alreadyExist} != null"
+       th:text="${alreadyExist} ? 'This name is already exist. Pick another one!' : 'This Fox is not exist yet. For first you should create!'"></p>
+  </main>
+</body>
+</html>

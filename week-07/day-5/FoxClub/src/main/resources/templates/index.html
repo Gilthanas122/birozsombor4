@@ -27,13 +27,17 @@
                     th:text="'He/she ' +
                 (*{listOfTricks} == null ? 'doesnt know any' : 'knows ' + *{listOfTricks.size()}) +
                 ' tricks'"></span></p>
-        <h1>Known tricks</h1>
+        <h2>Known tricks</h2>
         <div th:if="*{listOfTricks}">
             <ul th:each="trick : *{listOfTricks}">
                 <li th:text="${trick.name}"></li>
             </ul>
         </div>
         <p th:if="*{listOfTricks.size() == 0}">You know no tricks, yet. Go and learn some!</p>
+        <h2>Action history</h2>
+        <ul th:each="action : ${actions}">
+            <li th:if="${actionStat.index < 5}" th:text="${action}"></li>
+        </ul>
     </div>
     <div th:if="${selectedFox} == null">
         <table>

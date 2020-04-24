@@ -1,7 +1,6 @@
 package com.greenfoxacademy.foxclub.service;
 
 import com.greenfoxacademy.foxclub.model.Fox;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

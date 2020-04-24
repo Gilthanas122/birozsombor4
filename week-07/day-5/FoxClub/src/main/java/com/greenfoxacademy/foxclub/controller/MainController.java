@@ -1,6 +1,7 @@
 package com.greenfoxacademy.foxclub.controller;
 
 import com.greenfoxacademy.foxclub.model.Fox;
+import com.greenfoxacademy.foxclub.service.ActionService;
 import com.greenfoxacademy.foxclub.service.FoxService;
 import com.greenfoxacademy.foxclub.service.NutritionService;
 import java.util.List;
@@ -14,19 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-  private NutritionService nutritionService;
+  private ActionService actionService;
   private FoxService foxService;
 
   @Autowired
-  public MainController(FoxService foxService, NutritionService nutritionService) {
+  public MainController(FoxService foxService, ActionService actionService) {
     this.foxService = foxService;
-    this.nutritionService = nutritionService;
+    this.actionService = actionService;
   }
 
   @GetMapping(value = "/")
   public String getIndex(@RequestParam(required = false) String name, Model model) {
     model.addAttribute("foxes", foxService.getListOfFoxes());
     model.addAttribute("selectedFox", foxService.getSelectedFoxByName(name));
+    if (name != null) {
+      model.addAttribute("actions",
+          actionService.getActionHistoryAsListOfStringsWithNewActionOnTop(foxService.getSelectedFoxByName(name)));
+    }
     return "index";
   }
 

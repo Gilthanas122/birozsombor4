@@ -3,6 +3,8 @@ package com.greenfoxacademy.foxclub.service;
 import com.greenfoxacademy.foxclub.model.Action;
 import com.greenfoxacademy.foxclub.model.Fox;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,15 @@ public class ActionService {
     return selectedFox.getActionHistory().entrySet().stream()
         .map((entry) -> df.format(entry.getKey()) + " : " + entry.getValue().getDescription())
         .collect(Collectors.toList());
+  }
+
+  public List<String> getActionHistoryAsListOfStringsWithNewActionOnTop(Fox selectedFox) {
+    SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    List<String> list = selectedFox.getActionHistory().entrySet().stream()
+        .map((entry) -> df.format(entry.getKey()) + " : " + entry.getValue().getDescription())
+        .collect(Collectors.toList());
+    Collections.sort(list, Collections.reverseOrder());
+    return list;
   }
 
   public void addNewActionChangeFood(Fox selectedFoxByName, String selectedFood) {

@@ -14,7 +14,7 @@ public class NutritionService {
 
   public NutritionService() {
     listOfFoods = initAllFoods();
-    listOfDrinks =
+    listOfDrinks = initAllDrinks();
   }
 
   public List<Food> initAllFoods() {
@@ -29,10 +29,10 @@ public class NutritionService {
   }
 
   public List<Drink> initAllDrinks() {
-    return Arrays.asList( new Drink("wein"),
-        new Drink("wein"),
-        new Drink("wein"),
-        new Drink("wein"),
+    return Arrays.asList(new Drink("wein"),
+        new Drink("coke"),
+        new Drink("water"),
+        new Drink("beer"));
   }
 
   public List<Food> getListOfFoods() {
@@ -49,5 +49,27 @@ public class NutritionService {
 
   public void setListOfDrinks(List<Drink> listOfDrinks) {
     this.listOfDrinks = listOfDrinks;
+  }
+
+  public Food getSelectedFood(String name) {
+    Food selectedFood = null;
+    for (Food food : listOfFoods) {
+      if (food.getName().toLowerCase().equals(name.toLowerCase())) {
+        selectedFood = food;
+        break;
+      }
+    }
+    return selectedFood;
+  }
+
+  public Drink getSelectedDrink(String name) {
+    Drink selectedDrink = null;
+    for (Drink drink : listOfDrinks) {
+      if (drink.getName().toLowerCase().equals(name.toLowerCase())) {
+        selectedDrink = drink;
+        break;
+      }
+    }
+    return selectedDrink;
   }
 }

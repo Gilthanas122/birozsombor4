@@ -5,22 +5,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FoxService {
 
-  private List<Fox> listOfFoxes = new ArrayList<>();
+  private List<Fox> listOfFoxes;
+  private NutritionService nutritionService;
 
-  public FoxService() {
+  @Autowired
+  public FoxService(NutritionService nutritionService) {
+    this.nutritionService = nutritionService;
     this.listOfFoxes = initAllFoxes();
   }
 
   private List<Fox> initAllFoxes() {
-    return Arrays.asList(new Fox("Karak", "tás", "water"),
-        new Fox("Vuk", "unka", "coke"),
-        new Fox("Kag", "liba", "wein"),
-        new Fox("Mr. Green", "salad", "water")
+    return Arrays.asList(new Fox("Karak",
+            nutritionService.getSelectedFood("hotdog"),
+            nutritionService.getSelectedDrink("coke")),
+        new Fox("Vuk",
+            nutritionService.getSelectedFood("pizza"),
+            nutritionService.getSelectedDrink("water")),
+        new Fox("Kag",
+            nutritionService.getSelectedFood("bread"),
+            nutritionService.getSelectedDrink("beer")),
+        new Fox("Mr. Green",
+            nutritionService.getSelectedFood("salad"),
+            nutritionService.getSelectedDrink("water"))
     );
   }
 
@@ -36,15 +48,19 @@ public class FoxService {
   }
 
   public void createNewFoxWithNameAndAddToTheList(String name) {
-    listOfFoxes.add(new Fox(name, "default", "default"));
+    listOfFoxes.add(new Fox(name,
+        nutritionService.getSelectedFood("bread"),
+        nutritionService.getSelectedDrink("water")));
   }
 
   public Fox getSelectedFoxByName(String name) {
+    Fox fox = null;
     for (Fox f : listOfFoxes) {
       if (f.getName().equals(name)) {
-        return f;
+        fox = f;
+        break;
       }
     }
-    return null;
+    return fox;
   }
 }

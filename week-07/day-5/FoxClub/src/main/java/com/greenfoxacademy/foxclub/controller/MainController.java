@@ -1,6 +1,7 @@
 package com.greenfoxacademy.foxclub.controller;
 
 import com.greenfoxacademy.foxclub.service.FoxService;
+import com.greenfoxacademy.foxclub.service.NutritionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
+  private NutritionService nutritionService;
   private FoxService foxService;
 
   @Autowired
-  public MainController(FoxService foxService) {
+  public MainController(FoxService foxService, NutritionService nutritionService) {
     this.foxService = foxService;
+    this.nutritionService = nutritionService;
   }
 
   @GetMapping(value = "/")
@@ -55,10 +58,4 @@ public class MainController {
     }
     return null;
   }
-
-  @GetMapping(value = "/nutritionStore")
-  public String getNutritionStoreView() {
-    return "nutritionstore";
-  }
-
 }

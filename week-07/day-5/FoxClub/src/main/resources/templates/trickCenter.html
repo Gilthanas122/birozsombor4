@@ -3,8 +3,9 @@
       html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Trick Center</title>
 </head>
 <body>
@@ -23,16 +24,27 @@
     <div th:if="${tricks.size()} != 0">
         <p>Here you can train you little fox!</p>
         <form th:action="@{'/trickCenter?name=' + ${selectedFox.name}}" th:method="post">
-            <label for="trick">Tricks</label>
+            <label for="trick">Unlearned Tricks</label>
             <select name="selectedTrick" id="trick">
                 <option th:each="trick : ${tricks}" th:value="${trick.name}"
                         th:text="${trick.name}">
             </select>
             <button type="submit">Learn</button>
         </form>
+        <form th:action="@{'/performTrick?name=' + ${selectedFox.name}}" th:method="post">
+            <label for="performTrick">Learned Tricks</label>
+            <select name="performedTrick" id="performTrick">
+                <option th:each="learnedTrick : ${learnedTricks}" th:value="${learnedTrick.name}"
+                        th:text="${learnedTrick.name}">
+            </select>
+            <button type="submit">Perform</button>
+        </form>
     </div>
     <div th:if="${tricks.size()} == 0">
         <p>Your fox knows everything. :)</p>
+    </div>
+    <div class="performed-trick" th:if="${performedTrick} != null" th:object="${performedTrick}">
+        <img th:src="*{url}" th:alt="*{alt}" width="300px">
     </div>
 </main>
 </body>

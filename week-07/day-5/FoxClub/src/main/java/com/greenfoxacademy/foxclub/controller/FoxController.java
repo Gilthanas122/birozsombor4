@@ -52,10 +52,17 @@ public class FoxController {
   }
 
   @GetMapping(value = "/trickCenter")
-  public String getTrickCenterView(@RequestParam String name, Model model) {
+  public String getTrickCenterView(@RequestParam String name,
+                                   @RequestParam(required = false) String performedTrick,
+                                   Model model) {
     model.addAttribute("tricks",
         trickService.getUnlearnedListOfTricks(foxService.getSelectedFoxByName(name)));
     model.addAttribute("selectedFox", foxService.getSelectedFoxByName(name));
+    model.addAttribute("learnedTricks",
+        trickService.getLearnedListOfTricks(foxService.getSelectedFoxByName(name)));
+    if (performedTrick != null) {
+      model.addAttribute("performedTrick", trickService.getTrickByName(performedTrick));
+    }
     return "trickCenter";
   }
 
@@ -65,6 +72,12 @@ public class FoxController {
     actionService.addNewActionLearnTrick(foxService.getSelectedFoxByName(name), selectedTrick);
     foxService.getSelectedFoxByName(name).addNewTrick(trickService.getSelectedTrick(selectedTrick));
     return "redirect:/?name=" + name;
+  }
+
+  @PostMapping(value = "/performTrick")
+  public String performALearnedTrick(@RequestParam String name, Model model,
+                                     String performedTrick) {
+    return "redirect:/trickCenter?name=" + name + "&performedTrick=" + performedTrick;
   }
 
   @GetMapping(value = "/actionHistory")

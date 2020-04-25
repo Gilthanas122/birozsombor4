@@ -68,3 +68,13 @@ button{
 table button {
   width: 100%;
 }
+select, option {
+    width:150px;
+    margin-bottom: 10px;
+}
+.performed-trick {
+  margin-top: 20px;
+}
+.performed-trick img {
+  border-radius: 20px;
+}

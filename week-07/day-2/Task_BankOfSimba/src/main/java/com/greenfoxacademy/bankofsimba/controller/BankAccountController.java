@@ -26,14 +26,14 @@ public class BankAccountController {
   public String showSimbasAccount(Model model) {
     BankAccount simba = new BankAccount("Simba", 2000, "lion", "good");
     model.addAttribute("simba", simba);
-    return "simba";
+    return "simbasAccount";
   }
 
   @GetMapping(value = ("/utext"))
   public String show(Model model) {
     String message = "This is an <em>HTML</em> text. <b>Enjoy yourself!</b>";
     model.addAttribute("message", message);
-    return "simba";
+    return "simbasAccount";
   }
 
   @GetMapping(value = ("/accounts"))

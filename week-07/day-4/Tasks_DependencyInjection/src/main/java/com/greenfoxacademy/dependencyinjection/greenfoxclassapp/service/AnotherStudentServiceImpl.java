@@ -52,7 +52,7 @@ public class AnotherStudentServiceImpl implements StudentService {
     return names.size();
   }
 
-  public boolean checkIfIsItExist(String name) {
+  public boolean checkIfExist(String name) {
     return names.stream()
         .map(names -> names.toLowerCase())
         .collect(Collectors.toList())

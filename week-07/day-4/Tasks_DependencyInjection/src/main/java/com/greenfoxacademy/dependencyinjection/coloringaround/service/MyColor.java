@@ -7,7 +7,7 @@ package com.greenfoxacademy.dependencyinjection.coloringaround.service;
 import com.greenfoxacademy.dependencyinjection.hellodiproject.service.Printer;
 
 public interface MyColor {
-  public void printColor(Printer printer);
+  public void printColor();
 }
 
 // Any kind of color class (for i.e. RedColor) can implement this interface overriding `printColor();` sout-ing for i.e. `"It is red in color..."`.

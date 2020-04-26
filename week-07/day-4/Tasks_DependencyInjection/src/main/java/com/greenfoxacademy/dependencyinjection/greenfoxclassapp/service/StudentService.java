@@ -9,5 +9,5 @@ public interface StudentService {
 
   public int count();
 
-  public boolean checkIfIsItExist(String name);
+  public boolean checkIfExist(String name);
 }

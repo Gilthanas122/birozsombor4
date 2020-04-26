@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UsefulUtilController {
 
-  UtilityService utilityService;
+  private UtilityService utilityService;
 
   @Autowired
   public UsefulUtilController(UtilityService utilityService) {

@@ -11,11 +11,7 @@ public class BankAccount {
   }
 
   public BankAccount(String name, int balance, String animalType, String alignment) {
-    this.name = name;
-    this.balance = balance;
-    this.animalType = animalType;
-    this.king = false;
-    this.alignment = alignment;
+    this(name, balance, animalType, false, alignment);
   }
 
   public BankAccount(String name, int balance, String animalType, boolean isKing, String alignment) {

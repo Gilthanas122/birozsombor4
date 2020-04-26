@@ -27,6 +27,6 @@ public class DependencyInjectionApplication implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     printer.log("hello");
-    myColor.printColor(printer);
+    myColor.printColor();
   }
 }

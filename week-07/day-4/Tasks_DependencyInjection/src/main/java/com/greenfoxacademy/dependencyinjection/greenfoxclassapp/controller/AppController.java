@@ -47,7 +47,7 @@ public class AppController {
 
   @PostMapping("/gfa/check")
   public String checkingStudent(String name, Model model) {
-    model.addAttribute("exist", studentService.checkIfIsItExist(name));
+    model.addAttribute("exist", studentService.checkIfExist(name));
     model.addAttribute("name", name);
     return "check";
   }

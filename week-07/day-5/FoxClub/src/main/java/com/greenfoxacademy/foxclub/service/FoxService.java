@@ -1,6 +1,7 @@
 package com.greenfoxacademy.foxclub.service;
 
 import com.greenfoxacademy.foxclub.model.Fox;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,23 +17,23 @@ public class FoxService {
   @Autowired
   public FoxService(NutritionService nutritionService) {
     this.nutritionService = nutritionService;
-    this.listOfFoxes = initAllFoxes();
+    this.listOfFoxes = new ArrayList<>();
+    initAllFoxes();
   }
 
-  private List<Fox> initAllFoxes() {
-    return Arrays.asList(new Fox("Karak",
-            nutritionService.getSelectedFood("hotdog"),
-            nutritionService.getSelectedDrink("coke")),
-        new Fox("Vuk",
-            nutritionService.getSelectedFood("pizza"),
-            nutritionService.getSelectedDrink("water")),
-        new Fox("Kag",
-            nutritionService.getSelectedFood("bread"),
-            nutritionService.getSelectedDrink("beer")),
-        new Fox("Mr. Green",
-            nutritionService.getSelectedFood("salad"),
-            nutritionService.getSelectedDrink("water"))
-    );
+  private void initAllFoxes() {
+    this.listOfFoxes.add(new Fox("Karak",
+        nutritionService.getSelectedFood("hotdog"),
+        nutritionService.getSelectedDrink("coke")));
+    this.listOfFoxes.add(new Fox("Vuk",
+        nutritionService.getSelectedFood("pizza"),
+        nutritionService.getSelectedDrink("water")));
+    this.listOfFoxes.add(new Fox("Kag",
+        nutritionService.getSelectedFood("bread"),
+        nutritionService.getSelectedDrink("beer")));
+    this.listOfFoxes.add(new Fox("Mr. Green",
+        nutritionService.getSelectedFood("salad"),
+        nutritionService.getSelectedDrink("water")));
   }
 
   public List<Fox> getListOfFoxes() {

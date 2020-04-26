@@ -1,7 +1,5 @@
 package com.greenfoxacademy.foxclub.controller;
 
-import com.greenfoxacademy.foxclub.model.Drink;
-import com.greenfoxacademy.foxclub.model.Food;
 import com.greenfoxacademy.foxclub.service.ActionService;
 import com.greenfoxacademy.foxclub.service.FoxService;
 import com.greenfoxacademy.foxclub.service.NutritionService;
@@ -32,17 +30,18 @@ public class FoxController {
 
   @GetMapping(value = "/nutritionStore")
   public String getNutritionStoreView(@RequestParam String name, Model model) {
-    //nutritionService.markSelectedFood(foxService.getSelectedFoxByName(name));
+    model.addAttribute("lastSelectedFoodIndex",
+        nutritionService.getLastSelectedFoodIndex(foxService.getSelectedFoxByName(name)));
+    model.addAttribute("lastSelectedDrinkIndex",
+        nutritionService.getLastSelectedDrinkIndex(foxService.getSelectedFoxByName(name)));
     model.addAttribute("foods", nutritionService.getListOfFoods());
     model.addAttribute("drinks", nutritionService.getListOfDrinks());
     model.addAttribute("selectedFox", foxService.getSelectedFoxByName(name));
-    //nutritionService.unmarkAllFood();
     return "nutritionStore";
   }
 
   @PostMapping(value = "/nutritionStore")
-  public String changeNutritionForFox(@RequestParam String name, Model model,
-                                      String selectedFood,
+  public String changeNutritionForFox(@RequestParam String name, String selectedFood,
                                       String selectedDrink) {
     actionService.addNewActionChangeFood(foxService.getSelectedFoxByName(name), selectedFood);
     actionService.addNewActionChangeDrink(foxService.getSelectedFoxByName(name), selectedDrink);
@@ -67,16 +66,14 @@ public class FoxController {
   }
 
   @PostMapping(value = "/trickCenter")
-  public String learnANewTrick(@RequestParam String name, Model model,
-                               String selectedTrick) {
+  public String learnANewTrick(@RequestParam String name, String selectedTrick) {
     actionService.addNewActionLearnTrick(foxService.getSelectedFoxByName(name), selectedTrick);
     foxService.getSelectedFoxByName(name).addNewTrick(trickService.getSelectedTrick(selectedTrick));
     return "redirect:/?name=" + name;
   }
 
   @PostMapping(value = "/performTrick")
-  public String performALearnedTrick(@RequestParam String name, Model model,
-                                     String performedTrick) {
+  public String performALearnedTrick(@RequestParam String name, String performedTrick) {
     return "redirect:/trickCenter?name=" + name + "&performedTrick=" + performedTrick;
   }
 

@@ -2,7 +2,6 @@ package com.greenfoxacademy.foxclub.model;
 
 public class Drink {
   private String name;
-  private boolean isSelected = false;
 
   public Drink(String name) {
     this.name = name;
@@ -16,11 +15,4 @@ public class Drink {
     this.name = name;
   }
 
-  public boolean getIsSelected() {
-    return isSelected;
-  }
-
-  public void setIsSelected(boolean selected) {
-    isSelected = selected;
-  }
 }

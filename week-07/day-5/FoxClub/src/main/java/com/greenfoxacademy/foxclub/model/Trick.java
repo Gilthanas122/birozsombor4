@@ -2,12 +2,12 @@ package com.greenfoxacademy.foxclub.model;
 
 public class Trick {
   private String name;
-  private String url;
+  private String imageSrc;
   private String alt;
 
-  public Trick(String name, String url, String alt) {
+  public Trick(String name, String imageSrc, String alt) {
     this.name = name;
-    this.url = url;
+    this.imageSrc = imageSrc;
     this.alt = alt;
   }
 
@@ -19,12 +19,12 @@ public class Trick {
     this.name = name;
   }
 
-  public String getUrl() {
-    return url;
+  public String getImageSrc() {
+    return imageSrc;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setUrl(String imageSrc) {
+    this.imageSrc = imageSrc;
   }
 
   public String getAlt() {

@@ -3,8 +3,9 @@
       html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Nutrition Store</title>
 </head>
 <body>
@@ -12,11 +13,11 @@
     <ul>
         <li><a th:href="@{'/?name=' + ${selectedFox.name}}">Information</a></li>
         <li><a th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">
-          Nutrition Store</a></li>
+            Nutrition Store</a></li>
         <li><a th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">
-          Trick Center</a></li>
+            Trick Center</a></li>
         <li><a th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">
-          Action History</a></li>
+            Action History</a></li>
     </ul>
 </header>
 <main>
@@ -25,12 +26,13 @@
         <label for="food">Food</label>
         <select name="selectedFood" id="food">
             <option th:each="food : ${foods}" th:value="${food.name}" th:text="${food.name}"
-                    th:selected="${food.getIsSelected() == true}">
+                    th:selected="${foodStat.index == lastSelectedFoodIndex}">
         </select>
         <label for="drink">Drink</label>
         <select name="selectedDrink" id="drink">
             <option th:each="drink : ${drinks}" th:value="${drink.name}"
-                    th:text="${drink.name}">
+                    th:text="${drink.name}"
+                    th:selected="${drinkStat.index == lastSelectedDrinkIndex}">
         </select>
         <button type="submit">Change</button>
     </form>

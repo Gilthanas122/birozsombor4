@@ -44,7 +44,7 @@
         <p>Your fox knows everything. :)</p>
     </div>
     <div class="performed-trick" th:if="${performedTrick} != null" th:object="${performedTrick}">
-        <img th:src="*{url}" th:alt="*{alt}" width="300px">
+        <img th:src="*{imageSrc}" th:alt="*{alt}" width="300px">
     </div>
 </main>
 </body>

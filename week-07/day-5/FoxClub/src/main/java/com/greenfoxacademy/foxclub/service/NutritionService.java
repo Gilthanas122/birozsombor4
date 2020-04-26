@@ -75,17 +75,21 @@ public class NutritionService {
   }
 
 
-  /*public void markSelectedFood(Fox selectedFoxByName) {
-    for(Food food : listOfFoods){
-      if(food.getName().equals(selectedFoxByName.getFood().getName())){
-        food.setIsSelected(true);
+  public int getLastSelectedFoodIndex(Fox selectedFoxByName) {
+    for (Food food : listOfFoods) {
+      if (food.getName().equals(selectedFoxByName.getFood().getName())) {
+        return listOfFoods.indexOf(food);
       }
     }
+    return 0;
   }
 
-  public void unmarkAllFood() {
-    for (Food food : listOfFoods){
-      food.setIsSelected(false);
+  public int getLastSelectedDrinkIndex(Fox selectedFoxByName) {
+    for (Drink drink : listOfDrinks) {
+      if (drink.getName().equals(selectedFoxByName.getDrink().getName())) {
+        return listOfDrinks.indexOf(drink);
+      }
     }
-  }*/
+    return 0;
+  }
 }

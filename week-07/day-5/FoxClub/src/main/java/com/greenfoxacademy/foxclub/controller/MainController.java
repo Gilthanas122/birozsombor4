@@ -1,10 +1,7 @@
 package com.greenfoxacademy.foxclub.controller;
 
-import com.greenfoxacademy.foxclub.model.Fox;
 import com.greenfoxacademy.foxclub.service.ActionService;
 import com.greenfoxacademy.foxclub.service.FoxService;
-import com.greenfoxacademy.foxclub.service.NutritionService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

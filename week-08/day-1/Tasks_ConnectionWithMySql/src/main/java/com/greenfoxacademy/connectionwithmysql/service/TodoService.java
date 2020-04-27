@@ -3,6 +3,7 @@ package com.greenfoxacademy.connectionwithmysql.service;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.repository.TodoRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,6 +58,7 @@ public class TodoService {
   }
 
   public void updateATodoInDatabase(Todo todo) {
+    todo.setDateOfCreation(new Date());
     todoRepository.save(todo);
   }
 }

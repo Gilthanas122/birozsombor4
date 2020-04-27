@@ -47,4 +47,16 @@ public class TodoService {
       todoRepository.delete(selectedTodo.get());
     }
   }
+
+  public Todo getATodoById(Long id) {
+    Optional<Todo> selectedTodo = todoRepository.findById(id);
+    if (selectedTodo.isPresent()) {
+      return selectedTodo.get();
+    }
+    return null;
+  }
+
+  public void updateATodoInDatabase(Todo todo) {
+    todoRepository.save(todo);
+  }
 }

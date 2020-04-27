@@ -54,4 +54,16 @@ public class TodoController {
     return "redirect:/list";
   }
 
+  @GetMapping(value = "/{id}/edit")
+  public String getEditViewById(@PathVariable Long id, Model model) {
+    model.addAttribute("selectedTodo", todoService.getATodoById(id));
+    return "edit";
+  }
+
+  @PostMapping(value = "/edit")
+  public String editATodo(@ModelAttribute Todo editedTodo) {
+    todoService.updateATodoInDatabase(editedTodo);
+    return "redirect:/list";
+  }
+
 }

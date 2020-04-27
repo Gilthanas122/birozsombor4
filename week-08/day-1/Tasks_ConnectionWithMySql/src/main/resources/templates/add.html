@@ -6,7 +6,6 @@
 </head>
 <body>
 <h1>Add new todo</h1>
-<a th:href="@{'/addtodo'}">Add new todo</a>
 <form th:object="${newTodo}" th:action="@{'/add'}" th:method="post">
     <input type="text" th:field="*{title}" required>
     <input type="submit">

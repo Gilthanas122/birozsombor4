@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Inspect Todo</h1>
+<ul>
+    <li th:text="|ID: ${selectedTodo.id}|"></li>
+    <li th:text="|Description: ${selectedTodo.title}|"></li>
+    <li th:text="|Urgent: ${selectedTodo.urgent}|"></li>
+    <li th:text="|Done: ${selectedTodo.done}|"></li>
+    <li th:text="|Date of Creation: ${selectedTodo.dateOfCreation}|"></li>
+</ul>
+<a th:href="@{'/list'}">Cancel</a>
+</body>
+</html>

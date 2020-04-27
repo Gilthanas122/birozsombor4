@@ -66,4 +66,10 @@ public class TodoController {
     return "redirect:/list";
   }
 
+  @GetMapping(value = "/{id}/inspect")
+  public String getInspectViewById(@PathVariable Long id, Model model) {
+    model.addAttribute("selectedTodo", todoService.getATodoById(id));
+    return "inspect";
+  }
+
 }

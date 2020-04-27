@@ -23,7 +23,7 @@ public class ConnectionWithMysqlApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    /*todoRepository.save(new Todo("daily task", false, false));
+    todoRepository.save(new Todo("daily task", false, false));
     todoRepository.save(new Todo("make the beds", true, true));
     todoRepository.save(new Todo("do the washing up", true, false));
     todoRepository.save(new Todo("clean the bathroom and the kitchen", true, true));
@@ -37,6 +37,6 @@ public class ConnectionWithMysqlApplication implements CommandLineRunner {
     todoRepository.save(new Todo("mop", true, true));
     todoRepository.save(new Todo("vacuum the carpet", false, false));
     todoRepository.save(new Todo("vacuum cleaner / hoover", true, true));
-    todoRepository.save(new Todo("dust the furniture", true, false));*/
+    todoRepository.save(new Todo("dust the furniture", true, false));
   }
 }

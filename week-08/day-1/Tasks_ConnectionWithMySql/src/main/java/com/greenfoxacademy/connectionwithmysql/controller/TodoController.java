@@ -3,11 +3,13 @@ package com.greenfoxacademy.connectionwithmysql.controller;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.repository.TodoRepository;
 import com.greenfoxacademy.connectionwithmysql.service.TodoService;
+import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +45,12 @@ public class TodoController {
   @PostMapping(value = "/add")
   public String addNewTodo(@ModelAttribute Todo todo) {
     todoService.addNewTodo(todo);
+    return "redirect:/list";
+  }
+
+  @GetMapping(value = "/{id}/delete")
+  public String deleteTodo(@PathVariable Long id) {
+    todoService.deleteATodoById(id);
     return "redirect:/list";
   }
 

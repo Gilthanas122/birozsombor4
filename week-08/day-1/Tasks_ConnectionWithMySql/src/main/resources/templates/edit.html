@@ -6,9 +6,7 @@
 </head>
 <body>
 <h1>Edit Todo</h1>
-<form th:object="${selectedTodo}" th:action="@{'/edit'}" th:method="post">
-    <label for="id">Id</label>
-    <input id="id" type="number" th:field="*{id}" th:value="*{id}" readonly="readonly"><br>
+<form th:object="${selectedTodo}" th:action="@{'/edit/' + ${selectedTodo.id}}" method="post">
     <label for="description">Todo description</label>
     <input id="description" type="text" th:field="*{title}" th:value="*{title}" required><br>
     <label for="urgent">Urgent</label>

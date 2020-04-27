@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,8 +61,8 @@ public class TodoController {
     return "edit";
   }
 
-  @PostMapping(value = "/edit")
-  public String editATodo(@ModelAttribute Todo editedTodo) {
+  @PostMapping(value = "/edit/{id}")
+  public String editATodo(@PathVariable Long id, @ModelAttribute Todo editedTodo) {
     todoService.updateATodoInDatabase(editedTodo);
     return "redirect:/list";
   }

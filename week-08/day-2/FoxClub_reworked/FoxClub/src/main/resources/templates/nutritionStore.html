@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
+    <title>Nutrition Store</title>
+</head>
+<body>
+<header>
+    <ul>
+        <li><a th:href="@{'/?username=' + ${selectedUser.username}}">Information</a></li>
+        <li><a th:href="@{'/nutritionStore?username=' + ${selectedUser.username}}">
+            Nutrition Store</a></li>
+        <li><a th:href="@{'/trickCenter?username=' + ${selectedUser.username}}">
+            Trick Center</a></li>
+        <li><a th:href="@{'/actionHistory?username=' + ${selectedUser.username}}">
+            Action History</a></li>
+    </ul>
+</header>
+<main>
+    <p>Here you can change the food and drink for your pet!</p>
+    <form th:action="@{'/nutritionStore?username=' + ${selectedUser.username}}" th:method="post">
+        <label for="food">Food</label>
+        <select name="selectedFood" id="food">
+            <option th:each="food : ${foods}" th:value="${food.name}" th:text="${food.name}"
+                    th:selected="${foodStat.index == lastSelectedFoodIndex}">
+        </select>
+        <label for="drink">Drink</label>
+        <select name="selectedDrink" id="drink">
+            <option th:each="drink : ${drinks}" th:value="${drink.name}"
+                    th:text="${drink.name}"
+                    th:selected="${drinkStat.index == lastSelectedDrinkIndex}">
+        </select>
+        <button type="submit">Change</button>
+    </form>
+</main>
+</body>
+</html>

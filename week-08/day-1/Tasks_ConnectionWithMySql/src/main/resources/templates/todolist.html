@@ -6,12 +6,26 @@
 </head>
 <body>
 <h1>Todos for today:</h1>
-<a th:href="@{'/add'}">Add new todo</a>
+<form th:action="@{/search}" th:method="post">
+    <label for="searchText">Search text</label>
+    <input id="searchText" type="text" name="searchText">
+    <label>by</label>
+    <select name="searchField">
+        <option value="title">title</option>
+        <option value="content">content</option>
+        <option value="description">description</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+<a th:href="@{'/addTodo'}">Add new todo</a>
+<a th:href="@{'/listOfAssignees'}">List of Assignees</a>
 <table>
     <thead>
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Content</th>
+        <th>Description</th>
         <th>Urgent</th>
         <th>Done</th>
         <th>Date of creation</th>
@@ -21,11 +35,13 @@
     <tr th:each="todo : ${todos}" th:object="${todo}">
         <td th:text="*{id}"></td>
         <td><a th:href="@{|/${todo.id}/inspect|}"><span th:text="*{title}"></span></a></td>
+        <td th:text="*{content}"></td>
+        <td th:text="*{description}"></td>
         <td th:text="*{urgent}"></td>
         <td th:text="*{done}"></td>
         <td th:text="*{dateOfCreation}"></td>
-        <td><a th:href="@{|/${todo.id}/delete|}">delete</a></td>
-        <td><a th:href="@{|/${todo.id}/edit|}">edit</a></td>
+        <td><a th:href="@{|/${todo.id}/deleteTodo|}">delete</a></td>
+        <td><a th:href="@{|/${todo.id}/editTodo|}">edit</a></td>
     </tr>
     </tbody>
 </table>

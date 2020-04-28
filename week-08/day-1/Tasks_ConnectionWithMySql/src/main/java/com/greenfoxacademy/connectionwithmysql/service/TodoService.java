@@ -61,4 +61,16 @@ public class TodoService {
     todo.setDateOfCreation(new Date());
     todoRepository.save(todo);
   }
+
+  public List<Todo> getTodosByTitle(String searchText) {
+    return todoRepository.findAllByTitleContainingIgnoreCase(searchText);
+  }
+
+  public List<Todo> getTodosByDescription(String searchText) {
+    return todoRepository.findAllByDescriptionContainingIgnoreCase(searchText);
+  }
+
+  public List<Todo> getTodosByContent(String searchText) {
+    return todoRepository.findAllByContentContainingIgnoreCase(searchText);
+  }
 }

@@ -6,13 +6,19 @@
 </head>
 <body>
 <h1>Edit Todo</h1>
-<form th:object="${selectedTodo}" th:action="@{'/edit/' + ${selectedTodo.id}}" method="post">
+<form th:object="${selectedTodo}"
+      th:action="@{'/editTodo/' + ${selectedTodo.id}}" method="post">
     <label for="description">Todo description</label>
     <input id="description" type="text" th:field="*{title}" th:value="*{title}" required><br>
     <label for="urgent">Urgent</label>
     <input id="urgent" type="checkbox" th:field="*{urgent}" th:value="*{urgent}"><br>
     <label for="done">Done</label>
     <input id="done" type="checkbox" th:field="*{done}" th:value="*{done}"><br>
+    <label for="assignee">Assignee</label>
+    <select id="assignee" th:field="*{assignee}" th:object="${selectedTodo.assignee}"  name="assignee">
+        <option th:each="assignee : ${assignees}" th:value="${assignee.name}"
+                th:text="${assignee.name}"></option>
+    </select><br>
     <input type="submit">
 </form>
 <a th:href="@{'/list'}">Cancel</a>

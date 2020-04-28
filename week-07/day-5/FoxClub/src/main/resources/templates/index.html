@@ -3,15 +3,18 @@
       html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Home</title>
 </head>
 <body>
 <header>
     <ul>
         <li><a href="/">Information</a></li>
-        <li th:if="${selectedFox} == null"><a href="/login">Login</a></li>
+        <li><a href="/loginWithUser">Login with userName</a></li>
+        <li th:if="${selectedFox} == null"><a href="/login">Login with foxName</a></li>
+        <li th:if="${selectedFox} == null"><a href="/register">Register</a></li>
         <li th:if="${selectedFox} != null"><a
                 th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">Nutrition Store</a></li>
         <li th:if="${selectedFox} != null"><a

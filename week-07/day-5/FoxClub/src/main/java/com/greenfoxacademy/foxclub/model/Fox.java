@@ -5,12 +5,34 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+@Entity
 public class Fox {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn
+  private User user;
+
   private String name;
+  @Transient
   private List<Trick> listOfTricks = new ArrayList<>();
+  @Transient
   private Food food;
+  @Transient
   private Drink drink;
+  @Transient
   private LinkedHashMap<Date, Action> actionHistory = new LinkedHashMap<>();
 
   public Fox() {

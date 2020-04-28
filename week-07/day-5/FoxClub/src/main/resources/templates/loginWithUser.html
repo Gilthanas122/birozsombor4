@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/style.css}"/>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
           rel="stylesheet">
-    <title>Login</title>
+    <title>Login with User</title>
 </head>
 <body>
 <header>
@@ -19,15 +19,16 @@
     </ul>
 </header>
 <main>
-    <p>Please provide a name, so you can associate it to your pet!</p>
-    <form th:action="@{'/login'}" th:method="post">
-        <label for="name">Name</label>
-        <input id="name" type="text" name="name">
-        <button type="submit" name="option" value="go">GO</button>
-        <button type="submit" name="option" value="create">CREATE</button>
+    <p>Please login with your User!</p>
+    <form th:action="@{'/loginWithUser'}" th:method="post">
+        <label for="name">Username</label>
+        <input id="name" type="text" name="username">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password">
+        <button type="submit">LOGIN</button>
     </form>
-    <p th:if="${alreadyExist} != null"
-       th:text="${alreadyExist} ? 'This name is already exist. Pick another one!' : 'This Fox is not exist yet. For first you should create!'"></p>
+    <p th:if="${invalidUserdata} != null"
+       th:text="'Invalid userdata!'"></p>
 </main>
 </body>
 </html>

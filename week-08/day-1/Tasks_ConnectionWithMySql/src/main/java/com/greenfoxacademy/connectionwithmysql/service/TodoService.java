@@ -1,7 +1,10 @@
 package com.greenfoxacademy.connectionwithmysql.service;
 
+import com.greenfoxacademy.connectionwithmysql.model.Assignee;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.repository.TodoRepository;
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,10 +17,12 @@ import org.springframework.stereotype.Service;
 public class TodoService {
 
   private TodoRepository todoRepository;
+  private AssigneeService assigneeService;
 
   @Autowired
-  public TodoService(TodoRepository todoRepository) {
+  public TodoService(TodoRepository todoRepository, AssigneeService assigneeService) {
     this.todoRepository = todoRepository;
+    this.assigneeService = assigneeService;
   }
 
   public Iterable<Todo> getTodosFromDatabase() {
@@ -57,8 +62,15 @@ public class TodoService {
     return null;
   }
 
-  public void updateATodoInDatabase(Todo todo) {
+  public void updateATodoInDatabase(Todo todo, Long selectedAssigneeId, String dateOfDue) {
+    Assignee assignee = assigneeService.getAnAssigneeById(selectedAssigneeId);
+    todo.setAssignee(assignee);
     todo.setDateOfCreation(new Date());
+    todo.setDateOfDueWithStringParameter(dateOfDue);
+    ArrayList<Todo> updatedTodos = new ArrayList<>();
+    updatedTodos.add(todo);
+    assignee.setTodos(updatedTodos);
+    assigneeService.updateAnAssigneeInDatabase(assignee);
     todoRepository.save(todo);
   }
 
@@ -72,5 +84,28 @@ public class TodoService {
 
   public List<Todo> getTodosByContent(String searchText) {
     return todoRepository.findAllByContentContainingIgnoreCase(searchText);
+  }
+
+  public Date convertStringToDate(String date) {
+    try {
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      return format.parse(date);
+    } catch (Exception e) {
+      System.out.println("Failed date parsing");
+      System.exit(-1);
+    }
+    return null;
+  }
+
+  public List<Todo> getTodosByDateOfCreation(Date searchDate) {
+    return todoRepository.findAllByDateOfCreation(searchDate);
+  }
+
+  public List<Todo> getTodosByDateOfDue(Date searchDate) {
+    return todoRepository.findAllByDateOfDue(searchDate);
+  }
+
+  public List<Todo> getTodosByAssigneeName(String name) {
+    return todoRepository.findByNames(name);
   }
 }

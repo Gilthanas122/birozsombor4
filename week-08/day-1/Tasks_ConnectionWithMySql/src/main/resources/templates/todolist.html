@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Todos for today:</h1>
-<form th:action="@{/search}" th:method="post">
+<form th:action="@{/searchByTextFields}" th:method="post">
     <label for="searchText">Search text</label>
     <input id="searchText" type="text" name="searchText">
     <label>by</label>
@@ -15,6 +15,21 @@
         <option value="content">content</option>
         <option value="description">description</option>
     </select>
+    <button type="submit">Search</button>
+</form>
+<form th:action="@{/searchByDate}" th:method="post">
+    <label for="searchDate">Search text</label>
+    <input id="searchDate" type="date" pattern="yyyy-MM-dd" name="searchDate">
+    <label>by</label>
+    <select name="searchDateOption">
+        <option value="dueDate">dueDate</option>
+        <option value="creationDate">creation</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+<form th:action="@{/searchByAssigneeName}" th:method="post">
+    <label for="searchName">Search text</label>
+    <input id="searchName" type="text" name="searchName">
     <button type="submit">Search</button>
 </form>
 <a th:href="@{'/addTodo'}">Add new todo</a>
@@ -29,6 +44,8 @@
         <th>Urgent</th>
         <th>Done</th>
         <th>Date of creation</th>
+        <th>Date of due</th>
+        <th>Assignee</th>
     </tr>
     </thead>
     <tbody>
@@ -40,6 +57,9 @@
         <td th:text="*{urgent}"></td>
         <td th:text="*{done}"></td>
         <td th:text="*{dateOfCreation}"></td>
+        <td th:text="*{dateOfDue}"></td>
+        <td th:if="${todo.assignee} != null" th:text="*{assignee.name}"></td>
+        <td th:if="${todo.assignee} == null" th:text="|No Assignee selected yet|"></td>
         <td><a th:href="@{|/${todo.id}/deleteTodo|}">delete</a></td>
         <td><a th:href="@{|/${todo.id}/editTodo|}">edit</a></td>
     </tr>

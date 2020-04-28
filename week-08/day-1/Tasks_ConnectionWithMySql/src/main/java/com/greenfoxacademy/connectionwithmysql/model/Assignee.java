@@ -55,4 +55,12 @@ public class Assignee {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public List<Todo> getTodos() {
+    return todos;
+  }
+
+  public void setTodos(List<Todo> todos) {
+    this.todos = todos;
+  }
 }

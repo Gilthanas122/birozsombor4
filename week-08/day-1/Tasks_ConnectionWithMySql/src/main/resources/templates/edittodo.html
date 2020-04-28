@@ -7,18 +7,24 @@
 <body>
 <h1>Edit Todo</h1>
 <form th:object="${selectedTodo}"
-      th:action="@{'/editTodo/' + ${selectedTodo.id}}" method="post">
+      th:action="@{'/editTodo'}" method="post">
+    <input type="hidden" th:field="*{id}" th:value="*{id}">
+    <input type="hidden" th:field="*{content}" th:value="*{content}">
+    <input type="hidden" th:field="*{description}" th:value="*{description}">
     <label for="description">Todo description</label>
     <input id="description" type="text" th:field="*{title}" th:value="*{title}" required><br>
     <label for="urgent">Urgent</label>
     <input id="urgent" type="checkbox" th:field="*{urgent}" th:value="*{urgent}"><br>
     <label for="done">Done</label>
     <input id="done" type="checkbox" th:field="*{done}" th:value="*{done}"><br>
-    <label for="assignee">Assignee</label>
-    <select id="assignee" th:field="*{assignee}" th:object="${selectedTodo.assignee}"  name="assignee">
-        <option th:each="assignee : ${assignees}" th:value="${assignee.name}"
+    <label for="selectedAssignee">Assignee</label>
+    <select id="selectedAssignee" name="selectedAssigneeId">
+        <option th:each="assignee : ${assignees}" th:value="${assignee.id}"
                 th:text="${assignee.name}"></option>
     </select><br>
+    <label for="selectedDateOfDue">Date of Due</label>
+    <input id="selectedDateOfDue" type="date" pattern="yyyy-MM-dd" name="selectedDateOfDue"
+           required>
     <input type="submit">
 </form>
 <a th:href="@{'/list'}">Cancel</a>

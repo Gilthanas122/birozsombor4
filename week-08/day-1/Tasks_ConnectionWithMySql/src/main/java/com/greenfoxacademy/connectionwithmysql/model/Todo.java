@@ -1,5 +1,6 @@
 package com.greenfoxacademy.connectionwithmysql.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Todo {
@@ -20,7 +23,10 @@ public class Todo {
   private String description;
   private boolean urgent = false;
   private boolean done = false;
+  @Temporal(TemporalType.DATE)
   private Date dateOfCreation;
+  @Temporal(TemporalType.DATE)
+  private Date dateOfDue;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
@@ -34,19 +40,10 @@ public class Todo {
     this.content = content;
     this.description = description;
     this.dateOfCreation = new Date();
+    this.dateOfDue = new Date();
     this.urgent = urgent;
     this.done = done;
-    //this.assignee = new Assignee("default","default");
-  }
-
-  public Todo(String title, String content, String description, boolean urgent, boolean done,
-              String name) {
-    this.title = title;
-    this.content = content;
-    this.description = description;
-    this.dateOfCreation = new Date();
-    this.urgent = urgent;
-    this.done = done;
+    this.assignee = null;
   }
 
   public long getId() {
@@ -105,11 +102,29 @@ public class Todo {
     this.dateOfCreation = dateOfCreation;
   }
 
+  public Date getDateOfDue() {
+    return dateOfDue;
+  }
+
+  public void setDateOfDue(Date dateOfDue) {
+    this.dateOfDue = dateOfDue;
+  }
+
   public Assignee getAssignee() {
     return assignee;
   }
 
   public void setAssignee(Assignee assignee) {
     this.assignee = assignee;
+  }
+
+  public void setDateOfDueWithStringParameter(String dateOfDue) {
+    try {
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      this.setDateOfDue(format.parse(dateOfDue));
+    } catch (Exception e) {
+      System.out.println("Failed date parsing");
+      System.exit(-1);
+    }
   }
 }

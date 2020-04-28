@@ -18,7 +18,7 @@
     <tbody>
     <tr th:each="assignee : ${assignees}" th:object="${assignee}">
         <td th:text="*{id}"></td>
-        <td><a th:href="@{|/${assignee.id}/inspect|}"><span th:text="*{name}"></span></a></td>
+        <td><a th:href="@{|/${assignee.id}/inspectAssignee|}"><span th:text="*{name}"></span></a></td>
         <td th:text="*{email}"></td>
         <td><a th:href="@{|/${assignee.id}/deleteAssignee|}">delete</a></td>
         <td><a th:href="@{|/${assignee.id}/editAssignee|}">edit</a></td>

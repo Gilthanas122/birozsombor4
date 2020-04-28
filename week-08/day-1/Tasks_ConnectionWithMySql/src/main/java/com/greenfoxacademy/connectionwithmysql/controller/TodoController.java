@@ -1,11 +1,12 @@
 package com.greenfoxacademy.connectionwithmysql.controller;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.greenfoxacademy.connectionwithmysql.model.Assignee;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.service.AssigneeService;
 import com.greenfoxacademy.connectionwithmysql.service.TodoService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,26 +63,26 @@ public class TodoController {
     return "edittodo";
   }
 
-  @PostMapping(value = "/editTodo/{id}")
-  public String editATodo(String assignee, @PathVariable Long id,
-                          @ModelAttribute Todo editedTodo
-  ) {
-    todoService.updateATodoInDatabase(editedTodo);
+  @PostMapping(value = "/editTodo")
+  public String editATodo(Long selectedAssigneeId,
+                          String selectedDateOfDue,
+                          @ModelAttribute Todo editedTodo) {
+    todoService.updateATodoInDatabase(editedTodo, selectedAssigneeId, selectedDateOfDue);
     return "redirect:/list";
   }
 
   @GetMapping(value = "/{id}/inspectTodo")
   public String getInspectViewById(@PathVariable Long id, Model model) {
     model.addAttribute("selectedTodo", todoService.getATodoById(id));
-    return "inspect";
+    return "inspecttodo";
   }
 
-  @PostMapping(value = "/search")
+  @PostMapping(value = "/searchByTextFields")
   public String searchBySelectedFields(String searchText, String searchField) {
-    return "redirect:/search?searchText=" + searchText + "&searchField=" + searchField;
+    return "redirect:/searchByTextFields?searchText=" + searchText + "&searchField=" + searchField;
   }
 
-  @GetMapping(value = {"/search"})
+  @GetMapping(value = {"/searchByTextFields"})
   public String list(Model model, @RequestParam String searchText,
                      @RequestParam String searchField) {
     switch (searchField) {
@@ -95,6 +96,37 @@ public class TodoController {
         model.addAttribute("todos", todoService.getTodosByContent(searchText));
         break;
     }
+    return "todolist";
+  }
+
+  @PostMapping(value = "/searchByDate")
+  public String searchBySelectedDate(String searchDate, String searchDateOption) {
+    return "redirect:/searchByDate?searchDate=" + searchDate + "&searchDateOption=" + searchDateOption;
+  }
+
+  @GetMapping(value = {"/searchByDate"})
+  public String getListOfTodosBySearchDate(Model model, @RequestParam String searchDate,
+                                           @RequestParam String searchDateOption) {
+    switch (searchDateOption) {
+      case "dueDate":
+        model.addAttribute("todos",
+            todoService.getTodosByDateOfDue(todoService.convertStringToDate(searchDate)));
+        break;
+      case "creationDate":
+        model.addAttribute("todos", todoService.getTodosByDateOfCreation(todoService.convertStringToDate(searchDate)));
+        break;
+    }
+    return "todolist";
+  }
+
+  @PostMapping(value = "/searchByAssigneeName")
+  public String searchByName(String searchName) {
+    return "redirect:/searchByAssigneeName?name=" + searchName;
+  }
+
+  @GetMapping(value = {"/searchByAssigneeName"})
+  public String getListOfTodosByName(Model model, @RequestParam String name) {
+    model.addAttribute("todos",todoService.getTodosByAssigneeName(name));
     return "todolist";
   }
 
@@ -132,6 +164,12 @@ public class TodoController {
   public String editAnAssignee(@PathVariable Long id, @ModelAttribute Assignee assignee) {
     assigneeService.updateAnAssigneeInDatabase(assignee);
     return "redirect:/listOfAssignees";
+  }
+
+  @GetMapping(value = "/{id}/inspectAssignee")
+  public String getInspectAssigneeViewById(@PathVariable Long id, Model model) {
+    model.addAttribute("selectedAssignee", assigneeService.getAnAssigneeById(id));
+    return "inspectassignee";
   }
 
 }

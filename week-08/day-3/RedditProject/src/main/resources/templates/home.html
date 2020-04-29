@@ -10,9 +10,9 @@
 </head>
 <body>
 <header>
+    <a th:href="@{'/list/1'}">Trending posts</a>
     <a th:href="@{'/submit'}">Submit new post</a>
     <a th:href="@{'/logout'}">Logout</a>
-    <h1>Trending posts</h1>
 </header>
 <main>
     <div>
@@ -20,8 +20,8 @@
             <thead>
             <tr>
                 <th>Counter</th>
-                <th>Upvote</th>
-                <th>Downvote</th>
+                <th>+</th>
+                <th>-</th>
                 <th>Post</th>
                 <th>Date Of Creation</th>
                 <th>Created by</th>
@@ -39,7 +39,7 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div class="pagination">
         <a th:each="page : ${pageNumbers}" th:href="@{|/list/${page}|}"
            th:text="${page}"></a>
     </div>

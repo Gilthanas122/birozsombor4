@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+<header>
+    <a th:href="@{'/submit'}">Submit new post</a>
+    <a th:href="@{'/logout'}">Logout</a>
+    <h1>Trending posts</h1>
+</header>
+<main>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Counter</th>
+                <th>Upvote</th>
+                <th>Downvote</th>
+                <th>Post</th>
+                <th>Date Of Creation</th>
+                <th>Created by</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}" th:object="${post}">
+                <td th:text="*{counter}"></td>
+                <td><a th:href="@{|/+/${post.id}|}">+</a></td>
+                <td><a th:href="@{|/-/${post.id}|}">-</a></td>
+                <td><a th:href="@{${post.url}}"><span th:text="*{description}"></span></a></td>
+                <td th:text="${#dates.format(post.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="*{user} == null ? 'Anonymus' : *{user.username}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a th:each="page : ${pageNumbers}" th:href="@{|/list/${page}|}"
+           th:text="${page}"></a>
+    </div>
+</main>
+</body>
+</html>

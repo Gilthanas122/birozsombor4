@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
+    <title>Submit new Post</title>
+</head>
+<body>
+<header>
+    <h1>Submit a new Post</h1>
+</header>
+<main>
+    <form th:action="@{'/submit'}" th:method="post" th:object="${newPost}">
+        <label for="description">Title:</label>
+        <input id="description" type="text" th:field="*{description}">
+        <label for="url">URL:</label>
+        <input id="url" type="text" th:field="*{url}">
+        <button type="submit">Submit</button>
+    </form>
+</main>
+</body>
+</html>

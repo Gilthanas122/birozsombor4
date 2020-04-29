@@ -4,6 +4,7 @@ import com.greenfoxacademy.redditproject.model.Post;
 import com.greenfoxacademy.redditproject.model.User;
 import com.greenfoxacademy.redditproject.repository.PostRepository;
 import com.greenfoxacademy.redditproject.repository.UserRepository;
+import com.greenfoxacademy.redditproject.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,8 @@ public class RedditProjectApplication implements CommandLineRunner {
   private UserRepository userRepository;
 
   @Autowired
-  public RedditProjectApplication(PostRepository postRepository) {
+  public RedditProjectApplication(PostRepository postRepository, UserRepository userRepository) {
+    this.userRepository = userRepository;
     this.postRepository = postRepository;
   }
 
@@ -31,5 +33,7 @@ public class RedditProjectApplication implements CommandLineRunner {
     postRepository.save(new Post("YouTube", "https://youtube.com/"));
     postRepository.save(new Post("Google", "https://google.com/"));
     postRepository.save(new Post("Instagram", "https://instagram.com/"));
+
+    userRepository.save(new User("birozsombor2", "asd"));
   }
 }

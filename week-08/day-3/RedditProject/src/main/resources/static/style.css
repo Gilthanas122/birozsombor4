@@ -62,14 +62,6 @@ td {
     color: #666A85;
 }
 
-tr:nth-child(odd) {
-    background-color: #EBEBEB;
-}
-
-tr:nth-child(even) {
-    background-color: #F2F2F2;
-}
-
 button {
     background-color: #262626;
     border-radius: 2px;

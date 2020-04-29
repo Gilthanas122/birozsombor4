@@ -16,11 +16,11 @@
     <p>Please provide a name, and your password!</p>
     <form th:action="@{'/register'}" th:method="post" th:object="${newUser}">
         <label for="name">Name</label>
-        <input id="name" type="text" th:field="*{username}" required><br>
+        <input id="name" type="text" th:field="*{username}" required>
         <label for="password1">Password</label>
-        <input id="password1" type="password" th:field="*{password}" required><br>
+        <input id="password1" type="password" th:field="*{password}" required>
         <label for="password2">Retype your password</label>
-        <input id="password2" type="password" name="passwordVerification" required><br>
+        <input id="password2" type="password" name="passwordVerification" required>
         <button type="submit">REGISTER</button>
     </form>
     <p th:if="${passwordVerificationFailed}">Please type again your password!</p>

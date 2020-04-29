@@ -3,19 +3,20 @@
       html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Action History</title>
 </head>
 <body>
 <header>
     <ul>
-        <li><a th:href="@{'/?name=' + ${selectedFox.name}}">Information</a></li>
-        <li><a th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/?username=' + ${selectedFox.name}}">Information</a></li>
+        <li><a th:href="@{'/nutritionStore?username=' + ${selectedFox.name}}">
             Nutrition Store</a></li>
-        <li><a th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/trickCenter?username=' + ${selectedFox.name}}">
             Trick Center</a></li>
-        <li><a th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/actionHistory?username=' + ${selectedFox.name}}">
             Action History</a></li>
     </ul>
 </header>

@@ -13,14 +13,16 @@
     <ul>
         <li><a href="/">Information</a></li>
         <li><a href="/loginWithUser">Login with userName</a></li>
-        <li th:if="${selectedFox} == null"><a href="/login">Login with foxName</a></li>
+        <!--<li th:if="${selectedFox} == null"><a href="/login">Login with foxName</a></li>-->
         <li th:if="${selectedFox} == null"><a href="/register">Register</a></li>
         <li th:if="${selectedFox} != null"><a
-                th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">Nutrition Store</a></li>
+                th:href="@{'/nutritionStore?username=' + ${selectedFox.name}}">Nutrition
+            Store</a></li>
         <li th:if="${selectedFox} != null"><a
-                th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">Trick Center</a></li>
+                th:href="@{'/trickCenter?username=' + ${selectedFox.name}}">Trick Center</a></li>
         <li th:if="${selectedFox} != null"><a
-                th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">Action History</a></li>
+                th:href="@{'/actionHistory?username=' + ${selectedFox.name}}">Action History</a>
+        </li>
     </ul>
 </header>
 <main>

@@ -1,6 +1,8 @@
 package com.greenfoxacademy.foxclub.service;
 
 import com.greenfoxacademy.foxclub.model.Fox;
+import com.greenfoxacademy.foxclub.model.User;
+import com.greenfoxacademy.foxclub.repository.FoxRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,10 +14,14 @@ public class FoxService {
 
   private List<Fox> listOfFoxes;
   private NutritionService nutritionService;
+  private UserService userService;
+  private FoxRepository foxRepository;
 
   @Autowired
-  public FoxService(NutritionService nutritionService) {
+  public FoxService(NutritionService nutritionService, UserService userService, FoxRepository foxRepository) {
     this.nutritionService = nutritionService;
+    this.userService = userService;
+    this.foxRepository = foxRepository;
     this.listOfFoxes = new ArrayList<>();
     initAllFoxes();
   }
@@ -47,9 +53,13 @@ public class FoxService {
   }
 
   public void createNewFoxWithNameAndAddToTheList(String name) {
-    listOfFoxes.add(new Fox(name,
+    Fox newFox = new Fox(name,
         nutritionService.getSelectedFood("bread"),
-        nutritionService.getSelectedDrink("water")));
+        nutritionService.getSelectedDrink("water"));
+    listOfFoxes.add(newFox);
+    User user = userService.findUserByName(name);
+    newFox.setUser(user);
+    foxRepository.save(newFox);
   }
 
   public Fox getSelectedFoxByName(String name) {

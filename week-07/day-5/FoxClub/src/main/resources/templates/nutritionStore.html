@@ -11,18 +11,18 @@
 <body>
 <header>
     <ul>
-        <li><a th:href="@{'/?name=' + ${selectedFox.name}}">Information</a></li>
-        <li><a th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/?username=' + ${selectedFox.name}}">Information</a></li>
+        <li><a th:href="@{'/nutritionStore?username=' + ${selectedFox.name}}">
             Nutrition Store</a></li>
-        <li><a th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/trickCenter?username=' + ${selectedFox.name}}">
             Trick Center</a></li>
-        <li><a th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/actionHistory?username=' + ${selectedFox.name}}">
             Action History</a></li>
     </ul>
 </header>
 <main>
     <p>Here you can change the food and drink for your pet!</p>
-    <form th:action="@{'/nutritionStore?name=' + ${selectedFox.name}}" th:method="post">
+    <form th:action="@{'/nutritionStore?username=' + ${selectedFox.name}}" th:method="post">
         <label for="food">Food</label>
         <select name="selectedFood" id="food">
             <option th:each="food : ${foods}" th:value="${food.name}" th:text="${food.name}"

@@ -85,6 +85,22 @@ public class Fox {
     this.actionHistory = actionHistory;
   }
 
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   public void addNewTrick(Trick newTrick) {
     this.listOfTricks.add(newTrick);
   }

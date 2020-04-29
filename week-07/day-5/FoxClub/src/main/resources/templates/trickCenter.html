@@ -11,19 +11,19 @@
 <body>
 <header>
     <ul>
-        <li><a th:href="@{'/?name=' + ${selectedFox.name}}">Information</a></li>
-        <li><a th:href="@{'/nutritionStore?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/?username=' + ${selectedFox.name}}">Information</a></li>
+        <li><a th:href="@{'/nutritionStore?username=' + ${selectedFox.name}}">
             Nutrition Store</a></li>
-        <li><a th:href="@{'/trickCenter?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/trickCenter?username=' + ${selectedFox.name}}">
             Trick Center</a></li>
-        <li><a th:href="@{'/actionHistory?name=' + ${selectedFox.name}}">
+        <li><a th:href="@{'/actionHistory?username=' + ${selectedFox.name}}">
             Action History</a></li>
     </ul>
 </header>
 <main>
     <div th:if="${tricks.size()} != 0">
         <p>Here you can train you little fox!</p>
-        <form th:action="@{'/trickCenter?name=' + ${selectedFox.name}}" th:method="post">
+        <form th:action="@{'/trickCenter?username=' + ${selectedFox.name}}" th:method="post">
             <label for="trick">Unlearned Tricks</label>
             <select name="selectedTrick" id="trick">
                 <option th:each="trick : ${tricks}" th:value="${trick.name}"
@@ -31,7 +31,7 @@
             </select>
             <button type="submit">Learn</button>
         </form>
-        <form th:action="@{'/performTrick?name=' + ${selectedFox.name}}" th:method="post">
+        <form th:action="@{'/performTrick?username=' + ${selectedFox.name}}" th:method="post">
             <label for="performTrick">Learned Tricks</label>
             <select name="performedTrick" id="performTrick">
                 <option th:each="learnedTrick : ${learnedTricks}" th:value="${learnedTrick.name}"

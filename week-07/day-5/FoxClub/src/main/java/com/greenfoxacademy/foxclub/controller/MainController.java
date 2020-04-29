@@ -27,12 +27,18 @@ public class MainController {
   }
 
   @GetMapping(value = "/")
-  public String getIndex(@RequestParam(required = false) String name, Model model) {
+  public String getIndex(@RequestParam(required = false) String username, Model model) {
     model.addAttribute("foxes", foxService.getListOfFoxes());
-    model.addAttribute("selectedFox", foxService.getSelectedFoxByName(name));
-    if (name != null) {
+    if (username == null) {
+      model.addAttribute("selectedFox", null);
+    } else {
+      model.addAttribute("selectedFox",
+          foxService.getSelectedFoxByName(userService.findUserByName(username).getFox().getName()));
+    }
+    if (username != null) {
       model.addAttribute("actions",
-          actionService.getActionHistoryAsListOfStringsWithNewActionOnTop(foxService.getSelectedFoxByName(name)));
+          actionService.getActionHistoryAsListOfStringsWithNewActionOnTop(
+              foxService.getSelectedFoxByName(username)));
     }
     return "index";
   }
@@ -43,14 +49,14 @@ public class MainController {
   }
 
   @PostMapping(value = "/login")
-  public String getNameFromLogin(String name, String option, Model model) {
-    if (name.isEmpty()) {
+  public String getNameFromLogin(String username, String option, Model model) {
+    if (username.isEmpty()) {
       return "redirect:/";
     }
-    if (foxService.checkIsItExist(name)) {
+    if (foxService.checkIsItExist(username)) {
       switch (option) {
         case "go":
-          return "redirect:/?name=" + name;
+          return "redirect:/?username=" + username;
         case "create":
           model.addAttribute("alreadyExist", true);
           return "login";
@@ -61,8 +67,8 @@ public class MainController {
           model.addAttribute("alreadyExist", false);
           return "login";
         case "create":
-          foxService.createNewFoxWithNameAndAddToTheList(name);
-          return "redirect:/?name=" + name;
+          foxService.createNewFoxWithNameAndAddToTheList(username);
+          return "redirect:/?username=" + username;
       }
     }
     return null;
@@ -109,8 +115,10 @@ public class MainController {
   @PostMapping(value = "/loginWithUser")
   public String getUserDatasFromLoginView(String username, String password, Model model) {
     if (userService.validateUserData(username, password)) {
-      foxService.createNewFoxWithNameAndAddToTheList(username);
-      return "redirect:/?name=" + username;
+      if (!foxService.checkIsItExist(username)) {
+        foxService.createNewFoxWithNameAndAddToTheList(username);
+      }
+      return "redirect:/?username=" + username;
     }
     return "redirect:/loginWithUser?invalidUserdata=true";
   }

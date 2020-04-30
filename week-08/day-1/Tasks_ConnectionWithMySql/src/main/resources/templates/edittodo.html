@@ -23,7 +23,8 @@
                 th:text="${assignee.name}"></option>
     </select><br>
     <label for="selectedDateOfDue">Date of Due</label>
-    <input id="selectedDateOfDue" type="date" pattern="yyyy-MM-dd" name="selectedDateOfDue"
+    <input id="selectedDateOfDue" type="date" th:value="${selectedTodoDueDate}" pattern="yyyy-MM-dd"
+           name="selectedDateOfDue"
            required>
     <input type="submit">
 </form>

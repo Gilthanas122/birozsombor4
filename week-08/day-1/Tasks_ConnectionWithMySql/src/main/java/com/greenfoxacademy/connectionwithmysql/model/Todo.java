@@ -131,4 +131,17 @@ public class Todo {
       System.exit(-1);
     }
   }
+
+  public String getDateOfDueAsString() {
+    try {
+      TimeZone zone = TimeZone.getTimeZone("UTC");
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      format.setTimeZone(zone);
+      return format.format(this.dateOfDue);
+    } catch (Exception e) {
+      System.out.println("Failed date parsing");
+      System.exit(-1);
+    }
+    return null;
+  }
 }

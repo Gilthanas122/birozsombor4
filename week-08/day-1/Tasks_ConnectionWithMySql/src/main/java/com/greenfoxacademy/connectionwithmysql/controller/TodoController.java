@@ -59,6 +59,7 @@ public class TodoController {
   @GetMapping(value = "/{id}/editTodo")
   public String getEditViewById(@PathVariable Long id, Model model) {
     model.addAttribute("selectedTodo", todoService.getATodoById(id));
+    model.addAttribute("selectedTodoDueDate", todoService.getATodoById(id).getDateOfDueAsString());
     model.addAttribute("assignees", assigneeService.getAssignesFromDatabase());
     return "edittodo";
   }

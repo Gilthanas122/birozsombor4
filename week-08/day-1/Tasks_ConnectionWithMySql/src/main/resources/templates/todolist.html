@@ -18,7 +18,7 @@
     <button type="submit">Search</button>
 </form>
 <form th:action="@{/searchByDate}" th:method="post">
-    <label for="searchDate">Search text</label>
+    <label for="searchDate">Search date</label>
     <input id="searchDate" type="date" pattern="yyyy-MM-dd" name="searchDate">
     <label>by</label>
     <select name="searchDateOption">
@@ -28,7 +28,7 @@
     <button type="submit">Search</button>
 </form>
 <form th:action="@{/searchByAssigneeName}" th:method="post">
-    <label for="searchName">Search text</label>
+    <label for="searchName">Search by Assignee</label>
     <input id="searchName" type="text" name="searchName">
     <button type="submit">Search</button>
 </form>

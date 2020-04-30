@@ -2,6 +2,8 @@ package com.greenfoxacademy.connectionwithmysql.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -120,7 +122,9 @@ public class Todo {
 
   public void setDateOfDueWithStringParameter(String dateOfDue) {
     try {
+      TimeZone zone = TimeZone.getTimeZone("UTC");
       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      format.setTimeZone(zone);
       this.setDateOfDue(format.parse(dateOfDue));
     } catch (Exception e) {
       System.out.println("Failed date parsing");

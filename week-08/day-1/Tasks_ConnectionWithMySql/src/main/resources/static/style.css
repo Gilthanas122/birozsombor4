@@ -55,10 +55,6 @@ td, th {
     padding: 5px;
 }
 
-td:nth-child(1), td:nth-child(2), td:nth-child(3) {
-    text-align: center;
-}
-
 th {
     background-color: #1D2126;
     color: #949AA1;

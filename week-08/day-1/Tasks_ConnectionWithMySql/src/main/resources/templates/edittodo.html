@@ -2,32 +2,39 @@
 <html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Edit a todo</title>
 </head>
 <body>
-<h1>Edit Todo</h1>
-<form th:object="${selectedTodo}"
-      th:action="@{'/editTodo'}" method="post">
-    <input type="hidden" th:field="*{id}" th:value="*{id}">
-    <input type="hidden" th:field="*{content}" th:value="*{content}">
-    <input type="hidden" th:field="*{description}" th:value="*{description}">
-    <label for="description">Todo description</label>
-    <input id="description" type="text" th:field="*{title}" th:value="*{title}" required><br>
-    <label for="urgent">Urgent</label>
-    <input id="urgent" type="checkbox" th:field="*{urgent}" th:value="*{urgent}"><br>
-    <label for="done">Done</label>
-    <input id="done" type="checkbox" th:field="*{done}" th:value="*{done}"><br>
-    <label for="selectedAssignee">Assignee</label>
-    <select id="selectedAssignee" name="selectedAssigneeId">
-        <option th:each="assignee : ${assignees}" th:value="${assignee.id}"
-                th:text="${assignee.name}"></option>
-    </select><br>
-    <label for="selectedDateOfDue">Date of Due</label>
-    <input id="selectedDateOfDue" type="date" th:value="${selectedTodoDueDate}" pattern="yyyy-MM-dd"
-           name="selectedDateOfDue"
-           required>
-    <input type="submit">
-</form>
-<a th:href="@{'/list'}">Cancel</a>
+<header>
+    <h1>Edit Todo</h1>
+</header>
+<main>
+    <form th:object="${selectedTodo}"
+          th:action="@{'/editTodo'}" method="post">
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
+        <input type="hidden" th:field="*{content}" th:value="*{content}">
+        <input type="hidden" th:field="*{description}" th:value="*{description}">
+        <label for="description">Todo description</label>
+        <input id="description" type="text" th:field="*{title}" th:value="*{title}" required><br>
+        <label for="urgent">Urgent</label>
+        <input id="urgent" type="checkbox" th:field="*{urgent}" th:value="*{urgent}"><br>
+        <label for="done">Done</label>
+        <input id="done" type="checkbox" th:field="*{done}" th:value="*{done}"><br>
+        <label for="selectedAssignee">Assignee</label>
+        <select id="selectedAssignee" name="selectedAssigneeId">
+            <option th:each="assignee : ${assignees}" th:value="${assignee.id}"
+                    th:text="${assignee.name}"></option>
+        </select><br>
+        <label for="selectedDateOfDue">Date of Due</label>
+        <input id="selectedDateOfDue" type="date" th:value="${selectedTodoDueDate}" pattern="yyyy-MM-dd"
+               name="selectedDateOfDue"
+               required>
+        <button type="submit">EDIT</button>
+    </form>
+    <a th:href="@{'/list'}">Cancel</a>
+</main>
 </body>
 </html>

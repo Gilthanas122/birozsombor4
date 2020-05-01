@@ -14,9 +14,11 @@ public interface TodoRepository extends CrudRepository<Todo, Long> {
 
   List<Todo> findAllByDescriptionContainingIgnoreCase(String desciption);
 
-  List<Todo> findAllByDateOfCreation(Date searchDate);
+  @Query("SELECT todo FROM Todo todo WHERE todo.dateOfCreation = :searchDate")
+  List<Todo> getTodosByDateOfCreation(Date searchDate);
 
-  List<Todo> findAllByDateOfDue(Date searchDate);
+  @Query("SELECT todo FROM Todo todo WHERE todo.dateOfDue = :searchDate")
+  List<Todo> getTodosByDateOfDue(Date searchDate);
 
   @Query("SELECT todo FROM Todo todo WHERE todo.assignee.name LIKE :name")
   List<Todo> findByNames(String name);

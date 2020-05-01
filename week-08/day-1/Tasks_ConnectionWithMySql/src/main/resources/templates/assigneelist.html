@@ -2,28 +2,36 @@
 <html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Home</title>
 </head>
 <body>
-<h1>Assignees</h1>
-<a th:href="@{'/addAssignee'}">Add new assignee</a>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="assignee : ${assignees}" th:object="${assignee}">
-        <td th:text="*{id}"></td>
-        <td><a th:href="@{|/${assignee.id}/inspectAssignee|}"><span th:text="*{name}"></span></a></td>
-        <td th:text="*{email}"></td>
-        <td><a th:href="@{|/${assignee.id}/deleteAssignee|}">delete</a></td>
-        <td><a th:href="@{|/${assignee.id}/editAssignee|}">edit</a></td>
-    </tr>
-    </tbody>
-</table>
+<header>
+    <h1>Assignees</h1>
+    <a th:href="@{'/addAssignee'}">Add new assignee</a>
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="assignee : ${assignees}" th:object="${assignee}">
+            <td th:text="*{id}"></td>
+            <td><a th:href="@{|/${assignee.id}/inspectAssignee|}"><span th:text="*{name}"></span></a></td>
+            <td th:text="*{email}"></td>
+            <td><a th:href="@{|/${assignee.id}/deleteAssignee|}">delete</a></td>
+            <td><a th:href="@{|/${assignee.id}/editAssignee|}">edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{'/'}">go back to Todos</a>
+</main>
 </body>
 </html>

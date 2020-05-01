@@ -2,16 +2,24 @@
 <html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Add new todo</title>
 </head>
 <body>
-<h1>Add new Assignee</h1>
-<form th:object="${newAssignee}" th:action="@{'/addAssignee'}" th:method="post">
-    <label>Name</label>
-    <input type="text" th:field="*{name}" required>
-    <label>Email</label>
-    <input type="text" th:field="*{email}" required>
-    <input type="submit">
-</form>
+<header>
+    <h1>Add new Assignee</h1>
+</header>
+<main>
+    <form th:object="${newAssignee}" th:action="@{'/addAssignee'}" th:method="post">
+        <label>Name</label>
+        <input type="text" th:field="*{name}" required>
+        <label>Email</label>
+        <input type="text" th:field="*{email}" required>
+        <button type="submit">ADD NEW ASSIGNEE</button>
+    </form>
+    <a th:href="@{'/listOfAssignees'}">Cancel</a>
+</main>
 </body>
 </html>

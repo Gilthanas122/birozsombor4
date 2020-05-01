@@ -4,6 +4,8 @@ import com.greenfoxacademy.connectionwithmysql.model.Assignee;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.repository.AssigneeRepository;
 import com.greenfoxacademy.connectionwithmysql.repository.TodoRepository;
+import java.util.TimeZone;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -49,5 +51,10 @@ public class ConnectionWithMysqlApplication implements CommandLineRunner {
     assigneeRepository.save(new Assignee("Bill", "bill@zui.com"));
     assigneeRepository.save(new Assignee("Thomas", "thomas@lyx.com"));
     assigneeRepository.save(new Assignee("Jonathan", "jonathan@asd.com"));
+  }
+
+  @PostConstruct
+  void init() {
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
   }
 }

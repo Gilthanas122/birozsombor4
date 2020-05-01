@@ -2,13 +2,21 @@
 <html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+          rel="stylesheet">
     <title>Add new todo</title>
 </head>
 <body>
-<h1>Add new todo</h1>
-<form th:object="${newTodo}" th:action="@{'/addTodo'}" th:method="post">
-    <input type="text" th:field="*{title}" required>
-    <input type="submit">
-</form>
+<header>
+    <h1>Add new todo</h1>
+</header>
+<main>
+    <form th:object="${newTodo}" th:action="@{'/addTodo'}" th:method="post">
+        <input type="text" th:field="*{title}" required>
+        <button type="submit">ADD NEW TODO</button>
+    </form>
+    <a th:href="@{'/'}">Cancel</a>
+</main>
 </body>
 </html>

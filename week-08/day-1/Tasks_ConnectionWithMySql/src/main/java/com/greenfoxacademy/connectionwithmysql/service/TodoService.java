@@ -99,11 +99,11 @@ public class TodoService {
   }
 
   public List<Todo> getTodosByDateOfCreation(Date searchDate) {
-    return todoRepository.findAllByDateOfCreation(searchDate);
+    return todoRepository.getTodosByDateOfCreation(searchDate);
   }
 
   public List<Todo> getTodosByDateOfDue(Date searchDate) {
-    return todoRepository.findAllByDateOfDue(searchDate);
+    return todoRepository.getTodosByDateOfDue(searchDate);
   }
 
   public List<Todo> getTodosByAssigneeName(String name) {

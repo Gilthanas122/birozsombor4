@@ -66,8 +66,7 @@
             <td th:text="*{done}" th:style="*{done} == true ? 'color:green;' : 'color:red;'"></td>
             <td th:text="*{dateOfCreation}"></td>
             <td th:text="*{dateOfDue}"></td>
-            <td th:if="${todo.assignee} != null" th:text="*{assignee.name}"></td>
-            <td th:if="${todo.assignee} == null" th:text="|No Assignee selected yet|"></td>
+            <td th:text="${todo.assignee} != null ? ${todo.assignee.name} : 'No Assignee selected yet'"></td>
             <td><a th:href="@{|/${todo.id}/deleteTodo|}">delete</a></td>
             <td><a th:href="@{|/${todo.id}/editTodo|}">edit</a></td>
         </tr>

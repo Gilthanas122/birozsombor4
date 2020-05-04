@@ -1,12 +1,15 @@
 package com.greenfoxacademy.rest.controller;
 
 import com.greenfoxacademy.rest.model.AppendA;
+import com.greenfoxacademy.rest.model.DoUntil;
 import com.greenfoxacademy.rest.model.Doubling;
 import com.greenfoxacademy.rest.model.Error;
 import com.greenfoxacademy.rest.model.WelcomeMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.web.bind.annotation.RestController
@@ -36,5 +39,15 @@ public class RestController {
   @GetMapping("/appenda/{appendable}")
   public ResponseEntity<?> getWordWithAppendA(@PathVariable String appendable) {
     return ResponseEntity.ok(new AppendA(appendable));
+  }
+
+  @PostMapping("/dountil/{action}")
+  public ResponseEntity<?> getDoUntilWithAction(@PathVariable String action,
+                                                @RequestBody DoUntil doUntil) {
+    if (doUntil.getUntil() == null) {
+      return ResponseEntity.ok(new Error("Please provide a number!"));
+    }
+    doUntil.setResultAsWithAction(action);
+    return ResponseEntity.ok(doUntil);
   }
 }

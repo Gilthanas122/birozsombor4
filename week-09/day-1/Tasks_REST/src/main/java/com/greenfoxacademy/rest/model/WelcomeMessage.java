@@ -2,7 +2,7 @@ package com.greenfoxacademy.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = { "name","title" })
+@JsonIgnoreProperties(value = {"name", "title"})
 public class WelcomeMessage {
 
   private String name;

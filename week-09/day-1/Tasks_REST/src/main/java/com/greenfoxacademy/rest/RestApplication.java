@@ -23,6 +23,6 @@ public class RestApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    logRepository.save(new Log());
+    //logRepository.save(new Log());
   }
 }

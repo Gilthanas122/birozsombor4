@@ -6,6 +6,7 @@ import com.greenfoxacademy.rest.model.Doubling;
 import com.greenfoxacademy.rest.model.Error;
 import com.greenfoxacademy.rest.model.FunctionalArray;
 import com.greenfoxacademy.rest.model.LogEntry;
+import com.greenfoxacademy.rest.model.SithText;
 import com.greenfoxacademy.rest.model.WelcomeMessage;
 import com.greenfoxacademy.rest.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,16 @@ public class RestController {
   @GetMapping("/log")
   public ResponseEntity<?> getAllLogEntries() {
     return ResponseEntity.ok(logService.getLog().getEntries());
+  }
+
+  @PostMapping("/sith")
+  public ResponseEntity<?> translateTextToSith(@RequestBody SithText sithText) {
+    if (sithText.getText() == null) {
+      return ResponseEntity.badRequest().body(new Error("Feed me some text you have to, padawan " +
+          "young you are. Hmmm."));
+    }
+    sithText.setSithTextWithTranslating();
+    logService.addNewLogEntry(new LogEntry("/sith", sithText));
+    return ResponseEntity.ok(sithText);
   }
 }

@@ -1,6 +1,7 @@
 package com.greenfoxacademy.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ public class Log {
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "log")
   private List<LogEntry> entries;
 
+  @JsonProperty("entry_count")
   private int entryCount;
 
   public Log() {

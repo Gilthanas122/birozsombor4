@@ -13,16 +13,14 @@ import org.springframework.stereotype.Service;
 public class LogServiceImpl implements LogService {
 
   private LogRepository logRepository;
-  private LogEntryService logEntryService;
 
   @Autowired
-  public LogServiceImpl(LogRepository logRepository, LogEntryService logEntryService) {
+  public LogServiceImpl(LogRepository logRepository) {
     this.logRepository = logRepository;
-    this.logEntryService = logEntryService;
   }
 
   @Override
-  public Log getAllLog() {
+  public Log getLog() {
     return logRepository.findById(1l).get();
   }
 
@@ -32,7 +30,7 @@ public class LogServiceImpl implements LogService {
     List<LogEntry> logEntries = log.getEntries();
     logEntries.add(newLog);
     log.setEntries(logEntries);
-    log.setEntryCount(logEntryService.getCountOfEntries());
+    log.setEntryCount(log.getEntries().size());
     newLog.setLog(log);
     logRepository.save(log);
   }

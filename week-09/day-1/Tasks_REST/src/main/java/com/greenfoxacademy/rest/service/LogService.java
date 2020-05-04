@@ -4,6 +4,6 @@ import com.greenfoxacademy.rest.model.Log;
 import com.greenfoxacademy.rest.model.LogEntry;
 
 public interface LogService {
-  Log getAllLog();
+  Log getLog();
   void addNewLogEntry(LogEntry newLog);
 }

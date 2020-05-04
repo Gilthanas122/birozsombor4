@@ -82,6 +82,6 @@ public class RestController {
 
   @GetMapping("/log")
   public ResponseEntity<?> getAllLogEntries() {
-    return ResponseEntity.ok(logService.getAllLog());
+    return ResponseEntity.ok(logService.getLog().getEntries());
   }
 }

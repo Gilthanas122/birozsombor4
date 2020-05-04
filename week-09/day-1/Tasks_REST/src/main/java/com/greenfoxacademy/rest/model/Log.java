@@ -18,6 +18,7 @@ public class Log {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  @JsonIgnore
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "log")
   private List<LogEntry> entries;
 

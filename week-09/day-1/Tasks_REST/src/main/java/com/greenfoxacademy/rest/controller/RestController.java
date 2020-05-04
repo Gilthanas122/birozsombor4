@@ -1,6 +1,7 @@
 package com.greenfoxacademy.rest.controller;
 
 import com.greenfoxacademy.rest.model.AppendA;
+import com.greenfoxacademy.rest.model.TextObject;
 import com.greenfoxacademy.rest.model.DoUntil;
 import com.greenfoxacademy.rest.model.Doubling;
 import com.greenfoxacademy.rest.model.Error;
@@ -95,5 +96,15 @@ public class RestController {
     sithText.setSithTextWithTranslating();
     logService.addNewLogEntry(new LogEntry("/sith", sithText));
     return ResponseEntity.ok(sithText);
+  }
+
+  @PostMapping("/translate")
+  public ResponseEntity<?> getCamelizedObject(@RequestBody TextObject textObject) {
+    if (textObject.getLang() == null || textObject.getText() == null) {
+      return ResponseEntity.badRequest().body(new Error("I can't translate that!"));
+    }
+    textObject.translate();
+    logService.addNewLogEntry(new LogEntry("/translate", textObject));
+    return ResponseEntity.ok(textObject);
   }
 }

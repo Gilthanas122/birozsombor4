@@ -4,6 +4,7 @@ import com.greenfoxacademy.rest.model.AppendA;
 import com.greenfoxacademy.rest.model.DoUntil;
 import com.greenfoxacademy.rest.model.Doubling;
 import com.greenfoxacademy.rest.model.Error;
+import com.greenfoxacademy.rest.model.FunctionalArray;
 import com.greenfoxacademy.rest.model.WelcomeMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,5 +50,15 @@ public class RestController {
     }
     doUntil.setResultAsWithAction(action);
     return ResponseEntity.ok(doUntil);
+  }
+
+  @PostMapping("/arrays")
+  public ResponseEntity<?> getResultOfAnArrayWithAction(@RequestBody FunctionalArray functionalArray) {
+    if (functionalArray.getNumbers().size() == 0) {
+      return ResponseEntity.badRequest().body(new Error("Please provide numbers!"));
+    } else if (functionalArray.getWhat().isEmpty()) {
+      return ResponseEntity.badRequest().body(new Error("Please provide what to do with numbers!"));
+    }
+    return ResponseEntity.ok(functionalArray);
   }
 }

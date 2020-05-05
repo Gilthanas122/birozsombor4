@@ -15,9 +15,9 @@
 <main>
     <form th:action="@{'/submit'}" th:method="post" th:object="${newPost}">
         <label for="description">Title:</label>
-        <input id="description" type="text" th:field="*{description}">
+        <input id="description" type="text" th:field="*{description}" required>
         <label for="url">URL:</label>
-        <input id="url" type="text" th:field="*{url}">
+        <input id="url" type="text" th:field="*{url}" required>
         <button type="submit">Submit</button>
     </form>
 </main>

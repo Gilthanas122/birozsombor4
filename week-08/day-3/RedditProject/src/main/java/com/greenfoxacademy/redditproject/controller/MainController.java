@@ -25,19 +25,27 @@ public class MainController {
     this.userService = userService;
   }
 
-  @GetMapping(value = {"/list/{pageNumber}"})
-  public String getHomePage(Model model, @PathVariable Integer pageNumber) {
+  @GetMapping("/")
+  public String redirectToMain() {
     if (userService.isActiveAnyUser()) {
-      if (pageNumber == 1) {
-        model.addAttribute("posts", postService.getPostsForHomePage());
-      } else {
-        model.addAttribute("posts", postService.getPostsForSelectedPage(pageNumber));
-      }
-      model.addAttribute("pageNumbers", postService.getHowManyPageDoWeNeed());
-      return "home";
+      return "redirect:/list";
     } else {
       return "redirect:/login";
     }
+  }
+
+  @GetMapping(value = {"/list"})
+  public String getDefaultHomePage(Model model) {
+    model.addAttribute("posts", postService.getPostsForHomePage());
+    model.addAttribute("pageNumbers", postService.getHowManyPageDoWeNeed());
+    return "home";
+  }
+
+  @GetMapping(value = {"/list/{pageNumber}"})
+  public String getHomePage(Model model, @PathVariable(required = false) Integer pageNumber) {
+    model.addAttribute("posts", postService.getPostsWithPageNumber(pageNumber));
+    model.addAttribute("pageNumbers", postService.getHowManyPageDoWeNeed());
+    return "home";
   }
 
   @GetMapping("/submit")
@@ -49,20 +57,13 @@ public class MainController {
   @PostMapping("/submit")
   public String submitANewPost(@ModelAttribute Post newPost) {
     postService.addNewPostToDatabase(newPost);
-    return "redirect:/list/1";
+    return "redirect:/list";
   }
 
   @GetMapping("/{option}/{id}")
   public String manageVoting(@PathVariable String option, @PathVariable long id) {
-    switch (option) {
-      case "+":
-        postService.incrementCounterField(id);
-        break;
-      case "-":
-        postService.decreaseCounterField(id);
-        break;
-    }
-    return "redirect:/list/1";
+    postService.updatePostCounterField(option, id);
+    return "redirect:/list";
   }
 
   @GetMapping(value = "/register")
@@ -81,13 +82,13 @@ public class MainController {
 
   @PostMapping(value = "/register")
   public String registerNewUser(@ModelAttribute User user, String passwordVerification) {
-    if (userService.verifiedPassword(user, passwordVerification) && userService.verifiedUsername(user)) {
+    if (userService.isUserValid(user, passwordVerification)) {
       userService.addNewUser(user);
       return "redirect:/login";
     }
-    if (!userService.verifiedPassword(user, passwordVerification) && !userService.verifiedUsername(user)) {
+    if (userService.isUserInvalid(user, passwordVerification)) {
       return "redirect:/register?passwordVerificationFailed=true&usernameVerificationFailed=true";
-    } else if (!userService.verifiedPassword(user, passwordVerification)) {
+    } else if (!userService.isPasswordValid(user, passwordVerification)) {
       return "redirect:/register?passwordVerificationFailed=true";
     } else {
       return "redirect:/register?usernameVerificationFailed=true";
@@ -107,7 +108,7 @@ public class MainController {
   public String getUserDatasFromLoginView(String username, String password, Model model) {
     if (userService.validateUserData(username, password)) {
       userService.setUserActive(username);
-      return "redirect:/list/1";
+      return "redirect:/list";
     }
     return "redirect:/login?invalidUserdata=true";
   }

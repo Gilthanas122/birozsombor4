@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     userRepository.save(newUser);
   }
 
-  public boolean verifiedPassword(User user, String passwordVerification) {
+  public boolean isPasswordValid(User user, String passwordVerification) {
     if (user.getPassword().equals(passwordVerification)) {
       return true;
     } else {
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
   }
 
-  public boolean verifiedUsername(User user) {
+  public boolean isUsernameValid(User user) {
     if (!userRepository.findByUsername(user.getUsername()).isPresent()) {
       return true;
     } else {
@@ -36,14 +36,32 @@ public class UserServiceImpl implements UserService {
   }
 
   public boolean validateUserData(String username, String password) {
-    Optional<User> optionalUser = userRepository.findByUsername(username);
-    if (optionalUser.isPresent()) {
-      User user = optionalUser.get();
+    Optional<User> foundUser = userRepository.findByUsername(username);
+    if (foundUser.isPresent()) {
+      User user = foundUser.get();
       if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
         return true;
       }
     }
     return false;
+  }
+
+  @Override
+  public boolean isUserValid(User user, String passwordVerification) {
+    if (isPasswordValid(user, passwordVerification) && isUsernameValid(user)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public boolean isUserInvalid(User user, String passwordVerification) {
+    if (!isPasswordValid(user, passwordVerification) && !isUsernameValid(user)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public void setUserActive(String username) {

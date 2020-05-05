@@ -17,5 +17,7 @@ public interface PostService {
 
   List<Post> getPostsForHomePage();
 
-  List<Post> getPostsForSelectedPage(Integer integer);
+  List<Post> getPostsWithPageNumber(Integer pageNumber);
+
+  void updatePostCounterField(String option, long id);
 }

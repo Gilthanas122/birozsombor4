@@ -4,11 +4,11 @@ import com.greenfoxacademy.redditproject.model.User;
 
 public interface UserService {
 
-  boolean verifiedPassword(User user, String passwordVerification);
+  boolean isPasswordValid(User user, String passwordVerification);
 
   void addNewUser(User newUser);
 
-  boolean verifiedUsername(User user);
+  boolean isUsernameValid(User user);
 
   boolean validateUserData(String username, String password);
 
@@ -17,4 +17,8 @@ public interface UserService {
   void setActiveUserToInactive();
 
   boolean isActiveAnyUser();
+
+  boolean isUserValid(User user, String passwordVerification);
+
+  boolean isUserInvalid(User user, String passwordVerification);
 }

@@ -55,6 +55,18 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  public void updatePostCounterField(String option, long id) {
+    switch (option) {
+      case "+":
+        incrementCounterField(id);
+        break;
+      case "-":
+        decreaseCounterField(id);
+        break;
+    }
+  }
+
+  @Override
   public List<Integer> getHowManyPageDoWeNeed() {
     List<Integer> pageNumbers = new ArrayList<>();
     Integer sizeOfPosts = postRepository.getAllPostsWithDescendingOrder().size();
@@ -75,7 +87,11 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> getPostsForSelectedPage(Integer integer) {
-    return postRepository.getAllPostsWithDescendingOrderWithLimitTenAndSelectedOffset((integer - 1) * 10);
+  public List<Post> getPostsWithPageNumber(Integer pageNumber) {
+    if (pageNumber == 1) {
+      return postRepository.getAllPostsWithDescendingOrderWithLimitTen();
+    } else {
+      return postRepository.getAllPostsWithDescendingOrderWithLimitTenAndSelectedOffset((pageNumber - 1) * 10);
+    }
   }
 }

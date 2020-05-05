@@ -83,8 +83,23 @@ public class RestController {
   }
 
   @GetMapping("/log")
-  public ResponseEntity<?> getAllLogEntries() {
-    return ResponseEntity.ok(logService.getLog().getEntries());
+  public ResponseEntity<?> getAllLogEntries(@RequestParam(required = false) Integer count,
+                                            @RequestParam(required = false) Integer page,
+                                            @RequestParam(required = false) String q) {
+    if (q != null && (count != null || page != null)) {
+      return ResponseEntity.badRequest().body(new Error("You cannot use q parameter with count " +
+          "and/or page!"));
+    } else if (q != null) {
+      return ResponseEntity.ok(logService.getLogEntriesFromLogByQInData(q));
+    }
+    if (count != null && page == null) {
+      return ResponseEntity.ok(logService.getLogEntriesFromLogWithLimit(count));
+    } else if (page != null && count == null) {
+      return ResponseEntity.badRequest().body(new Error("Please provide count as well!"));
+    } else if (page != null && count != null) {
+      return ResponseEntity.ok(logService.getLogEntriesFromLogWithLimitAndSelectedPage(count, page));
+    }
+    return ResponseEntity.ok(logService.getLog());
   }
 
   @PostMapping("/sith")

@@ -1,5 +1,6 @@
 package com.greenfoxacademy.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class LogEntry {
   private String endpoint;
   private String data;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
   private Log log;

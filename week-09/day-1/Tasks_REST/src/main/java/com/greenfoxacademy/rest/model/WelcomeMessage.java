@@ -1,18 +1,21 @@
 package com.greenfoxacademy.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(value = {"name", "title"})
 public class WelcomeMessage {
 
   private String name;
   private String title;
-  private String welcome_message;
+
+  @JsonProperty("welcome_message")
+  private String welcomeMessage;
 
   public WelcomeMessage(String name, String title) {
     this.name = name;
     this.title = title;
-    this.welcome_message = "Oh, hi there " + this.name + ", my dear " + this.title + "!";
+    this.welcomeMessage = "Oh, hi there " + this.name + ", my dear " + this.title + "!";
   }
 
   public String getName() {
@@ -31,11 +34,11 @@ public class WelcomeMessage {
     this.title = title;
   }
 
-  public String getWelcome_message() {
-    return welcome_message;
+  public String getWelcomeMessage() {
+    return welcomeMessage;
   }
 
-  public void setWelcome_message(String welcome_message) {
-    this.welcome_message = welcome_message;
+  public void setWelcomeMessage(String welcome_message) {
+    this.welcomeMessage = welcome_message;
   }
 }

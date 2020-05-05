@@ -31,29 +31,6 @@ public class FunctionalArray {
     System.out.println(this.results);
   }
 
-  private Integer getCalculatedResult() {
-    switch (this.what) {
-      case "sum":
-        return getSumOfNumbers();
-      case "multiply":
-        return getMultiplyedNumbers();
-      default:
-        return null;
-    }
-  }
-
-  private List<Integer> getDoubledNumbers() {
-    return numbers.stream().map(x -> x * 2).collect(Collectors.toList());
-  }
-
-  private Integer getMultiplyedNumbers() {
-    return numbers.stream().reduce(1, (carry, value) -> carry * value);
-  }
-
-  private Integer getSumOfNumbers() {
-    return numbers.stream().mapToInt(Integer::intValue).sum();
-  }
-
   public String getWhat() {
     return what;
   }
@@ -84,5 +61,28 @@ public class FunctionalArray {
 
   public void setResults(List<Integer> results) {
     this.results = results;
+  }
+
+  private Integer getCalculatedResult() {
+    switch (this.what) {
+      case "sum":
+        return getSumOfNumbers();
+      case "multiply":
+        return getMultiplyedNumbers();
+      default:
+        return null;
+    }
+  }
+
+  private List<Integer> getDoubledNumbers() {
+    return numbers.stream().map(x -> x * 2).collect(Collectors.toList());
+  }
+
+  private Integer getMultiplyedNumbers() {
+    return numbers.stream().reduce(1, (carry, value) -> carry * value);
+  }
+
+  private Integer getSumOfNumbers() {
+    return numbers.stream().mapToInt(Integer::intValue).sum();
   }
 }

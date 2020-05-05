@@ -42,15 +42,13 @@ public class SithText {
   public void setSithTextWithTranslating() {
     List<String> sentencesOfSithText = new ArrayList<>();
     sentencesOfSithText.addAll(getReorderedSentences());
-    List<String> sithTextWithRandomSentences = getYodaFilledSentences(sentencesOfSithText);
-    this.sithText = sithTextWithRandomSentences.stream().collect(Collectors.joining(" "));
+    List<String> sithTextWithRandomYodaPhrases = getYodaFilledSentences(sentencesOfSithText);
+    this.sithText = sithTextWithRandomYodaPhrases.stream().collect(Collectors.joining(" "));
   }
 
   private List<String> getYodaFilledSentences(List<String> sentencesOfSithText) {
     List<String> filledList = new ArrayList<>();
-    List<String> yodaSentences = Arrays.asList(new String("Arrgh."),
-        new String("Uhmm."),
-        new String("Err..err.err."));
+    List<String> yodaSentences = Arrays.asList("Arrgh.", "Uhmm.", "Err..err.err.");
     for (int i = 0; i < sentencesOfSithText.size(); i++) {
       filledList.add(sentencesOfSithText.get(i));
       int randomIndex = (int) (Math.random() * 2);

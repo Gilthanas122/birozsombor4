@@ -6,7 +6,7 @@ public class Doubling {
 
   public Doubling(int received) {
     this.received = received;
-    this.result = 2 * this.received;
+    this.result = this.received * 2;
   }
 
   public int getReceived() {

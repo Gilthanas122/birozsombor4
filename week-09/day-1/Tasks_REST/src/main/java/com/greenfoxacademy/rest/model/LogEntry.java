@@ -39,17 +39,6 @@ public class LogEntry {
     this.data = createJsonFromObjectAndConvertToString(o);
   }
 
-  private String createJsonFromObjectAndConvertToString(Object o) {
-    try {
-      ObjectMapper objectMapper = new ObjectMapper();
-      return objectMapper.writeValueAsString(o);
-    } catch (JsonProcessingException e) {
-      System.out.println("Something went wrong with JsonProcessingToString");
-      System.exit(-1);
-    }
-    return null;
-  }
-
   public long getId() {
     return id;
   }
@@ -88,5 +77,16 @@ public class LogEntry {
 
   public void setLog(Log log) {
     this.log = log;
+  }
+
+  private String createJsonFromObjectAndConvertToString(Object o) {
+    try {
+      ObjectMapper objectMapper = new ObjectMapper();
+      return objectMapper.writeValueAsString(o);
+    } catch (JsonProcessingException e) {
+      System.out.println("Something went wrong with JsonProcessingToString");
+      System.exit(-1);
+    }
+    return null;
   }
 }

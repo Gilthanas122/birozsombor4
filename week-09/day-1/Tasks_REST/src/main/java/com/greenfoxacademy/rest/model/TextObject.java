@@ -1,6 +1,5 @@
 package com.greenfoxacademy.rest.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,25 +12,11 @@ public class TextObject {
   public TextObject(String text, String lang) {
     this.text = text;
     this.lang = lang;
-    this.vowels = new ArrayList<>();
-    initAllVowels();
+    this.vowels = initAllVowels();
   }
 
-  private void initAllVowels() {
-    vowels.add('a');
-    vowels.add('á');
-    vowels.add('e');
-    vowels.add('é');
-    vowels.add('i');
-    vowels.add('í');
-    vowels.add('o');
-    vowels.add('ó');
-    vowels.add('ö');
-    vowels.add('ő');
-    vowels.add('u');
-    vowels.add('ú');
-    vowels.add('ü');
-    vowels.add('ű');
+  private List<Character> initAllVowels() {
+    return Arrays.asList('a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'ö', 'ő', 'u', 'ú', 'ü', 'ű');
   }
 
   public String getText() {

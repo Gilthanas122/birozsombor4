@@ -1,6 +1,7 @@
 package com.greenfoxacademy.rest.controller;
 
 import com.greenfoxacademy.rest.model.AppendA;
+import com.greenfoxacademy.rest.model.Log;
 import com.greenfoxacademy.rest.model.TextObject;
 import com.greenfoxacademy.rest.model.DoUntil;
 import com.greenfoxacademy.rest.model.Doubling;
@@ -86,18 +87,22 @@ public class RestController {
   public ResponseEntity<?> getAllLogEntries(@RequestParam(required = false) Integer count,
                                             @RequestParam(required = false) Integer page,
                                             @RequestParam(required = false) String q) {
+    Log tempLog = new Log();
     if (q != null && (count != null || page != null)) {
       return ResponseEntity.badRequest().body(new Error("You cannot use q parameter with count " +
           "and/or page!"));
     } else if (q != null) {
-      return ResponseEntity.ok(logService.getLogEntriesFromLogByQInData(q));
+      tempLog.setEntries(logService.getLogEntriesFromLogByQInData(q));
+      return ResponseEntity.ok(tempLog);
     }
     if (count != null && page == null) {
-      return ResponseEntity.ok(logService.getLogEntriesFromLogWithLimit(count));
+      tempLog.setEntries(logService.getLogEntriesFromLogWithLimit(count));
+      return ResponseEntity.ok(tempLog);
     } else if (page != null && count == null) {
       return ResponseEntity.badRequest().body(new Error("Please provide count as well!"));
     } else if (page != null && count != null) {
-      return ResponseEntity.ok(logService.getLogEntriesFromLogWithLimitAndSelectedPage(count, page));
+      tempLog.setEntries(logService.getLogEntriesFromLogWithLimitAndSelectedPage(count, page));
+      return ResponseEntity.ok(tempLog);
     }
     return ResponseEntity.ok(logService.getLog());
   }

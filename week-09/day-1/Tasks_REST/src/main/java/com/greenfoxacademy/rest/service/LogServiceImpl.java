@@ -25,6 +25,7 @@ public class LogServiceImpl implements LogService {
     return logRepository.findById(1l).get();
   }
 
+  @Override
   public List<LogEntry> getLogEntriesFromLogWithLimit(Integer limit) {
     return logRepository.findById(1l).get()
         .getEntries()
@@ -53,13 +54,13 @@ public class LogServiceImpl implements LogService {
   }
 
   @Override
-  public void addNewLogEntry(LogEntry newLog) {
+  public Log addNewLogEntry(LogEntry newLog) {
     Log log = logRepository.findById(1l).get();
     List<LogEntry> logEntries = log.getEntries();
     logEntries.add(newLog);
     log.setEntries(logEntries);
     log.setEntryCount(log.getEntries().size());
     newLog.setLog(log);
-    logRepository.save(log);
+    return logRepository.save(log);
   }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface LogService {
   Log getLog();
 
-  void addNewLogEntry(LogEntry newLog);
+  Log addNewLogEntry(LogEntry newLog);
 
   List<LogEntry> getLogEntriesFromLogWithLimit(Integer limit);
 

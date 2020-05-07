@@ -35,6 +35,14 @@ public class LogEntry {
   public LogEntry() {
   }
 
+  public LogEntry(long id) {
+    this.id = id;
+  }
+
+  public LogEntry(String data) {
+    this.data = data;
+  }
+
   public LogEntry(String endpoint, Object o) {
     this.createdAt = new Date();
     this.endpoint = endpoint;

@@ -34,21 +34,23 @@ public class RoraServiceImpl implements RoraService {
   }
 
   @Override
-  public void addNewCargoStatus(String caliber, Long amount) {
+  public Cargo addNewCargoStatus(String caliber, Long amount) {
     Cargo cargo = cargoRepository.findTopByOrderByIdDesc().get();
+    Cargo updatedCargo = new Cargo(cargo.getAmmoCaliber25(), cargo.getAmmoCaliber30(), cargo.getAmmoCaliber50());
     switch (caliber) {
       case ".25":
-        cargo.setAmmoCaliber25(cargo.getAmmoCaliber25() + amount);
+        updatedCargo.setAmmoCaliber25(updatedCargo.getAmmoCaliber25() + amount);
         break;
       case ".30":
-        cargo.setAmmoCaliber30(cargo.getAmmoCaliber30() + amount);
+        updatedCargo.setAmmoCaliber30(updatedCargo.getAmmoCaliber30() + amount);
         break;
       case ".50":
-        cargo.setAmmoCaliber50(cargo.getAmmoCaliber50() + amount);
+        updatedCargo.setAmmoCaliber50(updatedCargo.getAmmoCaliber50() + amount);
         break;
     }
-    Cargo updatedCargo = new Cargo(cargo.getAmmoCaliber25(), cargo.getAmmoCaliber30(), cargo.getAmmoCaliber50());
+    updatedCargo.updateShipstatus();
     cargoRepository.save(updatedCargo);
+    return updatedCargo;
   }
 
   @Override

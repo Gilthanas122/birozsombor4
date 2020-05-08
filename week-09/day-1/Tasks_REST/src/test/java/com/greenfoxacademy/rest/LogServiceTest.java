@@ -5,7 +5,6 @@ import com.greenfoxacademy.rest.model.LogEntry;
 import com.greenfoxacademy.rest.repository.LogRepository;
 import com.greenfoxacademy.rest.service.LogService;
 import com.greenfoxacademy.rest.service.LogServiceImpl;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

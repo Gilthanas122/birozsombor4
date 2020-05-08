@@ -9,7 +9,7 @@ public interface RoraService {
 
   boolean checkIsInvalidCaliber(String caliber);
 
-  void addNewCargoStatus(String caliber, Long amount);
+  Cargo addNewCargoStatus(String caliber, Long amount);
 
   FillResponse createAndGetFillResponse(String caliber, Long amount);
 }

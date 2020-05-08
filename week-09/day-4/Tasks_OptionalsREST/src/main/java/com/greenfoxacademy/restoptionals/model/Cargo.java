@@ -7,11 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
 @Entity
 public class Cargo {
 
@@ -59,5 +55,60 @@ public class Cargo {
       DecimalFormat decimalFormat = new DecimalFormat("#");
       return decimalFormat.format(percent) + "%";
     }
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Long getAmmoCaliber25() {
+    return ammoCaliber25;
+  }
+
+  public void setAmmoCaliber25(Long ammoCaliber25) {
+    this.ammoCaliber25 = ammoCaliber25;
+  }
+
+  public Long getAmmoCaliber30() {
+    return ammoCaliber30;
+  }
+
+  public void setAmmoCaliber30(Long ammoCaliber30) {
+    this.ammoCaliber30 = ammoCaliber30;
+  }
+
+  public Long getAmmoCaliber50() {
+    return ammoCaliber50;
+  }
+
+  public void setAmmoCaliber50(Long ammoCaliber50) {
+    this.ammoCaliber50 = ammoCaliber50;
+  }
+
+  public String getShipStatus() {
+    return shipStatus;
+  }
+
+  public void setShipStatus(String shipStatus) {
+    this.shipStatus = shipStatus;
+  }
+
+  public Boolean getReady() {
+    return ready;
+  }
+
+  public void setReady(Boolean ready) {
+    this.ready = ready;
+  }
+
+  public void updateShipstatus() {
+    this.shipStatus = calculateShipStatus(this.ammoCaliber25, this.ammoCaliber30,
+        this.ammoCaliber50);
+    this.ready = (this.ammoCaliber25 + this.ammoCaliber30 + this.ammoCaliber50 == 12500) ? true :
+        false;
   }
 }

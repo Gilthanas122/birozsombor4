@@ -1,11 +1,13 @@
 package com.greenfoxacademy.restoptionals;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 public class GuardianControllerTest {
@@ -96,6 +99,7 @@ public class GuardianControllerTest {
   }
 
   @Test
+  @DirtiesContext
   public void getActualStatusOfCargoWith40PercentReturnsCorrectValues() throws Exception {
     mockMvc.perform(get("/rocket/fill?caliber=.50&amount=5000"))
         .andExpect(status().isOk())

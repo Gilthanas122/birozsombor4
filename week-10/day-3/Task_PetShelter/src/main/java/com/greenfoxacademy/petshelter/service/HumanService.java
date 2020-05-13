@@ -13,4 +13,6 @@ public interface HumanService {
   Human getHumanById(Long id);
 
   boolean isHumanExist(Long id);
+
+  boolean isHumanNameExist(String name);
 }

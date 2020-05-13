@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HumanController {
@@ -21,14 +23,20 @@ public class HumanController {
   }
 
   @GetMapping("/")
-  public String getIndexPage(Model model) {
-    model.addAttribute("human", new Human());
+  public String getIndexPage(Model model, @ModelAttribute Human human,
+                             @RequestParam(required = false) boolean hasError) {
+    model.addAttribute("hasError", hasError);
+    model.addAttribute("human", hasError ? human : new Human());
     model.addAttribute("listOfHuman", humanService.getAllHuman());
     return "index";
   }
 
-  @PostMapping("/add-new-human")
-  public String addNewHuman(@ModelAttribute Human human) {
+  @PostMapping("/add-human")
+  public String addNewHuman(@ModelAttribute Human human, RedirectAttributes attributes) {
+    attributes.addFlashAttribute(human);
+    if (human.getName().isEmpty() || humanService.isHumanNameExist(human.getName())){
+      return "redirect:/?hasError=true";
+    }
     humanService.saveHuman(human);
     return "redirect:/";
   }

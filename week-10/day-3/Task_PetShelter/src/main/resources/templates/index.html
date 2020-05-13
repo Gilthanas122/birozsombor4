@@ -8,7 +8,9 @@
 <body>
 <h1>Humans</h1>
 <h2>Add new Human</h2>
-<form method="post" action="/add-new-human" th:object="${human}">
+<p th:if="${hasError}">Something went wrong, please check if the fields are filled out or use
+    another name, because the name is already taken</p>
+<form method="post" action="/add-human" th:object="${human}">
     <label for="name">Name</label>
     <input id="name" type="text" th:field="*{name}" required>
     <br>

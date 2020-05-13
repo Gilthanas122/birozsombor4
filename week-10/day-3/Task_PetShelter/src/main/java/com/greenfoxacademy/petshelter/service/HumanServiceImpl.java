@@ -40,4 +40,9 @@ public class HumanServiceImpl implements HumanService {
   public boolean isHumanExist(Long id) {
     return humanRepository.findById(id).isPresent();
   }
+
+  @Override
+  public boolean isHumanNameExist(String name) {
+    return humanRepository.getHumanByName(name).isPresent();
+  }
 }

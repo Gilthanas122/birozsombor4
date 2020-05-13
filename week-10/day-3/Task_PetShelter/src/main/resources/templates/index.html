@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Humans</h1>
+<h2>Add new Human</h2>
+<form method="post" action="/add-new-human" th:object="${human}">
+    <label for="name">Name</label>
+    <input id="name" type="text" th:field="*{name}" required>
+    <br>
+    <label for="age">Age</label>
+    <input id="age" type="number" th:field="*{age}" required>
+    <br>
+    <input type="submit">
+</form>
+<h2>Stored humans</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="human : ${listOfHuman}" th:object="${human}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{age}"></td>
+        <td>
+            <a th:href="@{|/delete/${human.id}|}">delete</a>
+            <a th:href="@{|/edit/${human.id}|}">edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

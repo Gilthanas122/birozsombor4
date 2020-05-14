@@ -35,4 +35,14 @@ public class PetServiceImpl implements PetService {
   public boolean isPetNameExist(String name) {
     return petRepository.getPetByName(name).isPresent();
   }
+
+  @Override
+  public void deletePetById(Long id) {
+    petRepository.deleteById(id);
+  }
+
+  @Override
+  public Pet getPetById(Long id) {
+    return petRepository.findById(id).orElse(null);
+  }
 }

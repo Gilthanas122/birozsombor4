@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h1>Humans</h1>
+<h2>Edit Human</h2>
+<form method="post" th:action="@{|/edit/pet/${pet.id}|}" th:object="${pet}">
+    <label for="name">Name</label>
+    <input id="name" type="text" th:value="*{name}" th:field="*{name}" required>
+    <br>
+    <label for="owner">Owner</label>
+    <select id="owner" name="humanId">
+        <option th:each="human: ${listOfHumans}" th:value="${human.id}"
+                th:text="${human.name}"></option>
+    </select>
+    <br>
+    <input type="submit">
+</form>
+</body>
+</html>

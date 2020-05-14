@@ -37,6 +37,10 @@
         <td th:text="*{id}"></td>
         <td th:text="*{name}"></td>
         <td th:text=" ${pet.human} == null ? 'No owner yet!' : *{human.name}"></td>
+        <td>
+            <a th:href="@{|/delete//pet/${pet.id}|}">delete</a>
+            <a th:href="@{|/edit/pet/${pet.id}|}">edit</a>
+        </td>
     </tr>
     </tbody>
 </table>

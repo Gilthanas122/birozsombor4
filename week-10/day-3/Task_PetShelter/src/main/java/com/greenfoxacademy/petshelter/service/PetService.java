@@ -9,4 +9,8 @@ public interface PetService {
   void savePetToHuman(Pet pet, Long humanId);
 
   boolean isPetNameExist(String name);
+
+  void deletePetById(Long id);
+
+  Pet getPetById(Long id);
 }

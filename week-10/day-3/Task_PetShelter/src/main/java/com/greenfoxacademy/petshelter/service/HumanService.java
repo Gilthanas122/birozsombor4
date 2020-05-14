@@ -18,4 +18,8 @@ public interface HumanService {
   boolean isHumanNameExist(String name);
 
   void updateHuman(HumanDTO humanDTO, Long humanId);
+
+  boolean isHumansExistAboveAge(Integer ageLimit);
+
+  List<String> getListOfPetNamesFromOwnersAboveAge(Integer ageLimit);
 }

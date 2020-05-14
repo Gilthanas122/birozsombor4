@@ -14,4 +14,7 @@ public interface HumanRepository extends CrudRepository<Human, Long> {
 
   @Query("SELECT h FROM Human h WHERE h.name = :name")
   Optional<Human> getHumanByName(String name);
+
+  @Query("SELECT h FROM Human h WHERE h.age > :age")
+  List<Human> getHumansAboveAge(Integer age);
 }

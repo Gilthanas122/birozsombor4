@@ -5,6 +5,7 @@ import com.greenfoxacademy.petshelter.model.Human;
 import com.greenfoxacademy.petshelter.repository.HumanRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +58,19 @@ public class HumanServiceImpl implements HumanService {
       foundHuman.setName(humanDTO.getName());
       saveHuman(foundHuman);
     }
+  }
+
+  @Override
+  public boolean isHumansExistAboveAge(Integer ageLimit) {
+    return humanRepository.getHumansAboveAge(ageLimit).size() > 0;
+  }
+
+  @Override
+  public List<String> getListOfPetNamesFromOwnersAboveAge(Integer ageLimit) {
+    List<Human> humans = humanRepository.getHumansAboveAge(ageLimit);
+    return humans.stream()
+        .flatMap(human -> human.getPetList().stream())
+        .map(pet -> pet.getName())
+        .collect(Collectors.toList());
   }
 }

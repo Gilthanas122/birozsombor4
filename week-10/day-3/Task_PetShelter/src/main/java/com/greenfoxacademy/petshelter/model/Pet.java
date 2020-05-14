@@ -24,6 +24,11 @@ public class Pet {
     human = new Human();
   }
 
+  public Pet(String name) {
+    this();
+    this.name = name;
+  }
+
   public Long getId() {
     return id;
   }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Humans</h1>
+<h2>Add new Human</h2>
+<p th:if="${hasError}">Something went wrong, please check if the fields are filled out or use
+    another name, because the name is already taken</p>
+<form method="post" action="/add-pet" th:object="${pet}">
+    <label for="name">Name</label>
+    <input id="name" type="text" th:field="*{name}" required>
+    <br>
+    <label for="owner">Owner</label>
+    <select id="owner" name="humanId">
+        <option th:each="human: ${listOfHumans}" th:value="${human.id}"
+                th:text="${human.name}"></option>
+    </select>
+    <br>
+    <input type="submit">
+</form>
+<h2>Stored humans</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pet : ${listOfPets}" th:object="${pet}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text=" ${pet.human} == null ? 'No owner yet!' : *{human.name}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

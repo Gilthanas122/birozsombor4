@@ -28,6 +28,12 @@ public class Human {
     petList = new ArrayList<>();
   }
 
+  public Human(String name, Integer age) {
+    this();
+    this.name = name;
+    this.age = age;
+  }
+
   public Long getId() {
     return id;
   }

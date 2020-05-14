@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petshelter.service;
 
+import com.greenfoxacademy.petshelter.dto.HumanDTO;
 import com.greenfoxacademy.petshelter.model.Human;
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface HumanService {
   boolean isHumanExist(Long id);
 
   boolean isHumanNameExist(String name);
+
+  void updateHuman(HumanDTO humanDTO, Long humanId);
 }

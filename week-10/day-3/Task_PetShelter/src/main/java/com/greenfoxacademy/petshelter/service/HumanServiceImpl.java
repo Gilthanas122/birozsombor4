@@ -1,8 +1,10 @@
 package com.greenfoxacademy.petshelter.service;
 
+import com.greenfoxacademy.petshelter.dto.HumanDTO;
 import com.greenfoxacademy.petshelter.model.Human;
 import com.greenfoxacademy.petshelter.repository.HumanRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,16 @@ public class HumanServiceImpl implements HumanService {
   @Override
   public boolean isHumanNameExist(String name) {
     return humanRepository.getHumanByName(name).isPresent();
+  }
+
+  @Override
+  public void updateHuman(HumanDTO humanDTO, Long humanId) {
+    Optional<Human> human = humanRepository.findById(humanId);
+    if (human.isPresent()) {
+      Human foundHuman = human.get();
+      foundHuman.setAge(humanDTO.getAge());
+      foundHuman.setName(humanDTO.getName());
+      saveHuman(foundHuman);
+    }
   }
 }

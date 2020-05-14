@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petshelter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ public class Pet {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
+  @JsonIgnore
   private Human human;
 
   public Pet() {

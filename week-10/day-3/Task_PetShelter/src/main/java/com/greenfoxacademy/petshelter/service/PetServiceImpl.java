@@ -25,7 +25,7 @@ public class PetServiceImpl implements PetService {
   }
 
   @Override
-  public void savePetToHuman(Pet pet, Long humanId) {
+  public void savePet(Pet pet, Long humanId) {
     Human human = humanService.getHumanById(humanId);
     pet.setHuman(human);
     petRepository.save(pet);

@@ -6,7 +6,7 @@ import java.util.List;
 public interface PetService {
   List<Pet> getAllPet();
 
-  void savePetToHuman(Pet pet, Long humanId);
+  void savePet(Pet pet, Long humanId);
 
   boolean isPetNameExist(String name);
 

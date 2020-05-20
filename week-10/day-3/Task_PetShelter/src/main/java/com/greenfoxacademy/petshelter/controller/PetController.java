@@ -1,6 +1,5 @@
 package com.greenfoxacademy.petshelter.controller;
 
-import com.greenfoxacademy.petshelter.model.Human;
 import com.greenfoxacademy.petshelter.model.Pet;
 import com.greenfoxacademy.petshelter.service.HumanService;
 import com.greenfoxacademy.petshelter.service.PetService;
@@ -44,7 +43,7 @@ public class PetController {
     if (pet.getName().isEmpty() || petService.isPetNameExist(pet.getName())) {
       return "redirect:/list-pets?hasError=true";
     }
-    petService.savePetToHuman(pet, humanId);
+    petService.savePet(pet, humanId);
     return "redirect:/list-pets";
   }
 
@@ -63,7 +62,7 @@ public class PetController {
 
   @PostMapping("/edit/pet/{id}")
   public String editPetById(@ModelAttribute Pet pet, Long humanId) {
-    petService.savePetToHuman(pet, humanId);
+    petService.savePet(pet, humanId);
     return "redirect:/list-pets";
   }
 }

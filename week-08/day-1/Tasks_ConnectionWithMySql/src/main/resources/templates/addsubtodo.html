@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+        rel="stylesheet">
+  <title>Add new subTodo</title>
+</head>
+<body>
+<header>
+  <h1>Add new todo</h1>
+</header>
+<main>
+  <form th:object="${newSubTodo}" th:action="@{'/addSubTodo'}" th:method="post">
+    <input type="text" th:field="*{description}" required>
+    <select name="todoId">
+      <option th:each="todo : ${listOfTodos}" th:text="${todo.title}"
+              th:value="${todo.id}"></option>
+    </select>
+    <button type="submit">ADD NEW SUBTODO</button>
+  </form>
+  <a th:href="@{'/'}">Cancel</a>
+</main>
+</body>
+</html>

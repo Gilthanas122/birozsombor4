@@ -1,9 +1,12 @@
 package com.greenfoxacademy.connectionwithmysql.model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -34,10 +38,15 @@ public class Todo {
   @JoinColumn
   private Assignee assignee;
 
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "todo")
+  private List<SubTodo> subTodos;
+
   public Todo() {
+    this.subTodos = new ArrayList<>();
   }
 
   public Todo(String title, String content, String description, boolean urgent, boolean done) {
+    this();
     this.title = title;
     this.content = content;
     this.description = description;
@@ -118,6 +127,14 @@ public class Todo {
 
   public void setAssignee(Assignee assignee) {
     this.assignee = assignee;
+  }
+
+  public List<SubTodo> getSubTodos() {
+    return subTodos;
+  }
+
+  public void setSubTodos(List<SubTodo> subTodos) {
+    this.subTodos = subTodos;
   }
 
   public void setDateOfDueWithStringParameter(String dateOfDue) {

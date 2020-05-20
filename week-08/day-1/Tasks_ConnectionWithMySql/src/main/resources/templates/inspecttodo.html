@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
-          rel="stylesheet">
-    <title>Inspect</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+        rel="stylesheet">
+  <title>Inspect</title>
 </head>
 <body>
 <header>
-    <h1>Inspect Todo</h1>
+  <h1>Inspect Todo</h1>
 </header>
 <main>
-    <ul>
-        <li th:text="|ID: ${selectedTodo.id}|"></li>
-        <li th:text="|Description: ${selectedTodo.title}|"></li>
-        <li th:text="|Urgent: ${selectedTodo.urgent}|"></li>
-        <li th:text="|Done: ${selectedTodo.done}|"></li>
-        <li th:text="|Date of Creation: ${selectedTodo.dateOfCreation}|"></li>
-    </ul>
-    <a th:href="@{'/list'}">go back to Todos</a>
+  <ul>
+    <li th:text="|ID: ${selectedTodo.id}|"></li>
+    <li th:text="|Description: ${selectedTodo.title}|"></li>
+    <li th:text="|Urgent: ${selectedTodo.urgent}|"></li>
+    <li th:text="|Done: ${selectedTodo.done}|"></li>
+    <li th:text="|Date of Creation: ${selectedTodo.dateOfCreation}|"></li>
+  </ul>
+  <h2>SubTodos</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subTodo : ${selectedTodo.getSubTodos()}" th:object="${subTodo}">
+      <td th:text="*{id}"></td>
+      <td th:text="*{description}"></td>
+      <td><a th:href="@{|/${subTodo.id}/deleteSubTodo|}">delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{'/list'}">go back to Todos</a>
 </main>
 </body>
 </html>

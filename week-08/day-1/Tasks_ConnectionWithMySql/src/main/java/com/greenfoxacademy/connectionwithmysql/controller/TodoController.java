@@ -1,8 +1,10 @@
 package com.greenfoxacademy.connectionwithmysql.controller;
 
 import com.greenfoxacademy.connectionwithmysql.model.Assignee;
+import com.greenfoxacademy.connectionwithmysql.model.SubTodo;
 import com.greenfoxacademy.connectionwithmysql.model.Todo;
 import com.greenfoxacademy.connectionwithmysql.service.AssigneeService;
+import com.greenfoxacademy.connectionwithmysql.service.SubTodoService;
 import com.greenfoxacademy.connectionwithmysql.service.TodoService;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,13 @@ public class TodoController {
 
   private TodoService todoService;
   private AssigneeService assigneeService;
-
+  private SubTodoService subTodoService;
 
   @Autowired
-  public TodoController(TodoService todoService, AssigneeService assigneeService) {
+  public TodoController(TodoService todoService, AssigneeService assigneeService, SubTodoService subTodoService) {
     this.todoService = todoService;
     this.assigneeService = assigneeService;
+    this.subTodoService = subTodoService;
   }
 
   @GetMapping(value = {"/", "/list"})
@@ -127,7 +130,7 @@ public class TodoController {
 
   @GetMapping(value = {"/searchByAssigneeName"})
   public String getListOfTodosByName(Model model, @RequestParam String name) {
-    model.addAttribute("todos",todoService.getTodosByAssigneeName(name));
+    model.addAttribute("todos", todoService.getTodosByAssigneeName(name));
     return "todolist";
   }
 
@@ -144,7 +147,7 @@ public class TodoController {
   }
 
   @PostMapping(value = "/addAssignee")
-  public String addnewAssignee(@ModelAttribute Assignee assignee) {
+  public String addNewAssignee(@ModelAttribute Assignee assignee) {
     assigneeService.addNewAssignee(assignee);
     return "redirect:/listOfAssignees";
   }
@@ -171,6 +174,25 @@ public class TodoController {
   public String getInspectAssigneeViewById(@PathVariable Long id, Model model) {
     model.addAttribute("selectedAssignee", assigneeService.getAnAssigneeById(id));
     return "inspectassignee";
+  }
+
+  @GetMapping("/addSubTodo")
+  public String getAddNewSubTodoView(Model model) {
+    model.addAttribute("listOfTodos", todoService.getTodosFromDatabase());
+    model.addAttribute("newSubTodo", new SubTodo());
+    return "addsubtodo";
+  }
+
+  @PostMapping("/addSubTodo")
+  public String addNewSubTodo(@ModelAttribute SubTodo subTodo, Long todoId) {
+    subTodoService.addNewSubTodo(subTodo, todoId);
+    return "redirect:/";
+  }
+
+  @GetMapping("/{id}/deleteSubTodo")
+  public String deleteSubTodoById(@PathVariable Long id) {
+    subTodoService.deleteSubTodoById(id);
+    return "redirect:/";
   }
 
 }

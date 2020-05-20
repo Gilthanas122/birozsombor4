@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+        rel="stylesheet">
+  <title>Login with User</title>
+</head>
+<body>
+<header>
+  <h1>Welcome to Programmer Fox Club!</h1>
+  <ul>
+    <li><a href="/">Information</a></li>
+    <li><a href="/loginWithUser">Login with userName</a></li>
+    <li><a href="/register">Register</a></li>
+  </ul>
+</header>
+<main>
+  <p>Please login with your User!</p>
+  <form th:action="@{'/loginWithUser'}" th:method="post">
+    <label for="name">Username</label>
+    <input id="name" type="text" name="username">
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password">
+    <button type="submit">LOGIN</button>
+  </form>
+  <p th:if="${invalidUserdata} != null"
+     th:text="'Invalid userdata!'"></p>
+</main>
+</body>
+</html>

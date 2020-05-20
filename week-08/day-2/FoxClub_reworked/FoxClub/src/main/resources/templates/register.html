@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap"
+        rel="stylesheet">
+  <title>Register</title>
+</head>
+<body>
+<header>
+  <h1>Create new User</h1>
+</header>
+<main>
+  <p>Please provide a name, and your password!</p>
+  <form th:action="@{'/register'}" th:method="post" th:object="${newUser}">
+    <label for="name">Name</label>
+    <input id="name" type="text" th:field="*{username}" required><br>
+    <label for="password1">Password</label>
+    <input id="password1" type="password" th:field="*{password}" required><br>
+    <label for="password2">Retype your password</label>
+    <input id="password2" type="password" name="passwordVerification" required><br>
+    <button type="submit">REGISTER</button>
+  </form>
+  <p th:if="${passwordVerificationFailed}">Please type again your password!</p>
+  <p th:if="${usernameVerificationFailed}">Please choose another username!</p>
+</main>
+</body>
+</html>

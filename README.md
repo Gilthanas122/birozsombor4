@@ -10,6 +10,7 @@
 [week-09 Heroku - RedditProject](https://nameless-mesa-48176.herokuapp.com/login)<br/>
 [week-09 Heroku - FoxClub](https://calm-spire-36694.herokuapp.com/)<br/>
 [week-10 P2P Chat](https://github.com/birozsombor4/p2p-chat) and the [deployed verison](https://birozsombor4-p2p.herokuapp.com/)<br/>
+[week-11 Git-Pro Workshop](https://github.com/birozsombor4/git-workshop-team-2)<br/>
 # My Class Syllabus
 [Vetulus cohort/Stable class](https://github.com/green-fox-academy/stable-syllabus)
 

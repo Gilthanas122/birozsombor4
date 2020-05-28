@@ -27,7 +27,7 @@ public class JwtRetrofitTesenvMockingApplication implements CommandLineRunner {
     User defaultUser = new User();
     defaultUser.setUsername("user");
     defaultUser.setPassword("password");
-    defaultUser.setRoles("ROLE_USER");
+    defaultUser.setRoles("ROLE_USER,");
     userRepository.save(defaultUser);
   }
 }

@@ -1,9 +1,13 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequest;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponse;
+import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,18 +25,21 @@ public class ApiController {
   private AuthenticationManager authenticationManager;
   private UserDetailsService userDetailsService;
   private JwtUtil jwtUtil;
+  private MovieService movieService;
 
   @Autowired
   public ApiController(AuthenticationManager authenticationManager,
                        UserDetailsService userDetailsService,
-                       JwtUtil jwtUtil) {
+                       JwtUtil jwtUtil,
+                       MovieService movieService) {
     this.authenticationManager = authenticationManager;
     this.userDetailsService = userDetailsService;
     this.jwtUtil = jwtUtil;
+    this.movieService = movieService;
   }
 
   @PostMapping("/authenticate")
-  public ResponseEntity getJwtTokenAndAuthenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+  public ResponseEntity getJwtTokenAndAuthenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
     try {
       authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(
@@ -40,7 +47,7 @@ public class ApiController {
               authenticationRequest.getPassword())
       );
     } catch (BadCredentialsException e) {
-      return ResponseEntity.badRequest().build();
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
     UserDetails userDetails =
         userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -50,6 +57,14 @@ public class ApiController {
 
   @GetMapping("/test")
   public ResponseEntity getTestString() {
-    return ResponseEntity.ok(new String("Test"));
+    return ResponseEntity.ok("Test");
   }
+
+  @GetMapping("/popular-movies")
+  public ResponseEntity getPopularMovies() {
+    movieService.updatePopularMovies();
+    List<PopularMovie> movieList = movieService.getPopularMovies();
+    return ResponseEntity.ok(movieList);
+  }
+
 }

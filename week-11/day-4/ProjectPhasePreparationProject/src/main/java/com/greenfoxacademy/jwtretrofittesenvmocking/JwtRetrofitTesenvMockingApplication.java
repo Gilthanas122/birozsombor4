@@ -24,10 +24,10 @@ public class JwtRetrofitTesenvMockingApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    User defaultUser = new User();
+    /*User defaultUser = new User();
     defaultUser.setUsername("user");
     defaultUser.setPassword("password");
     defaultUser.setRoles("ROLE_USER,");
-    userRepository.save(defaultUser);
+    userRepository.save(defaultUser);*/
   }
 }

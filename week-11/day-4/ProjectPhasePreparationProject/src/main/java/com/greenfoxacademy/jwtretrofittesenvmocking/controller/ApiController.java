@@ -3,7 +3,9 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequest;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponse;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
+import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +26,26 @@ public class ApiController {
 
   private AuthenticationManager authenticationManager;
   private UserDetailsService userDetailsService;
+  private UserService userService;
   private JwtUtil jwtUtil;
   private MovieService movieService;
 
   @Autowired
   public ApiController(AuthenticationManager authenticationManager,
                        UserDetailsService userDetailsService,
+                       UserService userService,
                        JwtUtil jwtUtil,
                        MovieService movieService) {
     this.authenticationManager = authenticationManager;
     this.userDetailsService = userDetailsService;
+    this.userService = userService;
     this.jwtUtil = jwtUtil;
     this.movieService = movieService;
+  }
+
+  @PostMapping("/register")
+  public ResponseEntity registerNewUser(@RequestBody UserDTO userDTO) {
+    return ResponseEntity.ok(userService.saveUser(userDTO));
   }
 
   @PostMapping("/authenticate")

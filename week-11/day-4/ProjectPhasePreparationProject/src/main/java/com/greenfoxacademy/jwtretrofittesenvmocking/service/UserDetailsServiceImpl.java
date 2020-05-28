@@ -2,6 +2,7 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.UserDetailsImpl;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -14,16 +15,15 @@ import org.springframework.stereotype.Service;
 @Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  private UserService userService;
+  private UserRepository userRepository;
 
-  @Autowired
-  public UserDetailsServiceImpl(UserService userService) {
-    this.userService = userService;
+  public UserDetailsServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
   }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<User> user = userService.getUserByUsername(username);
+    Optional<User> user = userRepository.findUserByUsername(username);
     user.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     UserDetails userDetails = new UserDetailsImpl(user.get());
     return userDetails;

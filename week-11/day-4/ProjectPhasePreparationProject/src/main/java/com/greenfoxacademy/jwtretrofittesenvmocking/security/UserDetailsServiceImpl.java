@@ -1,6 +1,5 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.security.UserDetailsImpl;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import java.util.Optional;

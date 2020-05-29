@@ -22,10 +22,6 @@ public class UserServiceImpl implements UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public Optional<User> getUserByUsername(String username) {
-    return userRepository.findUserByUsername(username);
-  }
-
   public User saveUser(UserDTO userDTO) {
     User user = new User();
     user.setUsername(userDTO.getUsername());

@@ -1,10 +1,10 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model.dto;
+package com.greenfoxacademy.jwtretrofittesenvmocking.model.call;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResultDTO {
+public class PopularMovieDTO {
 
   @SerializedName("popularity")
   @Expose
@@ -49,7 +49,7 @@ public class ResultDTO {
   @Expose
   public String releaseDate;
 
-  public ResultDTO() {
+  public PopularMovieDTO() {
   }
 
   public Double getPopularity() {

@@ -1,5 +1,7 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.model.dao;
 
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.PopularMovieDTO;
+import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +32,25 @@ public class PopularMovie {
   public String releaseDate;
 
   public PopularMovie() {
+  }
+
+  public PopularMovie(PopularMovieDTO resultDTO) {
+    this.adult = resultDTO.getAdult();
+    this.popularity = resultDTO.getPopularity();
+    this.voteCount = resultDTO.getVoteCount();
+    this.video = resultDTO.getVideo();
+    this.posterPath = resultDTO.getPosterPath();
+    this.remoteDatabaseId = resultDTO.getId();
+    this.backdropPath = resultDTO.getBackdropPath();
+    this.genreIds = resultDTO.getGenreIds().stream()
+        .map(id -> String.valueOf(id))
+        .collect(Collectors.joining(", "));
+    this.originalLanguage = resultDTO.getOriginalLanguage();
+    this.originalTitle = resultDTO.getOriginalTitle();
+    this.overview = resultDTO.getOverview();
+    this.title = resultDTO.getTitle();
+    this.voteAverage = resultDTO.voteAverage;
+    this.releaseDate = resultDTO.getReleaseDate();
   }
 
   public Long getId() {

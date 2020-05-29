@@ -1,8 +1,8 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.PopularMoviesResponseDTO;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ResultDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.PopularMoviesDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.PopularMovieDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.MovieRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,53 +35,40 @@ public class MovieServiceImpl implements MovieService {
     this.movieRepository = movieRepository;
   }
 
-  public void updatePopularMovies() {
-    Call<PopularMoviesResponseDTO> call = apiInterface.getPopularMovies(API_KEY, "en-US", 1);
-    call.enqueue(new Callback<PopularMoviesResponseDTO>() {
+  public void fetchPopularMovies() {
+    Call<PopularMoviesDTO> call = apiInterface.getPopularMovies(API_KEY, "en-US", 1);
+    call.enqueue(new Callback<PopularMoviesDTO>() {
       @Override
-      public void onResponse(Call<PopularMoviesResponseDTO> call, Response<PopularMoviesResponseDTO> response) {
-        List<PopularMovie> movies = convertResponseDTOToListOfMovies(response.body());
-        for (PopularMovie movie : movies) {
-          movieRepository.save(movie);
-        }
+      public void onResponse(Call<PopularMoviesDTO> call, Response<PopularMoviesDTO> response) {
+        List<PopularMovie> movies = convertResponseBodyToListOfMovies(response.body());
+        saveAllMovie(movies);
       }
 
       @Override
-      public void onFailure(Call<PopularMoviesResponseDTO> call, Throwable t) {
+      public void onFailure(Call<PopularMoviesDTO> call, Throwable t) {
 
       }
     });
   }
 
+  private void saveAllMovie(List<PopularMovie> movies) {
+    for (PopularMovie movie : movies) {
+      movieRepository.save(movie);
+    }
+  }
+
   @Override
-  public List<PopularMovie> getPopularMovies() {
+  public List<PopularMovie> getAllPopularMovie() {
     return movieRepository.findAll();
   }
 
-  private List<PopularMovie> convertResponseDTOToListOfMovies(PopularMoviesResponseDTO responseDTO) {
+  private List<PopularMovie> convertResponseBodyToListOfMovies(PopularMoviesDTO responseDTO) {
     return responseDTO.getResults().stream()
-        .map(result -> convertResultDTOToMovie(result))
+        .map(popularMovieDTO -> convertPopularMovieDTOToPopularMovie(popularMovieDTO))
         .collect(Collectors.toList());
   }
 
-  private PopularMovie convertResultDTOToMovie(ResultDTO resultDTO) {
-    PopularMovie movie = new PopularMovie();
-    movie.setAdult(resultDTO.getAdult());
-    movie.setPopularity(resultDTO.getPopularity());
-    movie.setVoteCount(resultDTO.getVoteCount());
-    movie.setVideo(resultDTO.getVideo());
-    movie.setPosterPath(resultDTO.getPosterPath());
-    movie.setRemoteDatabaseId(resultDTO.getId());
-    movie.setBackdropPath(resultDTO.getBackdropPath());
-    movie.setGenreIds(resultDTO.getGenreIds().stream()
-        .map(id -> String.valueOf(id))
-        .collect(Collectors.joining(", ")));
-    movie.setOriginalLanguage(resultDTO.getOriginalLanguage());
-    movie.setOriginalTitle(resultDTO.getOriginalTitle());
-    movie.setOverview(resultDTO.getOverview());
-    movie.setTitle(resultDTO.getTitle());
-    movie.setVoteAverage(resultDTO.voteAverage);
-    movie.setReleaseDate(resultDTO.getReleaseDate());
-    return movie;
+  private PopularMovie convertPopularMovieDTOToPopularMovie(PopularMovieDTO popularMovieDTO) {
+    return new PopularMovie(popularMovieDTO);
   }
 }

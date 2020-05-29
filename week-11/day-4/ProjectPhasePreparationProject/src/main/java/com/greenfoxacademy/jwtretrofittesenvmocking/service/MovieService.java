@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface MovieService {
 
-  void updatePopularMovies();
+  void fetchPopularMovies();
 
-  List<PopularMovie> getPopularMovies();
+  List<PopularMovie> getAllPopularMovie();
 }

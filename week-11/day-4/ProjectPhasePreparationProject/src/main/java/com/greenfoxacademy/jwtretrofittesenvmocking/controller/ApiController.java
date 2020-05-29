@@ -3,6 +3,8 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequestDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponseDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ErrorDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.PopularMoviesDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
@@ -45,7 +47,12 @@ public class ApiController {
 
   @PostMapping("/register")
   public ResponseEntity registerNewUser(@RequestBody UserDTO userDTO) {
-    return ResponseEntity.ok(userService.saveUser(userDTO));
+    if (userService.isUserDTOValid(userDTO)) {
+      return ResponseEntity.ok(userService.saveUser(userDTO));
+    } else {
+      return ResponseEntity.badRequest().body(new ErrorDTO("Username and password fields are " +
+          "incorrect or missing."));
+    }
   }
 
   @PostMapping("/authenticate")
@@ -74,6 +81,6 @@ public class ApiController {
   public ResponseEntity getPopularMovies() {
     movieService.updatePopularMovies();
     List<PopularMovie> movieList = movieService.getPopularMovies();
-    return ResponseEntity.ok(movieList);
+    return ResponseEntity.ok(new PopularMoviesDTO(movieList));
   }
 }

@@ -8,4 +8,6 @@ public interface UserService {
   Optional<User> getUserByUsername(String username);
 
   UserDTO saveUser(UserDTO userDTO);
+
+  boolean isUserDTOValid(UserDTO userDTO);
 }

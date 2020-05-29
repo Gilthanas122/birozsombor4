@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
-  private String SECRET_KEY = System.getenv("SECRET_KEY");
+  private String SECRET_KEY = "testKey";
 
   //functions for CREATING
   public String generateToken(UserDetails userDetails) {

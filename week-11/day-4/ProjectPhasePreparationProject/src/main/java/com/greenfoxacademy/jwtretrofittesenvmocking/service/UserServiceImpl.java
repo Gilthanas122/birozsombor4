@@ -34,4 +34,29 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
     return userDTO;
   }
+
+  @Override
+  public boolean isUserDTOValid(UserDTO userDTO) {
+    if (isUsernameValid(userDTO.getUsername()) && isPasswordValid(userDTO.getPassword())) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private boolean isPasswordValid(String password) {
+    if (password == null || password.isEmpty()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  private boolean isUsernameValid(String username) {
+    if (username == null || username.isEmpty()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

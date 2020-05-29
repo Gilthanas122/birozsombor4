@@ -37,7 +37,8 @@ public class ApiControllerTest {
   private JwtUtil jwtUtil;
 
   @Autowired
-  public ApiControllerTest(UserService userService, UserDetailsService userDetailsService,
+  public ApiControllerTest(UserService userService,
+                           UserDetailsService userDetailsService,
                            JwtUtil jwtUtil) {
     this.userService = userService;
     this.userDetailsService = userDetailsService;
@@ -104,6 +105,7 @@ public class ApiControllerTest {
     /*System.setProperty("test-prop", "test-value");
     PowerMockito.mockStatic(System.class);
     PowerMockito.when(System.getenv("SECRET_KEY")).thenReturn("testKey");*/
+
     mockMvc.perform(post("/authenticate")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"username\":\"default\",\"password\":\"password\"}"))
@@ -138,6 +140,7 @@ public class ApiControllerTest {
   public void getTestString_WithAuthentication_ReturnsValidStatusAndContent() throws Exception {
     UserDetails userDetails = userDetailsService.loadUserByUsername("default");
     String jwt = jwtUtil.generateToken(userDetails);
+
     mockMvc.perform(get("/test")
         .header("Authorization", "Bearer " + jwt))
         .andExpect(status().isOk())

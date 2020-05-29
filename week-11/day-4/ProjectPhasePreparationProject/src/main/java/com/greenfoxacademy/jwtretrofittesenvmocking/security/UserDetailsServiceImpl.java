@@ -1,10 +1,9 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.service;
+package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.UserDetailsImpl;
+import com.greenfoxacademy.jwtretrofittesenvmocking.security.UserDetailsImpl;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

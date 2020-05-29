@@ -1,11 +1,11 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.model.dto;
 
-public class AuthenticationRequest {
+public class AuthenticationRequestDTO {
 
   private String username;
   private String password;
 
-  public AuthenticationRequest() {
+  public AuthenticationRequestDTO() {
   }
 
   public String getUsername() {

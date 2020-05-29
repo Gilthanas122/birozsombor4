@@ -1,4 +1,4 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model;
+package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
 import java.util.Arrays;

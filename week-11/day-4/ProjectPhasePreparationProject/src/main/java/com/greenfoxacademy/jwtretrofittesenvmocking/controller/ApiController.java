@@ -1,8 +1,8 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequest;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponse;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequestDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponseDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
@@ -49,7 +49,7 @@ public class ApiController {
   }
 
   @PostMapping("/authenticate")
-  public ResponseEntity getJwtTokenAndAuthenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
+  public ResponseEntity getJwtTokenAndAuthenticateUser(@RequestBody AuthenticationRequestDTO authenticationRequest) {
     try {
       authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(
@@ -62,7 +62,7 @@ public class ApiController {
     UserDetails userDetails =
         userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
     String jwt = jwtUtil.generateToken(userDetails);
-    return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    return ResponseEntity.ok(new AuthenticationResponseDTO(jwt));
   }
 
   @GetMapping("/test")
@@ -76,5 +76,4 @@ public class ApiController {
     List<PopularMovie> movieList = movieService.getPopularMovies();
     return ResponseEntity.ok(movieList);
   }
-
 }

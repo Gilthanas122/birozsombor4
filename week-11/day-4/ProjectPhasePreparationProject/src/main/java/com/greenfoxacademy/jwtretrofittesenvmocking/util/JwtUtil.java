@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,19 +18,16 @@ public class JwtUtil {
   //functions for CREATING
   public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
-    String token = createToken(claims, userDetails.getUsername());
-    return token;
-  }
-
-  private String createToken(Map<String, Object> claims, String username) {
-    return Jwts.builder().setClaims(claims)
-        .setSubject(username)
+    String jwt = Jwts.builder().setClaims(claims)
+        .setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-        .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+        .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+        .compact();
+    return jwt;
   }
 
-  //functions for EXTRACTING
+  //region functions for EXTRACTING
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
@@ -49,8 +47,9 @@ public class JwtUtil {
   public Date extractExpiration(String token) {
     return extractClaim(token, Claims::getExpiration);
   }
+  //endregion
 
-  //functions for VALIDATING
+  //region functions for VALIDATING
   private boolean isTokenExpired(String token) {
     return extractExpiration(token)
         .before(new Date());
@@ -60,4 +59,5 @@ public class JwtUtil {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
   }
+  //endregion
 }

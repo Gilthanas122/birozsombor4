@@ -1,10 +1,10 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.model.dto;
 
-public class AuthenticationResponse {
+public class AuthenticationResponseDTO {
 
   private String jwt;
 
-  public AuthenticationResponse(String jwt) {
+  public AuthenticationResponseDTO(String jwt) {
     this.jwt = jwt;
   }
 

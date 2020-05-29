@@ -48,7 +48,7 @@ public class ApiController {
   @PostMapping("/register")
   public ResponseEntity registerNewUser(@RequestBody UserDTO userDTO) {
     if (userService.isUserDTOValid(userDTO)) {
-      return ResponseEntity.ok(userService.saveUser(userDTO));
+      return ResponseEntity.ok(new UserDTO(userService.saveUser(userDTO)));
     } else {
       return ResponseEntity.badRequest().body(new ErrorDTO("Username and password fields are " +
           "incorrect or missing."));

@@ -26,13 +26,12 @@ public class UserServiceImpl implements UserService {
     return userRepository.findUserByUsername(username);
   }
 
-  public UserDTO saveUser(UserDTO userDTO) {
+  public User saveUser(UserDTO userDTO) {
     User user = new User();
     user.setUsername(userDTO.getUsername());
     user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     user.setRoles("ROLE_USER,");
-    userRepository.save(user);
-    return userDTO;
+    return userRepository.save(user);
   }
 
   @Override

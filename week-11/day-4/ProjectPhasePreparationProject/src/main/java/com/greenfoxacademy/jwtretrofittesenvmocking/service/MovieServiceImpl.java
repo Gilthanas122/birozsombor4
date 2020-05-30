@@ -35,6 +35,7 @@ public class MovieServiceImpl implements MovieService {
     this.movieRepository = movieRepository;
   }
 
+  @Override
   public void fetchPopularMovies() {
     Call<PopularMoviesDTO> call = apiInterface.getPopularMovies(API_KEY, "en-US", 1);
     call.enqueue(new Callback<PopularMoviesDTO>() {

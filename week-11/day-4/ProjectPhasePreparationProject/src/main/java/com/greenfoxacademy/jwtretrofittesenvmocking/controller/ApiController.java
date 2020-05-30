@@ -80,7 +80,7 @@ public class ApiController {
 
   @GetMapping("/test")
   public ResponseEntity getTestString() {
-    return ResponseEntity.ok("Test");
+    return ResponseEntity.ok("This is a test string for all authenticated user.");
   }
 
   @GetMapping("/popular-movies")
@@ -97,5 +97,15 @@ public class ApiController {
     }
     Actor foundActor = actorService.getActorById(id);
     return ResponseEntity.ok(foundActor);
+  }
+
+  @GetMapping("/admin/test")
+  public ResponseEntity getTestStringForAdmin() {
+    return ResponseEntity.ok("This is a test string just for admins!");
+  }
+
+  @GetMapping("/user/test")
+  public ResponseEntity getTestStringForUser() {
+    return ResponseEntity.ok("This is a test string just for users!");
   }
 }

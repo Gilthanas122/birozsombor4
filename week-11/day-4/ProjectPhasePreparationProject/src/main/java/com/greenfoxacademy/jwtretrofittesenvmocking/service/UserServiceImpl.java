@@ -29,6 +29,14 @@ public class UserServiceImpl implements UserService {
     return userRepository.save(user);
   }
 
+  public UserDAO saveAdmin(UserDTO userDTO) {
+    UserDAO admin = new UserDAO();
+    admin.setUsername("admin");
+    admin.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    admin.setRoles("ROLE_ADMIN,ROLE_USER");
+    return userRepository.save(admin);
+  }
+
   @Override
   public boolean isUserDTOValid(UserDTO userDTO) {
     if (isUsernameValid(userDTO.getUsername()) && isPasswordValid(userDTO.getPassword())) {

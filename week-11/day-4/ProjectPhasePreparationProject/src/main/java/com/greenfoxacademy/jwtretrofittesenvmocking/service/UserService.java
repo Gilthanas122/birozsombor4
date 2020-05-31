@@ -7,5 +7,7 @@ public interface UserService {
 
   UserDAO saveUser(UserDTO userDTO);
 
+  UserDAO saveAdmin(UserDTO userDTO);
+
   boolean isUserDTOValid(UserDTO userDTO);
 }

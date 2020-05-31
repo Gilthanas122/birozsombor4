@@ -44,6 +44,7 @@ public class ApiControllerTest {
     this.userDetailsService = userDetailsService;
     this.jwtUtil = jwtUtil;
     this.userService.saveUser(new UserDTO("default", "password"));
+    this.userService.saveAdmin(new UserDTO("admin", "adminPass"));
   }
 
   @Test
@@ -115,7 +116,7 @@ public class ApiControllerTest {
   }
 
   @Test
-  public void getJwtTokenAndAuthenticateUser_WithValidInvalidUsername_ReturnsValidStatus() throws Exception {
+  public void getJwtTokenAndAuthenticateUser_WithValidInvalidUsername_ReturnsUnauthorized() throws Exception {
     mockMvc.perform(post("/authenticate")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"username\":\"defaultasd\",\"password\":\"password\"}"))
@@ -123,7 +124,7 @@ public class ApiControllerTest {
   }
 
   @Test
-  public void getJwtTokenAndAuthenticateUser_WithValidInvalidPassword_ReturnsValidStatus() throws Exception {
+  public void getJwtTokenAndAuthenticateUser_WithValidInvalidPassword_ReturnsUnauthorized() throws Exception {
     mockMvc.perform(post("/authenticate")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"username\":\"default\",\"password\":\"passwordasd\"}"))
@@ -131,7 +132,7 @@ public class ApiControllerTest {
   }
 
   @Test
-  public void getTestString_WithoutAuthentication_ReturnsValidStatus() throws Exception {
+  public void getTestString_WithoutAuthentication_ReturnsClientSideError() throws Exception {
     mockMvc.perform(get("/test"))
         .andExpect(status().is4xxClientError());
   }
@@ -140,25 +141,90 @@ public class ApiControllerTest {
   public void getTestString_WithAuthentication_ReturnsValidStatusAndContent() throws Exception {
     UserDetails userDetails = userDetailsService.loadUserByUsername("default");
     String jwt = jwtUtil.generateToken(userDetails);
-
     mockMvc.perform(get("/test")
         .header("Authorization", "Bearer " + jwt))
         .andExpect(status().isOk())
-        .andExpect(content().string("Test"));
+        .andExpect(content().string("This is a test string for all authenticated user."));
   }
 
   @Test
-  public void getPopularMovies_WithoutAuthentication_ReturnsValidStatus() throws Exception {
+  public void getPopularMovies_WithoutAuthentication_ReturnsClientSideError() throws Exception {
     mockMvc.perform(get("/popular-movies"))
         .andExpect(status().is4xxClientError());
   }
 
   @Test
-  public void getPopularMovies_WithAuthentication_ReturnsValidStatusAndObject() throws Exception {
+  public void getPopularMovies_WithAuthentication_ReturnsOk() throws Exception {
     UserDetails userDetails = userDetailsService.loadUserByUsername("default");
     String jwt = jwtUtil.generateToken(userDetails);
     mockMvc.perform(get("/popular-movies")
         .header("Authorization", "Bearer " + jwt))
         .andExpect(status().isOk());
+  }
+
+  @Test
+  public void getActorById_WithoutAuthentication_ReturnsClientSideError() throws Exception {
+    mockMvc.perform(get("/actor/1"))
+        .andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  public void getActorById_WithAuthentication_ReturnsOk() throws Exception {
+    UserDetails userDetails = userDetailsService.loadUserByUsername("default");
+    String jwt = jwtUtil.generateToken(userDetails);
+    mockMvc.perform(get("/actor/1")
+        .header("Authorization", "Bearer " + jwt))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  public void getTestStringForAdmin_WithoutAuthentication_ReturnsClientSideError() throws Exception {
+    mockMvc.perform(get("/admin/test"))
+        .andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  public void getTestStringForAdmin_WithAuthenticationAndWithoutAdminRole_ReturnsForbidden() throws Exception {
+    UserDetails userDetails = userDetailsService.loadUserByUsername("default");
+    String jwt = jwtUtil.generateToken(userDetails);
+    mockMvc.perform(get("/admin/test")
+        .header("Authorization", "Bearer " + jwt))
+        .andExpect(status().isForbidden());
+  }
+
+  @Test
+  public void getTestStringForAdmin_WithAuthenticationAndWithAdminRole_ReturnsOkAndValidString() throws Exception {
+    UserDetails userDetails = userDetailsService.loadUserByUsername("admin");
+    String jwt = jwtUtil.generateToken(userDetails);
+    mockMvc.perform(get("/admin/test")
+        .header("Authorization", "Bearer " + jwt))
+        .andExpect(status().isOk())
+        .andExpect(content().string("This is a test string just for admins!"));
+  }
+
+  @Test
+  public void getTestStringForUser_WithoutAuthentication_ReturnsClientSideError() throws Exception {
+    mockMvc.perform(get("/user/test"))
+        .andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  public void getTestStringForUser_WithAuthenticationAndWithUserRole_ReturnsOkAndValidString() throws Exception {
+    UserDetails userDetails = userDetailsService.loadUserByUsername("default");
+    String jwt = jwtUtil.generateToken(userDetails);
+    mockMvc.perform(get("/user/test")
+        .header("Authorization", "Bearer " + jwt))
+        .andExpect(status().isOk())
+        .andExpect(content().string("This is a test string just for users!"));
+  }
+
+  @Test
+  public void getTestStringForUser_WithAuthenticationAndWithAdminRole_ReturnsOkAndValidString() throws Exception {
+    UserDetails userDetails = userDetailsService.loadUserByUsername("admin");
+    String jwt = jwtUtil.generateToken(userDetails);
+    mockMvc.perform(get("/user/test")
+        .header("Authorization", "Bearer " + jwt))
+        .andExpect(status().isOk())
+        .andExpect(content().string("This is a test string just for users!"));
   }
 }

@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import java.util.Arrays;
 import java.util.Optional;
@@ -34,11 +34,11 @@ public class UserDetailsServiceTest extends TestCase {
 
   @Test
   public void loadUserByUsername_WithExistingUsername_ReturnsValidUserDetails() {
-    User fakeUser = new User();
+    UserDAO fakeUser = new UserDAO();
     fakeUser.setUsername("fakeUser");
     fakeUser.setPassword("fakePassword");
     fakeUser.setRoles("FAKE_ROLE,");
-    Optional<User> fakeUserOptional = Optional.of(fakeUser);
+    Optional<UserDAO> fakeUserOptional = Optional.of(fakeUser);
 
     Mockito.when(userRepository.findUserByUsername("fakeUser")).thenReturn(fakeUserOptional);
 

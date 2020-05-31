@@ -1,11 +1,10 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.Actor;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.ActorDAO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovieDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationRequestDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.AuthenticationResponseDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ErrorDTO;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.PopularMoviesResponseDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.ActorService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
@@ -86,8 +85,8 @@ public class ApiController {
   @GetMapping("/popular-movies")
   public ResponseEntity getPopularMovies() {
     movieService.fetchPopularMovies();
-    List<PopularMovie> movieList = movieService.getAllPopularMovie();
-    return ResponseEntity.ok(new PopularMoviesResponseDTO(movieList));
+    List<PopularMovieDAO> movieList = movieService.getAllPopularMovie();
+    return ResponseEntity.ok(movieService.createPopularMoviesResponseDTO(movieList));
   }
 
   @GetMapping("/actor/{id}")
@@ -95,8 +94,8 @@ public class ApiController {
     if (!actorService.isActorStoredAlready(id)) {
       actorService.fetchActorById(id);
     }
-    Actor foundActor = actorService.getActorById(id);
-    return ResponseEntity.ok(foundActor);
+    ActorDAO foundActor = actorService.getActorById(id);
+    return ResponseEntity.ok(actorService.convertActorDAOtoDTO(foundActor));
   }
 
   @GetMapping("/admin/test")

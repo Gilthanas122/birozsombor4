@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import org.junit.Assert;
@@ -28,16 +28,16 @@ public class UserServiceTest {
     //Arrange
     UserDTO fakeUserDTO = new UserDTO("fakeuser", "fakepassword");
 
-    User userReturnFromDatabase = new User();
+    UserDAO userReturnFromDatabase = new UserDAO();
     userReturnFromDatabase.setUsername("fakeuser");
     userReturnFromDatabase.setPassword("encodedPass");
     userReturnFromDatabase.setRoles("ROLE_USER,");
 
     Mockito.when(passwordEncoder.encode(Mockito.any(String.class))).thenReturn("encodedPass");
-    Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(userReturnFromDatabase);
+    Mockito.when(userRepository.save(Mockito.any(UserDAO.class))).thenReturn(userReturnFromDatabase);
 
     //Act
-    User savedUser = userService.saveUser(fakeUserDTO);
+    UserDAO savedUser = userService.saveUser(fakeUserDTO);
 
     //Assert
     Assert.assertEquals("fakeuser", savedUser.getUsername());

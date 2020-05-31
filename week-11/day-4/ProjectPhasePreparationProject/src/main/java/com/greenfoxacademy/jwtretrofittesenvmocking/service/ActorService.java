@@ -1,7 +1,8 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.Actor;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.ActorDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.ActorDAO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ActorDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.retro.Actor;
 
 public interface ActorService {
 
@@ -9,9 +10,11 @@ public interface ActorService {
 
   boolean isActorStoredAlready(Long id);
 
-  Actor getActorById(Long id);
+  ActorDAO getActorById(Long id);
 
-  void saveActor(Actor actor);
+  void saveActor(ActorDAO actorDao);
 
-  Actor convertActorDTOToActor(ActorDTO actorDTO);
+  ActorDTO convertActorDAOtoDTO(ActorDAO actorDAO);
+
+  ActorDTO convertActorDTOToDAO(ActorDAO actorDAO);
 }

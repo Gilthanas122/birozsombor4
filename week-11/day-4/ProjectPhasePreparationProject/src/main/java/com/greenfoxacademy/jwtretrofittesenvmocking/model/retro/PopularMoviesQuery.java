@@ -1,10 +1,10 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model.call;
+package com.greenfoxacademy.jwtretrofittesenvmocking.model.retro;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PopularMoviesDTO {
+public class PopularMoviesQuery {
 
   @SerializedName("page")
   @Expose
@@ -17,9 +17,9 @@ public class PopularMoviesDTO {
   public Integer totalPages;
   @SerializedName("results")
   @Expose
-  public List<PopularMovieDTO> results = null;
+  public List<PopularMovie> results = null;
 
-  public PopularMoviesDTO() {
+  public PopularMoviesQuery() {
   }
 
   public Integer getPage() {
@@ -46,11 +46,11 @@ public class PopularMoviesDTO {
     this.totalPages = totalPages;
   }
 
-  public List<PopularMovieDTO> getResults() {
+  public List<PopularMovie> getResults() {
     return results;
   }
 
-  public void setResults(List<PopularMovieDTO> results) {
+  public void setResults(List<PopularMovie> results) {
     this.results = results;
   }
 }

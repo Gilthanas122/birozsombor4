@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,7 +26,7 @@ public class JwtRetrofitTesenvMockingApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    User admin = new User();
+    UserDAO admin = new UserDAO();
     admin.setUsername("admin");
     admin.setPassword(passwordEncoder.encode("admin"));
     admin.setRoles("ROLE_ADMIN,ROLE_USER");

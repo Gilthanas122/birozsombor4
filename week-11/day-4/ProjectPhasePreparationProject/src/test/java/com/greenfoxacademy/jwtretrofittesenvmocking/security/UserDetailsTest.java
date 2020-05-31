@@ -1,7 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
-import com.greenfoxacademy.jwtretrofittesenvmocking.security.UserDetailsImpl;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -13,7 +12,7 @@ public class UserDetailsTest {
 
   @Test
   public void createUserDetails_ReturnsExpectedUserDetailsFields() {
-    User fakeUser = new User();
+    UserDAO fakeUser = new UserDAO();
     fakeUser.setUsername("fakeUsername");
     fakeUser.setPassword("fakePassword");
     fakeUser.setRoles("ROLE_FAKE1,ROLE_FAKE2");

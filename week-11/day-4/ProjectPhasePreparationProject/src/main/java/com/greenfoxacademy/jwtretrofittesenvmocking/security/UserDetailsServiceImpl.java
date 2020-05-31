@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
 import java.util.Optional;
 import org.springframework.context.annotation.Primary;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<User> user = userRepository.findUserByUsername(username);
+    Optional<UserDAO> user = userRepository.findUserByUsername(username);
     user.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     UserDetails userDetails = new UserDetailsImpl(user.get());
     return userDetails;

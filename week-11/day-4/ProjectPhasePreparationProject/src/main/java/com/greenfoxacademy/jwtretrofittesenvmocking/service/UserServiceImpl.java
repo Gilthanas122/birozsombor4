@@ -1,9 +1,8 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,8 +21,8 @@ public class UserServiceImpl implements UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User saveUser(UserDTO userDTO) {
-    User user = new User();
+  public UserDAO saveUser(UserDTO userDTO) {
+    UserDAO user = new UserDAO();
     user.setUsername(userDTO.getUsername());
     user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     user.setRoles("ROLE_USER,");

@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +15,7 @@ public class UserDetailsImpl implements UserDetails {
   private String password;
   private List<SimpleGrantedAuthority> authorities;
 
-  public UserDetailsImpl(User user) {
+  public UserDetailsImpl(UserDAO user) {
     this.username = user.getUsername();
     this.password = user.getPassword();
     this.authorities = Arrays.stream(user.getRoles().split(","))

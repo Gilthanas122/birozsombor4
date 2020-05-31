@@ -1,55 +1,43 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model.call;
+package com.greenfoxacademy.jwtretrofittesenvmocking.model.dto;
 
-import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PopularMovieDTO {
 
-  @SerializedName("popularity")
-  @Expose
+  private Long id;
   public Double popularity;
-  @SerializedName("vote_count")
-  @Expose
+  @JsonProperty("vote_count")
   public Integer voteCount;
-  @SerializedName("video")
-  @Expose
   public Boolean video;
-  @SerializedName("poster_path")
-  @Expose
+  @JsonProperty("poster_path")
   public String posterPath;
-  @SerializedName("id")
-  @Expose
-  public Integer id;
-  @SerializedName("adult")
-  @Expose
+  @JsonProperty("remote_database_id")
+  public Integer remoteDatabaseId;
   public Boolean adult;
-  @SerializedName("backdrop_path")
-  @Expose
+  @JsonProperty("backdrop_path")
   public String backdropPath;
-  @SerializedName("original_language")
-  @Expose
+  @JsonProperty("original_language")
   public String originalLanguage;
-  @SerializedName("original_title")
-  @Expose
+  @JsonProperty("original_title")
   public String originalTitle;
-  @SerializedName("genre_ids")
-  @Expose
-  public List<Integer> genreIds = null;
-  @SerializedName("title")
-  @Expose
+  @JsonProperty("genre_ids")
+  public String genreIds;
   public String title;
-  @SerializedName("vote_average")
-  @Expose
+  @JsonProperty("vote_average")
   public Double voteAverage;
-  @SerializedName("overview")
-  @Expose
   public String overview;
-  @SerializedName("release_date")
-  @Expose
+  @JsonProperty("release_date")
   public String releaseDate;
 
   public PopularMovieDTO() {
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Double getPopularity() {
@@ -84,12 +72,12 @@ public class PopularMovieDTO {
     this.posterPath = posterPath;
   }
 
-  public Integer getId() {
-    return id;
+  public Integer getRemoteDatabaseId() {
+    return remoteDatabaseId;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setRemoteDatabaseId(Integer remoteDatabaseId) {
+    this.remoteDatabaseId = remoteDatabaseId;
   }
 
   public Boolean getAdult() {
@@ -124,11 +112,11 @@ public class PopularMovieDTO {
     this.originalTitle = originalTitle;
   }
 
-  public List<Integer> getGenreIds() {
+  public String getGenreIds() {
     return genreIds;
   }
 
-  public void setGenreIds(List<Integer> genreIds) {
+  public void setGenreIds(String genreIds) {
     this.genreIds = genreIds;
   }
 

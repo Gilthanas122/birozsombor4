@@ -1,14 +1,13 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.PopularMovie;
 import java.util.List;
 
 public class PopularMoviesResponseDTO {
   @JsonProperty("popular_movies")
-  private List<PopularMovie> popularMovies;
+  private List<PopularMovieDTO> popularMovies;
 
-  public PopularMoviesResponseDTO(List<PopularMovie> popularMovies) {
+  public PopularMoviesResponseDTO(List<PopularMovieDTO> popularMovies) {
     this.popularMovies = popularMovies;
   }
 }

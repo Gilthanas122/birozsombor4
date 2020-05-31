@@ -1,6 +1,6 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.util;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.security.UserDetailsImpl;
 import java.util.Date;
 import org.junit.Assert;
@@ -19,7 +19,7 @@ public class JwtUtilTest {
 
   @Test
   public void extractUsername_ReturnsValidUsername() {
-    User fakeUser = new User();
+    UserDAO fakeUser = new UserDAO();
     fakeUser.setUsername("fakeUser");
     fakeUser.setPassword("fakePassword");
     fakeUser.setRoles("ROLE_FAKE,");
@@ -35,7 +35,7 @@ public class JwtUtilTest {
 
   @Test
   public void extractExpirationDate_ReturnsValidUsername() {
-    User fakeUser = new User();
+    UserDAO fakeUser = new UserDAO();
     fakeUser.setUsername("fakeUser");
     fakeUser.setPassword("fakePassword");
     fakeUser.setRoles("ROLE_FAKE,");

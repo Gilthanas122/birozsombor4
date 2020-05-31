@@ -1,61 +1,55 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model.dao;
+package com.greenfoxacademy.jwtretrofittesenvmocking.model.retro;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.ActorDTO;
-import java.util.stream.Collectors;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@Entity
 public class Actor {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @SerializedName("birthday")
+  @Expose
   private String birthday;
+  @SerializedName("known_for_department")
+  @Expose
   private String knownForDepartment;
-  private String deathday;
-  private Integer remoteDatabaseId;
+  @SerializedName("deathday")
+  @Expose
+  private Object deathday;
+  @SerializedName("id")
+  @Expose
+  private Integer id;
+  @SerializedName("name")
+  @Expose
   private String name;
-  private String alsoKnownAs;
+  @SerializedName("also_known_as")
+  @Expose
+  private List<String> alsoKnownAs = null;
+  @SerializedName("gender")
+  @Expose
   private Integer gender;
-  @Lob
+  @SerializedName("biography")
+  @Expose
   private String biography;
+  @SerializedName("popularity")
+  @Expose
   private Double popularity;
+  @SerializedName("place_of_birth")
+  @Expose
   private String placeOfBirth;
+  @SerializedName("profile_path")
+  @Expose
   private String profilePath;
+  @SerializedName("adult")
+  @Expose
   private Boolean adult;
+  @SerializedName("imdb_id")
+  @Expose
   private String imdbId;
+  @SerializedName("homepage")
+  @Expose
   private String homepage;
 
   public Actor() {
-  }
-
-  public Actor(ActorDTO actorDTO) {
-    this.birthday = actorDTO.getBirthday();
-    this.knownForDepartment = actorDTO.getKnownForDepartment();
-    this.deathday = String.valueOf(actorDTO.getDeathday());
-    this.remoteDatabaseId = actorDTO.getId();
-    this.name = actorDTO.getName();
-    this.alsoKnownAs = actorDTO.getAlsoKnownAs().stream().collect(Collectors.joining(", "));
-    this.gender = actorDTO.getGender();
-    this.biography = actorDTO.getBiography();
-    this.popularity = actorDTO.getPopularity();
-    this.placeOfBirth = actorDTO.getPlaceOfBirth();
-    this.profilePath = actorDTO.getProfilePath();
-    this.adult = actorDTO.getAdult();
-    this.imdbId = actorDTO.getImdbId();
-    this.homepage = actorDTO.getHomepage();
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getBirthday() {
@@ -74,20 +68,20 @@ public class Actor {
     this.knownForDepartment = knownForDepartment;
   }
 
-  public String getDeathday() {
+  public Object getDeathday() {
     return deathday;
   }
 
-  public void setDeathday(String deathday) {
+  public void setDeathday(Object deathday) {
     this.deathday = deathday;
   }
 
-  public Integer getRemoteDatabaseId() {
-    return remoteDatabaseId;
+  public Integer getId() {
+    return id;
   }
 
-  public void setRemoteDatabaseId(Integer remoteDatabaseId) {
-    this.remoteDatabaseId = remoteDatabaseId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -98,11 +92,11 @@ public class Actor {
     this.name = name;
   }
 
-  public String getAlsoKnownAs() {
+  public List<String> getAlsoKnownAs() {
     return alsoKnownAs;
   }
 
-  public void setAlsoKnownAs(String alsoKnownAs) {
+  public void setAlsoKnownAs(List<String> alsoKnownAs) {
     this.alsoKnownAs = alsoKnownAs;
   }
 

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserDAO {
 
   @Id
   @GeneratedValue
@@ -16,7 +16,7 @@ public class User {
   private String password;
   private String roles;
 
-  public User() {
+  public UserDAO() {
   }
 
   public Long getId() {

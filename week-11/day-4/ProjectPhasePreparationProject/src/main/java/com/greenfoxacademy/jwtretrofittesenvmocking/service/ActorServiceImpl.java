@@ -1,8 +1,13 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.Actor;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.ActorDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.ActorDAO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ActorDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.retro.Actor;
 import com.greenfoxacademy.jwtretrofittesenvmocking.repository.ActorRepository;
+import java.util.stream.Collectors;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -32,29 +37,60 @@ public class ActorServiceImpl implements ActorService {
 
   @Override
   public void fetchActorById(Long id) {
-    Call<ActorDTO> call = apiInterface.getActorById(id, API_KEY, "en-US");
-    call.enqueue(new Callback<ActorDTO>() {
+    Call<Actor> call = apiInterface.getActorById(id, API_KEY, "en-US");
+    call.enqueue(new Callback<Actor>() {
       @Override
-      public void onResponse(Call<ActorDTO> call, Response<ActorDTO> response) {
-        Actor fetchedActor = convertActorDTOToActor(response.body());
+      public void onResponse(Call<Actor> call, Response<Actor> response) {
+        ActorDAO fetchedActor = convertActorToActorDAO(response.body());
         saveActor(fetchedActor);
       }
 
       @Override
-      public void onFailure(Call<ActorDTO> call, Throwable t) {
+      public void onFailure(Call<Actor> call, Throwable t) {
 
       }
     });
   }
 
   @Override
-  public void saveActor(Actor actor) {
+  public void saveActor(ActorDAO actor) {
     actorRepository.save(actor);
   }
 
+  private ActorDAO convertActorToActorDAO(Actor actor) {
+    ActorDAO actorDAO = new ActorDAO();
+    ModelMapper modelMapper = new ModelMapper();
+    modelMapper.createTypeMap(Actor.class, ActorDAO.class)
+        .setPostConverter(new Converter<Actor, ActorDAO>() {
+          @Override
+          public ActorDAO convert(MappingContext<Actor, ActorDAO> context) {
+            context.getDestination().setAlsoKnownAs(
+                context.getSource().getAlsoKnownAs().stream()
+                    .collect(Collectors.joining(", "))
+            );
+            context.getDestination().setRemoteDatabaseId(
+                context.getSource().getId()
+            );
+            return context.getDestination();
+          }
+        }).map(actor, actorDAO);
+    return actorDAO;
+  }
+
   @Override
-  public Actor convertActorDTOToActor(ActorDTO actorDTO) {
-    return new Actor(actorDTO);
+  public ActorDTO convertActorDAOtoDTO(ActorDAO actorDAO){
+    ActorDTO actorDTO = new ActorDTO();
+    ModelMapper modelMapper = new ModelMapper();
+    modelMapper.map(actorDAO, actorDTO);
+    return actorDTO;
+  }
+
+  @Override
+  public ActorDTO convertActorDTOToDAO(ActorDAO actorDAO){
+    ActorDTO actorDTO = new ActorDTO();
+    ModelMapper modelMapper = new ModelMapper();
+    modelMapper.map(actorDAO, actorDTO);
+    return actorDTO;
   }
 
   @Override
@@ -67,7 +103,7 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public Actor getActorById(Long id) {
+  public ActorDAO getActorById(Long id) {
     return actorRepository.findById(id).orElse(null);
   }
 }

@@ -35,6 +35,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
     testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.7'
     testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.7.4'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
 }
 
 test {

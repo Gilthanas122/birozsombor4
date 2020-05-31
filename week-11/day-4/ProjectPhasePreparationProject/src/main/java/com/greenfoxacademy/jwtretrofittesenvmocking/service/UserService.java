@@ -1,11 +1,11 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.User;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 
 public interface UserService {
 
-  User saveUser(UserDTO userDTO);
+  UserDAO saveUser(UserDTO userDTO);
 
   boolean isUserDTOValid(UserDTO userDTO);
 }

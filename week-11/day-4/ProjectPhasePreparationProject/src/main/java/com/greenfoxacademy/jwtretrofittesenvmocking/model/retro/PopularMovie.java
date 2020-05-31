@@ -1,64 +1,55 @@
-package com.greenfoxacademy.jwtretrofittesenvmocking.model.dao;
+package com.greenfoxacademy.jwtretrofittesenvmocking.model.retro;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.call.PopularMovieDTO;
-import java.util.stream.Collectors;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@Entity
 public class PopularMovie {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @SerializedName("popularity")
+  @Expose
   public Double popularity;
+  @SerializedName("vote_count")
+  @Expose
   public Integer voteCount;
+  @SerializedName("video")
+  @Expose
   public Boolean video;
+  @SerializedName("poster_path")
+  @Expose
   public String posterPath;
-  //id
-  public Integer remoteDatabaseId;
+  @SerializedName("id")
+  @Expose
+  public Integer id;
+  @SerializedName("adult")
+  @Expose
   public Boolean adult;
+  @SerializedName("backdrop_path")
+  @Expose
   public String backdropPath;
+  @SerializedName("original_language")
+  @Expose
   public String originalLanguage;
+  @SerializedName("original_title")
+  @Expose
   public String originalTitle;
-  public String genreIds;
+  @SerializedName("genre_ids")
+  @Expose
+  public List<Integer> genreIds = null;
+  @SerializedName("title")
+  @Expose
   public String title;
+  @SerializedName("vote_average")
+  @Expose
   public Double voteAverage;
-  @Lob
+  @SerializedName("overview")
+  @Expose
   public String overview;
+  @SerializedName("release_date")
+  @Expose
   public String releaseDate;
 
   public PopularMovie() {
-  }
-
-  public PopularMovie(PopularMovieDTO resultDTO) {
-    this.adult = resultDTO.getAdult();
-    this.popularity = resultDTO.getPopularity();
-    this.voteCount = resultDTO.getVoteCount();
-    this.video = resultDTO.getVideo();
-    this.posterPath = resultDTO.getPosterPath();
-    this.remoteDatabaseId = resultDTO.getId();
-    this.backdropPath = resultDTO.getBackdropPath();
-    this.genreIds = resultDTO.getGenreIds().stream()
-        .map(id -> String.valueOf(id))
-        .collect(Collectors.joining(", "));
-    this.originalLanguage = resultDTO.getOriginalLanguage();
-    this.originalTitle = resultDTO.getOriginalTitle();
-    this.overview = resultDTO.getOverview();
-    this.title = resultDTO.getTitle();
-    this.voteAverage = resultDTO.voteAverage;
-    this.releaseDate = resultDTO.getReleaseDate();
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public Double getPopularity() {
@@ -93,12 +84,12 @@ public class PopularMovie {
     this.posterPath = posterPath;
   }
 
-  public Integer getRemoteDatabaseId() {
-    return remoteDatabaseId;
+  public Integer getId() {
+    return id;
   }
 
-  public void setRemoteDatabaseId(Integer remoteDatabaseId) {
-    this.remoteDatabaseId = remoteDatabaseId;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public Boolean getAdult() {
@@ -133,11 +124,11 @@ public class PopularMovie {
     this.originalTitle = originalTitle;
   }
 
-  public String getGenreIds() {
+  public List<Integer> getGenreIds() {
     return genreIds;
   }
 
-  public void setGenreIds(String genreIds) {
+  public void setGenreIds(List<Integer> genreIds) {
     this.genreIds = genreIds;
   }
 

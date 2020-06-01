@@ -1,23 +1,20 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.UserDAO;
-import com.greenfoxacademy.jwtretrofittesenvmocking.repository.UserRepository;
+import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
+import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class JwtRetrofitTesenvMockingApplication implements CommandLineRunner {
 
-  private UserRepository userRepository;
-  private PasswordEncoder passwordEncoder;
+  private UserService userService;
 
   @Autowired
-  public JwtRetrofitTesenvMockingApplication(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
+  public JwtRetrofitTesenvMockingApplication(UserService userService) {
+    this.userService = userService;
   }
 
   public static void main(String[] args) {
@@ -26,10 +23,6 @@ public class JwtRetrofitTesenvMockingApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    UserDAO admin = new UserDAO();
-    admin.setUsername("admin");
-    admin.setPassword(passwordEncoder.encode("admin"));
-    admin.setRoles("ROLE_ADMIN,ROLE_USER");
-    userRepository.save(admin);
+    userService.saveAdmin(new UserDTO("admin", "admin"));
   }
 }

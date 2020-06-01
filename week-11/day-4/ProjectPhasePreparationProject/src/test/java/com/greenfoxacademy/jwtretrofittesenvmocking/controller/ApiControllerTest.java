@@ -3,20 +3,20 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -24,10 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(PowerMockRunner.class)
+@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-@PrepareForTest(System.class)
+@TestPropertySource(properties = {"SECRET_KEY=secret"})
+@ActiveProfiles("test")
 public class ApiControllerTest {
 
   @Autowired
@@ -156,6 +157,10 @@ public class ApiControllerTest {
   @Test
   public void getPopularMovies_WithAuthentication_ReturnsOk() throws Exception {
     UserDetails userDetails = userDetailsService.loadUserByUsername("default");
+
+    //PowerMockito.mockStatic(System.class);
+    //PowerMockito.when(System.getenv("SECRET_KEY")).thenReturn("test");
+
     String jwt = jwtUtil.generateToken(userDetails);
     mockMvc.perform(get("/popular-movies")
         .header("Authorization", "Bearer " + jwt))

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
-  private String SECRET_KEY = "testKey";
+  private String SECRET_KEY = "test";
 
-  //functions for CREATING
+  //region CREATING
   public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
     String jwt = Jwts.builder().setClaims(claims)
@@ -25,8 +25,9 @@ public class JwtUtil {
         .compact();
     return jwt;
   }
+  //endregion
 
-  //region functions for EXTRACTING
+  //region EXTRACTING
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
@@ -48,7 +49,7 @@ public class JwtUtil {
   }
   //endregion
 
-  //region functions for VALIDATING
+  //region VALIDATING
   private boolean isTokenExpired(String token) {
     return extractExpiration(token)
         .before(new Date());

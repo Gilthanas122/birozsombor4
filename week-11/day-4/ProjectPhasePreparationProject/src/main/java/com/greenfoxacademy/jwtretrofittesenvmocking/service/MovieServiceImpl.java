@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.TypeMap;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,13 +104,6 @@ public class MovieServiceImpl implements MovieService {
   private PopularMovieDAO convertPopularMovieToPopularMovieDAO(PopularMovie popularMovie) {
     PopularMovieDAO popularMovieDAO = new PopularMovieDAO();
     ModelMapper modelMapper = new ModelMapper();
-    /*modelMapper.addMappings(new PropertyMap<PopularMovie, PopularMovieDAO>() {
-      protected void configure() {
-        map().setRemoteDatabaseId(source.getId());
-      }
-    });
-    modelMapper.map(popularMovie, popularMovieDAO);
-    */
     modelMapper.createTypeMap(PopularMovie.class, PopularMovieDAO.class)
         .setPostConverter(new Converter<PopularMovie, PopularMovieDAO>() {
           @Override

@@ -2,7 +2,6 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.service;
 
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dao.ActorDAO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ActorDTO;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.retro.Actor;
 
 public interface ActorService {
 

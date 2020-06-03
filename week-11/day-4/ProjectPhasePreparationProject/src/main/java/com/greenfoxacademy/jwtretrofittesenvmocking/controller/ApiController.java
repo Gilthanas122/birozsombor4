@@ -10,6 +10,7 @@ import com.greenfoxacademy.jwtretrofittesenvmocking.service.ActorService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.MovieService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,7 +84,7 @@ public class ApiController {
   }
 
   @GetMapping("/popular-movies")
-  public ResponseEntity getPopularMovies() {
+  public ResponseEntity getPopularMovies() throws IOException {
     movieService.fetchPopularMovies();
     List<PopularMovieDAO> movieList = movieService.getAllPopularMovie();
     return ResponseEntity.ok(movieService.createPopularMoviesResponseDTO(movieList));

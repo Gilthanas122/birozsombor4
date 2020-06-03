@@ -30,14 +30,6 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'junit:junit:4.12'
-
-    testImplementation 'org.powermock:powermock-api-mockito:1.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4-rule-agent:1.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
-    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.7'
-    testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.4'
-    testCompile group: 'com.github.stefanbirkner', name: 'system-rules', version: '1.19.0'
 }
 
 test {

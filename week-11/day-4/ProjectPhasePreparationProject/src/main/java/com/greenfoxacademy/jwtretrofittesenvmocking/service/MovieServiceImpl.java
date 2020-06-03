@@ -45,7 +45,8 @@ public class MovieServiceImpl implements MovieService {
   public void fetchPopularMovies() {
     Call<PopularMoviesQuery> call = apiInterface.getPopularMovies(API_KEY, "en-US", 1);
     call.enqueue(new Callback<PopularMoviesQuery>() {
-      @Override
+
+     @Override
       public void onResponse(Call<PopularMoviesQuery> call, Response<PopularMoviesQuery> response) {
         List<PopularMovieDAO> movies = convertPopularMoviesQueryToListOfPopularMovieDAO(response.body());
         saveAllMovie(movies);
@@ -104,6 +105,7 @@ public class MovieServiceImpl implements MovieService {
   private PopularMovieDAO convertPopularMovieToPopularMovieDAO(PopularMovie popularMovie) {
     PopularMovieDAO popularMovieDAO = new PopularMovieDAO();
     ModelMapper modelMapper = new ModelMapper();
+
     modelMapper.createTypeMap(PopularMovie.class, PopularMovieDAO.class)
         .setPostConverter(new Converter<PopularMovie, PopularMovieDAO>() {
           @Override
@@ -112,6 +114,7 @@ public class MovieServiceImpl implements MovieService {
                 context.getSource().getGenreIds().stream()
                     .map(String::valueOf)
                     .collect(Collectors.joining(", ")));
+
             context.getDestination().setRemoteDatabaseId(
                 context.getSource().getId()
             );

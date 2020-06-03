@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
-  private String SECRET_KEY = "test";
+  private String SECRET_KEY = System.getenv("SECRET_KEY");
 
   //region CREATING
   public String generateToken(UserDetails userDetails) {

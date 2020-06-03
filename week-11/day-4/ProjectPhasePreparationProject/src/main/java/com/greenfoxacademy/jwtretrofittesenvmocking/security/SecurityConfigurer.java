@@ -1,12 +1,7 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.greenfoxacademy.jwtretrofittesenvmocking.filter.ExceptionHandlerFilter;
 import com.greenfoxacademy.jwtretrofittesenvmocking.filter.JwtRequestFilter;
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.ErrorDTO;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -17,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,12 +23,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
   private UserDetailsService userDetailsService;
   private JwtRequestFilter jwtRequestFilter;
+  private ExceptionHandlerFilter exceptionHandlerFilter;
 
   @Autowired
   public SecurityConfigurer(UserDetailsService userDetailsService,
-                            JwtRequestFilter jwtRequestFilter) {
+                            JwtRequestFilter jwtRequestFilter,
+                            ExceptionHandlerFilter exceptionHandlerFilter) {
     this.userDetailsService = userDetailsService;
     this.jwtRequestFilter = jwtRequestFilter;
+    this.exceptionHandlerFilter = exceptionHandlerFilter;
   }
 
   @Override
@@ -55,6 +52,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(exceptionHandlerFilter, JwtRequestFilter.class);
   }
 
   /*

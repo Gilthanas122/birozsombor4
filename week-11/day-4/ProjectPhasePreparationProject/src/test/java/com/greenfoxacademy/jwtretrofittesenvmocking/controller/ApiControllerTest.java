@@ -3,7 +3,6 @@ package com.greenfoxacademy.jwtretrofittesenvmocking.controller;
 import com.greenfoxacademy.jwtretrofittesenvmocking.model.dto.UserDTO;
 import com.greenfoxacademy.jwtretrofittesenvmocking.service.UserService;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.junit.contrib.java.lang.system.EnvironmentVariables;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -27,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-@TestPropertySource(properties = {"SECRET_KEY=secret"})
 @ActiveProfiles("test")
 public class ApiControllerTest {
 
@@ -104,11 +100,7 @@ public class ApiControllerTest {
 
   @Test
   public void getJwtTokenAndAuthenticateUser_WithValidAuthenticationRequestDTO_ReturnsValidStatusAndObject() throws Exception {
-    /*System.setProperty("test-prop", "test-value");
-    PowerMockito.mockStatic(System.class);
-    PowerMockito.when(System.getenv("SECRET_KEY")).thenReturn("testKey");*/
-
-    mockMvc.perform(post("/authenticate")
+     mockMvc.perform(post("/authenticate")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"username\":\"default\",\"password\":\"password\"}"))
         .andExpect(status().isOk())

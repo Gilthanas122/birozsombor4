@@ -1,4 +1,4 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.exception;
 
-public class InvalidJwtTokenException extends RuntimeException {
+public class InvalidAuthorizationHeader extends RuntimeException {
 }

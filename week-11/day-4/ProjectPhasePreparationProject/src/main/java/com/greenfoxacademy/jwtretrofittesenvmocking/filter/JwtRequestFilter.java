@@ -1,5 +1,8 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.filter;
 
+import com.greenfoxacademy.jwtretrofittesenvmocking.exception.InvalidAuthorizationHeader;
+import com.greenfoxacademy.jwtretrofittesenvmocking.exception.InvalidJwtTokenException;
+import com.greenfoxacademy.jwtretrofittesenvmocking.exception.MissingUsernameException;
 import com.greenfoxacademy.jwtretrofittesenvmocking.util.JwtUtil;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -30,31 +33,46 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request,
                                   HttpServletResponse response,
-                                  FilterChain filterChain) throws ServletException, IOException {
-    String authorizationHeader = request.getHeader("Authorization");
+                                  FilterChain filterChain) throws ServletException, IOException,
+      InvalidJwtTokenException {
+    //ha a /register vagy /authenticate endpoint hívódik meg, akkor nem fut le a filter
+    String path = request.getRequestURI();
+    if (path.equals("/register") || path.equals("/authenticate")) {
+      filterChain.doFilter(request, response);
+      return;
+    }
 
+    String authorizationHeader = request.getHeader("Authorization");
     String username = null;
     String jwt = null;
 
-    try {
-      if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+      try {
         jwt = authorizationHeader.substring(7);
         username = jwtUtil.extractUsername(jwt);
+      } catch (Exception e) {
+        System.out.println("Wrong JWT format!");
       }
-
-      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (jwtUtil.validateToken(jwt, userDetails)) {
-          UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-              new UsernamePasswordAuthenticationToken(userDetails, null,
-                  userDetails.getAuthorities());
-          usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-          SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
-      }
-      filterChain.doFilter(request, response);
-    } catch (Exception e) {
-      System.out.println("Invalid token!");
+    } else {
+      throw new InvalidAuthorizationHeader();
     }
+
+
+    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+      UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+      if (jwtUtil.validateToken(jwt, userDetails)) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+            new UsernamePasswordAuthenticationToken(userDetails, null,
+                userDetails.getAuthorities());
+        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+      } else {
+        throw new InvalidJwtTokenException();
+      }
+    } else {
+      throw new MissingUsernameException();
+    }
+
+    filterChain.doFilter(request, response);
   }
 }

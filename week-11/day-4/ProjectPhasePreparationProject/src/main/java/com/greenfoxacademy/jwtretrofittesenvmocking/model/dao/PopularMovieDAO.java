@@ -1,7 +1,5 @@
 package com.greenfoxacademy.jwtretrofittesenvmocking.model.dao;
 
-import com.greenfoxacademy.jwtretrofittesenvmocking.model.retro.PopularMovie;
-import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
